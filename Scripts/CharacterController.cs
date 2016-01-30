@@ -55,27 +55,25 @@ public class CharacterController : MonoBehaviour {
 
     void DropIngredient()
     {
-       RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
-       if (hit.collider == null || hit.collider.CompareTag("Cauldron"))
-       {
-           physIngr.transform.SetParent(null);
-           physIngr.transform.position = new Vector2(transform.position.x + fowardVector.x, transform.position.y + fowardVector.y);
-           physIngr.GetComponent<BoxCollider2D>().enabled = true;
-           physIngr.Dropped();
-           physIngr = null;
-       }        
+       physIngr.transform.SetParent(null);
+       physIngr.transform.position = new Vector2(transform.position.x + fowardVector.x, transform.position.y + fowardVector.y);
+       physIngr.GetComponent<BoxCollider2D>().enabled = true;
+       physIngr.Dropped();
+       physIngr = null;
     }
 
     void Interact()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
-        if (hit.collider != null)
+        RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
+        if(allHit.Length == 0)
+            allHit = Physics2D.RaycastAll(transform.position, -Vector2.up);
+        foreach(RaycastHit2D hit in allHit)
         {
-            Debug.Log("collider hit: " + hit.collider.tag);
-            if (hit.transform.CompareTag("Item"))
+            if(hit.transform.CompareTag("Item"))
+            {
                 PickUpIngredient(hit.transform);
-            else if(hit.transform.CompareTag("Choir"))
-                CommunicateToChoir();
+                break;
+            }
         }
     }
 

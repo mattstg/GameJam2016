@@ -32,9 +32,9 @@ public class IngredientToElementDictionary  {
             ingToElemDict.Add(ingr, CreateElementList());
         }
 
-        foreach (KeyValuePair<Globals.product, List<Element>> kv in ingToElemDict)
-            foreach (Element e in kv.Value)
-                Debug.Log(kv.Key + " has element[P,A,E]  [" + e.power + "," + e.attributeNumber + "," + e.activeEvent + "]");
+        //foreach (KeyValuePair<Globals.product, List<Element>> kv in ingToElemDict)
+        //    foreach (Element e in kv.Value)
+         //       Debug.Log(kv.Key + " has element[P,A,E]  [" + e.power + "," + e.attributeNumber + "," + e.activeEvent + "]");
     }
 
     public List<Element> ElementsFromIngredient(Globals.product ingredient)

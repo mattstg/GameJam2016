@@ -11,8 +11,9 @@ public class Globals : MonoBehaviour {
 	public static int startHouses = 5;
     public static int MaxElementPower = 5;
     public static int MaxElementsPerIngredient = 3;
+    public static int[] PeoplePerCircleLevel = { 6, 12, 16, 18 };
 
-
+    public enum worshipperStates { Dance = 0 };
 	public enum product {Elk = 0, Wood = 1, Daisy = 2, Rot = 3, StinkWeed = 4, Frog = 5, Potatoe = 6, Carrot = 7, Bean = 8, Cow = 9, Chicken = 10, Manure = 11,
 		Fish = 12, Seaweed = 13, WaterLilly = 14, MountainHerb = 15, Silver = 16, Gold = 17};
 
