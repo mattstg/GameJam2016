@@ -11,7 +11,7 @@ public class Cauldron : MonoBehaviour {
     {
         foreach (Element e in IngredientToElementDictionary.Instance.ElementsFromIngredient(addedIngredient))
         {
-            Debug.Log("Element added " + e.attributeNumber + " power: " + e.power + "Active event: " + e.activeEvent);
+            Debug.Log("Element added " + e);
             attributePower[e.attributeNumber] += e.power;
             eventCount[(int)e.activeEvent]++;
         }

@@ -14,6 +14,10 @@ public class Element {
         activeEvent = _activeEvent;
     }
 
+    public override string ToString()
+    {
+        return "Element[a,p,e] = [" + attributeNumber + "," + power + "," + activeEvent + "]";
+    }
    
 
 }
