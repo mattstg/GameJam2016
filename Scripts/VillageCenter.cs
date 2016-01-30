@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class VillageCenter : MonoBehaviour {
 	public Biome[] biomes;
 	public WitchHut witchLink;
+	public Population population;
 
-	public int population;
+	//public int population;
 	public int houses;
 
 	public Dictionary<Globals.product,int> resourceStorage;
@@ -21,8 +23,9 @@ public class VillageCenter : MonoBehaviour {
 	void Start () {
 		//need to initialize the starting resources
 		startStorage();
+		//initialize population object
+		population = new Population();
 		//need to initialize population & houses
-		population = Globals.startPopulation;
 		houses = Globals.startHouses;
 		//need to fill biome array
 		biomes = new Biome[Globals.numberOfBiomes];
@@ -41,6 +44,8 @@ public class VillageCenter : MonoBehaviour {
 		foreach (Biome biome in biomes){
 			biome.Cycle(); //this calculates the produce and adds it to village store
 		}
+		//calculate population consumption, and update working population variable in VillageCenter
+		population.Cycle();
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
 	}
@@ -85,5 +90,16 @@ public class VillageCenter : MonoBehaviour {
 				Debug.Log("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
 			}
 		}
+	}
+
+	public int amountOfAvailableFood(){
+		int totalFoodCount = 0;
+		foreach (KeyValuePair<Globals.product, int> resource in resourceStorage) {
+			//if the resource type is a type which appears in array foodTypeProduce, then it is a food and we will add the quantity of food to totalFoodCount
+			if (Globals.foodTypeProduce.Contains((int) resource.Key)) {
+				totalFoodCount += resource.Value;
+			}
+		}
+		return totalFoodCount;
 	}
 }

@@ -33,7 +33,7 @@ public class Biome : MonoBehaviour {
 	}
 		
 	public int grossProduce(float productivity){
-		return Mathf.FloorToInt(center.population * Globals.populationProductivityBonus * productivity * Globals.biomeProductivityCoefficient);
+		return Mathf.FloorToInt(center.population.currentPopulation * Globals.populationProductivityBonus * productivity * Globals.biomeProductivityCoefficient);
 	}
 		
 	public void giveResourceToVillage(Globals.product resource, int amount){
