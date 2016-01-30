@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Biome : MonoBehaviour {
+public class Biome{
 	public VillageCenter center;
 	public Globals.biome biomeType;
 
@@ -13,12 +13,13 @@ public class Biome : MonoBehaviour {
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
-	public void Start(){
+	public Biome(){
 		resources = Globals.retBiomeResources(biomeType);
 	}
 	//should initialize the enum for reasources for each biome.
 
 	public void Cycle(){
+		Debug.Log ("Cycle Start: " + biomeType + ".");
 		produceResources();
 	}
 	//will produce resource based on productivity of resource and type of resource
@@ -37,6 +38,8 @@ public class Biome : MonoBehaviour {
 	}
 		
 	public void giveResourceToVillage(Globals.product resource, int amount){
+		Debug.Log ("Giving Resources to Village: from " + biomeType + ".");
+		Debug.Log ("Adding: " + resource + " x" + amount + ".");
 		center.addResourceToStorage (resource, amount);
 	}
 

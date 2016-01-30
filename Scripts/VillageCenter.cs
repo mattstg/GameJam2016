@@ -9,11 +9,24 @@ public class VillageCenter : MonoBehaviour {
 	public WitchHut witchLink;
 	public Population population;
 
+	public bool toggler = true;
+	public bool availableFoodToggler = true;
+	public void Update(){
+		if (toggler == false) {
+			toggler = true;
+			Cycle ();
+		}
+		if (availableFoodToggler == false) {
+			Debug.Log ("Globals.foodTypeProduce.Length:" + Globals.foodTypeProduce.Length);
+			availableFoodToggler = true;
+		}
+	}
+
 	//WORKING VARIABLES & INFORMATIVE VARIABLES
 	public int currentHouses;
 
 	//RESOURCE STORAGE SYSTEM
-	public Dictionary<Globals.product,int> resourceStorage;
+	public Dictionary<Globals.product,int> resourceStorage = new Dictionary<Globals.product, int>();
 	public void startStorage(){
 		//should initialize the start state of the Resource Storage System
 		resourceStorage.Add(Globals.product.Fish, 10);
@@ -24,26 +37,34 @@ public class VillageCenter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//need to initialize the starting resources
+		Debug.Log ("VillageCenter Start Method Begins.");
+
 		startStorage();
 		//initialize population object
 		population = new Population();
+		population.center = this;
+
+		witchLink = WitchHut.Instance;
+		witchLink.linkToVillageCenter = this;
+
 		//need to initialize population & houses
 		currentHouses = Globals.startHouses;
 		//need to fill biome array
 		biomes = new Biome[Globals.numberOfBiomes];
 		for (int counter = 0; counter < biomes.Length; counter++) {
+			Debug.Log ("Biome Initialized: " + counter);
 			biomes [counter] = new Biome();
 			biomes [counter].biomeType = (Globals.biome)counter;
 			biomes [counter].center = this;
 		}
-		witchLink = WitchHut.Instance;
-		witchLink.linkToVillageCenter = this;
 	}
 
 	void Cycle(){
+		Debug.Log ("Cycle Start: VillageCenter.");
 		//keep track of population loss for last turn, and reset population loss this cycle
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
+		Debug.Log ("About to Cycle Biomes.");
 		foreach (Biome biome in biomes){
 			biome.Cycle(); //this calculates the produce and adds it to village store
 		}
@@ -55,6 +76,7 @@ public class VillageCenter : MonoBehaviour {
 
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
+		Debug.Log ("OUTSIDE GIVERESOURCE TO WITCH");
 	}
 
 	public void addResourceToStorage(Globals.product resource, int amount){
@@ -71,7 +93,7 @@ public class VillageCenter : MonoBehaviour {
 
 	public bool subtractResourceFromStorage(Globals.product resource, int amount){
 		//check first if resource has amount in storage
-		if (resourceStorage.ContainsKey (resource) && resourceStorage [resource] > amount) {
+		if (resourceStorage.ContainsKey (resource) && resourceStorage [resource] >= amount) {
 			//then we have enough to take the amount we want of said resource
 			resourceStorage[resource] = resourceStorage[resource] - amount;
 			return true;
@@ -85,16 +107,22 @@ public class VillageCenter : MonoBehaviour {
 	public void giveResourcesToWitch(){
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
 		foreach(KeyValuePair<Globals.product, int> resourcesStored in resourceStorage){
+			Debug.Log ("TestTestTest!!!");
 			//global variable percentGivenToWitch is used to calculate amount given
 			int amountToGive = Mathf.FloorToInt(resourcesStored.Value * Globals.percentGivenToWitch);
+			Debug.Log ("resources subtracted: " + amountToGive);
 			//need to subtract amoulnt given from resourceStorage
+
+			/***********************************************
 			if(subtractResourceFromStorage(resourcesStored.Key, amountToGive)){
+				Debug.Log ("about to add to Witch's coffer");
 				//need to actually give amounts to witch
 				witchLink.addToWitchsCoffer(resourcesStored.Key, amountToGive);
+				Debug.Log ("after to add to witch's coffer.");
 			}else{
 				//we dont have enough to give, therefore do not take from storage or give to witch
 				Debug.Log("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
-			}
+			}***********************************************/
 		}
 	}
 

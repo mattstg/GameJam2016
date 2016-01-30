@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Population : MonoBehaviour {
+public class Population {
 	//LINK TO VILLAGECENTER
 	public VillageCenter center;
 
@@ -12,11 +12,11 @@ public class Population : MonoBehaviour {
 	public float averageHealthiness; //range from 0 - 1
 
 	//informative variables
-	public int mostRecentDesiredFoodConsumption = 0;
+	public int desiredAmountOfFood = 0;
 	public int netFoodAfterEating = 0; //Can be values in the negatives or positives, indicating deficit or surplus food
 	public bool villageIsStarving = false; //boolean used to govern growth of populations; no growth if starving.
 
-	void Start () {
+	public Population () {
 		//when initialized pull starting population from Global Variables
 		currentPopulation = Globals.startPopulation;
 		averageHappiness = Globals.startAverageHappiness;
@@ -25,17 +25,28 @@ public class Population : MonoBehaviour {
 	}
 	
 	public void Cycle () {
+		Debug.Log ("Entering Population Cycle.");
 		//people consume food, and if they dont eat, some starve.
+
+		//********
 		populationFoodConsumptionAndStarvation();
+		Debug.Log ("populationFoodConsumptionAndStarvation()");
+		//********
 
 		//we need to alter average happiness of population
 		//will calculate happiness after the event scenes:
 		//decreasing health or lifePoints == decrease happiness
 		//increase """"" === increase happiness
 
-		//population now needs to be able to grow. Depends upon happiness and healthiness. If they were starving, then don't have births. 
-		populationBirthController();
 
+		//population now needs to be able to grow. Depends upon happiness and healthiness. If they were starving, then don't have births. 
+
+
+		//********
+		populationBirthController();
+		Debug.Log ("populationBirthController()");
+		//********
+		Debug.Log ("Exiting Population Cycle.");
 	}
 
 	public void populationBirthController(){
@@ -60,21 +71,27 @@ public class Population : MonoBehaviour {
 	public void populationFoodConsumptionAndStarvation(){
 		villageIsStarving = false; //set to false, simply for start. If foodDemand > foodStores, then isStarving = true;
 		//population should consume food
-		int currentAvailableFood = center.amountOfAvailableFood();
-		mostRecentDesiredFoodConsumption = Mathf.FloorToInt(currentPopulation * Globals.foodConsumptionPerPerson);
-		if (mostRecentDesiredFoodConsumption < currentAvailableFood) {
+		int currentAvailableFood = Mathf.FloorToInt(center.amountOfAvailableFood() * Globals.foodConsumptionPerPerson);
+		desiredAmountOfFood = Mathf.FloorToInt(currentPopulation * Globals.foodConsumptionPerPerson);
+		if (desiredAmountOfFood < currentAvailableFood) {
 			//should have enough food to eat, so lets calculate the food left after we eat it (because we will need it for population growth)
-			netFoodAfterEating = currentAvailableFood - mostRecentDesiredFoodConsumption;
+			netFoodAfterEating = currentAvailableFood - desiredAmountOfFood;
 			//will choose food at random until no more food is required.
-			int workingFoodDesire = mostRecentDesiredFoodConsumption;
+			int workingFoodDesire = desiredAmountOfFood;
 			//while workingFoodDesire is still above 0, ie. population is still hungry.
+
+
+			int counter = 0;
 			while (workingFoodDesire > 0) {
 				//at VillageCenter, subtract resource from storage, choosing randomly from all known foodTypes, one at a time.
-				if (center.subtractResourceFromStorage ((Globals.product) Globals.foodTypeProduce[Random.Range (0, Globals.foodTypeProduce.Length)], 1)) {
+				if (center.subtractResourceFromStorage ((Globals.product) Globals.foodTypeProduce[Random.Range (0, Globals.foodTypeProduce.Length-1)], 1)) {
 					workingFoodDesire--;
 				} else {
 					//we were not able to subtract resource from storage due to quantity
 					Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
+					counter++;
+					if (counter > 15)
+						break;
 				}
 			}
 		} else {
@@ -87,18 +104,22 @@ public class Population : MonoBehaviour {
 			//therefore we can take safely amountOfAvaialeFood from VillageStorage
 			//therefore, take what food is available in storage
 			int tempAvailableFood = currentAvailableFood;
+			int counter = 0;
 			while (tempAvailableFood > 0) {
 				//at VillageCenter, subtract resource from storage, choosing randomly from all known foodTypes, one at a time.
-				if (center.subtractResourceFromStorage ((Globals.product) Globals.foodTypeProduce [Random.Range (0, Globals.foodTypeProduce.Length)], 1)) {
+				if (center.subtractResourceFromStorage ((Globals.product) Globals.foodTypeProduce [Random.Range (0, Globals.foodTypeProduce.Length-1)], 1)) {
 					tempAvailableFood--;
 				} else {
 					//we were not able to subtract resource from storage due to quantity
 					Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
+					counter++;
+					if (counter > 15)
+						break;
 				}
 			}
 			//so, some percent of population went without food, and so some should die	
 			//currentPopulation is culled by peopleWhoWentWithoutFood * %whoDieWhenStarving
-			int foodShortage = mostRecentDesiredFoodConsumption - currentAvailableFood;
+			int foodShortage = desiredAmountOfFood - currentAvailableFood;
 			killPopulation(Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie));
 		}
 	}
