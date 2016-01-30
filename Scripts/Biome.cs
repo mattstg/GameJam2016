@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Biome : MonoBehaviour {
-	//NEEDS LINK TO VILLAGE CENTER
 	public VillageCenter center;
 
 
@@ -14,7 +13,7 @@ public class Biome : MonoBehaviour {
 	public product[] resources = new product[3];
 
 	//A productivity for each of the three resources
-	public float[] productivityOfResources = new float[3]; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!should have middle man function to calculate gross produce
+	public float[] productivityOfResources = new float[3];
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
@@ -37,7 +36,7 @@ public class Biome : MonoBehaviour {
 	}
 		
 	public int grossProduce(float productivity){
-		return Mathf.FloorToInt(productivity * Globals.biomeProductivityCoefficient);
+		return Mathf.FloorToInt(center.population * Globals.populationProductivityBonus * productivity * Globals.biomeProductivityCoefficient);
 	}
 
 

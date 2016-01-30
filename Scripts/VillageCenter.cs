@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 
 public class VillageCenter : MonoBehaviour {
+	public Biome[] biomes;
+	//need to fill the biomes
+
+	public int population;
 
 
 	public Dictionary<Biome.product,int> resourceStorage;
@@ -18,10 +22,15 @@ public class VillageCenter : MonoBehaviour {
 	void Start () {
 		//need to initialize the starting resources
 		startStorage();
+		//need to initialize population
+		//need to fill biome array
 	}
 
 	void Cycle(){
 		//will proceed with next game cycle
+		//calculating yeild for each biome in biomes[]
+		//add to storage
+		//send surplus to witch
 	}
 
 	public void addResourceToStorage(Biome.product resource, int amount){
@@ -52,8 +61,14 @@ public class VillageCenter : MonoBehaviour {
 
 	public void giveResourcesToWitch(){
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
-		//need some function to determine amount given to witch
-		//need to actually give amounts to witch
-		//need to subtract amount given from resourceStorage
+		foreach(Biome.product resource in resourceStorage){
+			//global variable percentGivenToWitch is used to calculate amount given
+			int amountToGive = Mathf.FloorToInt(resourceStorage[resource] * Globals.percentGivenToWitch);
+			//need to subtract amoulnt given from resourceStorage
+			if(subtractResourceFromStorage(resource, amountToGive)){
+				//need to actually give amounts to witch
+				//giveResourcesToWitch(resource, amountToGive);
+			}
+		}
 	}
 }
