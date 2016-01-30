@@ -7,6 +7,11 @@ public class Events : MonoBehaviour {
 
     public Event currentEvent;
 
+    public void Start()
+    {
+        
+    }
+
     
 
 }
