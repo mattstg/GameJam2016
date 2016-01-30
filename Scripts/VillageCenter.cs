@@ -220,5 +220,8 @@ public class VillageCenter : MonoBehaviour {
         GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
     }
 
-    
+    public void BiomeTakesDamage(int bioNumber, float dmg)
+    {
+        biomes[bioNumber]
+    }
 }
