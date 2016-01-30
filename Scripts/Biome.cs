@@ -5,6 +5,8 @@ public class Biome{
 	public VillageCenter center;
 	public Globals.biome biomeType;
 
+	public float health;
+
 	//has some stuff it produces
 	public Globals.product[] resources = new Globals.product[3];
 
@@ -13,7 +15,17 @@ public class Biome{
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
+	public Biome(Biome biomeToCopy){
+		health = biomeToCopy.health;
+		center = biomeToCopy.center;
+		biomeType = biomeToCopy.biomeType;
+		resources = biomeToCopy.resources;
+		yeildRate = biomeToCopy.yeildRate;
+	}
+
 	public Biome(int biomeNumber){
+		float health = 1f;
+		biomeType = (Globals.biome)biomeNumber;
 		resources = Globals.retBiomeResources(biomeType, biomeNumber*3);
 		float tempTotal = 0f;
 		for (int counter = 0; counter < 3; counter++) {
@@ -47,7 +59,7 @@ public class Biome{
 	}
 		
 	public int grossProduce(float productivity){
-		return Mathf.FloorToInt(center.population.currentPopulation * Globals.populationYeildBonus * productivity * Globals.biomeProductivityCoefficient);
+		return Mathf.FloorToInt(health * center.population.currentPopulation * Globals.populationYeildBonus * productivity * Globals.biomeProductivityCoefficient);
 	}
 		
 	public void giveResourceToVillage(Globals.product resource, int amount){
@@ -56,8 +68,15 @@ public class Biome{
 		center.addResourceToStorage (resource, amount);
 	}
 
-	virtual public void isCollidedWith(){ 
+	public void isCollidedWith(){ 
 		//nothing yet	
+		//remove health
 	}
+
+	public void takeDamage(float dmgToDo){
+		health -= dmgToDo;
+	}
+	//needs to be able to heal
+
 	//inputs event type and somehow interprets 
 }

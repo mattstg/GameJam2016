@@ -58,7 +58,7 @@ public class VillageCenter : MonoBehaviour {
         {
             //Debug.Log ("Biome Initialized: " + counter);
             biomes[counter] = new Biome(counter);
-            biomes[counter].biomeType = (Globals.biome)counter;
+            
             biomes[counter].center = this;
         }
         BeginVillageScenario();
