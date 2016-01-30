@@ -25,6 +25,13 @@ public class Globals : MonoBehaviour {
     public static float ItemPlacementRange = 6;
     public static float ItemPlacementRangeGrowth = 1;
 	public static int minimumTaxableAmountOfProduce = 8;
+    public static float PopulationMutationRate = .2f;
+    public static float mapRadiusY = 6;
+    public static float mapRadiusX = 6;
+    public static float contentThreshold = .8f; //a villager at 80% happy is content
+    public static float contentExcessMultiplier = 1f; //per point one, gain point one
+    public static float healthinessExcessMultiplier = .5f; //per point over hp, lose
+    public static float healthinessContent = 1f; //per point over hp, lose
 
     public enum worshipperStates { Dance, Chant, COUNT };
 
