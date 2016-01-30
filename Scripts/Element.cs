@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Element : MonoBehaviour {
+public class Element {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public int power;
+    public int attributeNumber; //there are three
+    public Events.Event activeEvent;
+
+    public Element(int _power, int _attributeNumber, Events.Event _activeEvent)
+    {
+        power = _power;
+        attributeNumber = _attributeNumber;
+        activeEvent = _activeEvent;
+    }
+
+   
+
 }
