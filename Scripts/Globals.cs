@@ -14,6 +14,8 @@ public class Globals : MonoBehaviour {
 	public static int maximumVillagerHealthPoints = 10;
 	public static float residentsPerHouse = 5; //can function with fractions
 	public static int startHouses = 5; 
+	public static int woodPerHouse = 5;
+	public static int floatingHouses = 1; //amount of houses population will try to have excess
 	public static float foodConsumptionPerPerson = 0.5f; //amount of food consumed per person, rounded down in formula
 	public static float percentOfStarvingWhoDie = 0.5f; //percent of starving population who die
 	public static float maxPercentPopulationIncrease = 0.2f;
@@ -26,6 +28,7 @@ public class Globals : MonoBehaviour {
 		Fish = 12, Seaweed = 13, WaterLilly = 14, MountainHerb = 15, Stone = 16, Gold = 17};
 	public static int[] foodTypeProduce = {6,7,8,9,10,12};
 	public static int[] herbTypeProduce = {0,2,4,14,15};
+	//public static int[] buildingTypeProduce = { 1, 16 }; 
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;

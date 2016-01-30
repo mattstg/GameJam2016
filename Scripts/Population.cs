@@ -29,6 +29,7 @@ public class Population : MonoBehaviour {
 		populationFoodConsumptionAndStarvation();
 
 		//we need to alter average happiness of population
+		center.houseConstruction();
 
 		//population now needs to be able to grow. Depends upon happiness and healthiness. If they were starving, then don't have births. 
 		populationBirthController();

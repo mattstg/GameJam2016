@@ -113,21 +113,27 @@ public class VillageCenter : MonoBehaviour {
 		population.currentPopulation -= amountToKill;
 	}
 
-	public void housingControl(){
-		//need to know demand for houses
-		//should be formula (ppl / house) * houses = max pop
-		int totalHousesNeeded = (int) (population.currentPopulation / Globals.residentsPerHouse);
-		int netHousesNeeded = totalHousesNeeded - currentHouses;
-		if (netHousesNeeded < 0) {
-			//no homeless people, surplus houses
-			//low desire to build houses
-
-		} else {
-			//have homeless people, need more houses
-			//high desire to build houses, cannot increase population
-
+	public void houseConstruction(){
+		//need to know demand for houses, which is based current population and current amount of houses
+		//desired houses = totalPop / popPerHouses + floating Houses (value is 1, the amount of houses to be built before population actually needs it
+		int desiredHouses = Globals.floatingHouses + Mathf.CeilToInt(population.currentPopulation / Globals.residentsPerHouse);
+		if (desiredHouses > 0) { 		//then we have homeless population, and need to build houses
+			//how many houses can we build? check storage to see how much wood, and consult global variables for how much wood per house
+			int buildableHousesThisCycle = Mathf.FloorToInt(resourceStorage[Globals.product.Wood] / Globals.woodPerHouse);
+			while (desiredHouses > 0 && buildableHousesThisCycle > 0) {
+				buildHouse ();
+				desiredHouses--;
+				buildableHousesThisCycle--;
+			}
 		}
-		//if maxPop ~= current pop, then we need houses
+	}
 
+	public void buildHouse(){
+		if (resourceStorage [Globals.product.Wood] > Globals.woodPerHouse) {
+			subtractResourceFromStorage(Globals.product.Wood, Globals.woodPerHouse);
+			currentHouses++;
+		} else {
+			Debug.Log ("Warning: calling buildHouse() function in VillageCenter, when you have insufficient wood");
+		}
 	}
 }
