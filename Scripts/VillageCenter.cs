@@ -118,7 +118,7 @@ public class VillageCenter : MonoBehaviour {
 			//global variable percentGivenToWitch is used to calculate amount given
 			int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt(counter).Value * Globals.percentGivenToWitch);
 			Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
-			if (resourceStorage.ElementAt (counter).Value > Globals.minimumTaxableAmountOfProduce && amountToGive == 0) {
+			if (resourceStorage.ElementAt (counter).Value > Globals.minimumTaxableAmountOfProduce && amountToGive != 0) {
 				//need to subtract amoulnt given from resourceStorage
 				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
 					Debug.Log ("resourceStorage.ElementAt(counter).Key  " + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);
