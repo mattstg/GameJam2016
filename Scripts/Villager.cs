@@ -17,8 +17,9 @@ public class Villager : MonoBehaviour {
         hp = _hp + Random.Range(-Globals.PopulationMutationRate,Globals.PopulationMutationRate);
         happiness = _happiness + Random.Range(-Globals.PopulationMutationRate,Globals.PopulationMutationRate);
         healthiness = _healthiness + Random.Range(-Globals.PopulationMutationRate, Globals.PopulationMutationRate);
-        if (hp <= 0)
-            hp = .1f;
+        hp = limit(hp);
+        happiness = limit(happiness);
+        healthiness = limit(healthiness); 
         float moveX = (Random.Range(-1f, 1f) * speed);
         float moveY = (Random.Range(-1f, 1f) * speed);
         moveDir = new Vector2(moveX, moveY);
@@ -34,35 +35,25 @@ public class Villager : MonoBehaviour {
             float moveY = (Random.Range(-1f, 1f) * speed);
             moveDir = new Vector2(moveX, moveY);
             counter = 0;
-            UpdateHp();
-            UpdateHappiness();
-            UpdateHealthiness();
         }
         Wander(dt);
+        if (hp <= 0)
+            GameObject.Destroy(this.gameObject);
     }
     
-    private void UpdateHealthiness()
+    public void UpdateStats()
     {
-        healthiness += (healthiness - Globals.valueOfGoodHealth) * Globals.healthyLossDueToIllness;
-        healthiness = limit(healthiness);
-        
-    }
+        float dif = (hp + happiness + healthiness - (Globals.contentThreshold * 3)) * Globals.contentExcessMultiplier;
+        Debug.Log("Difference in stats will be: " + dif);
+        hp += dif;
+        happiness += dif;
+        healthiness += dif;
 
-    private void UpdateHappiness()
-    {
-        float hpBonus = (hp - Globals.contentThreshold) * Globals.contentExcessMultiplier;
-        float healthyBonus = (healthiness - Globals.contentThreshold) * Globals.contentExcessMultiplier;
-        //Debug.Log("hp bonus: " + hpBonus + ", plus health bonus: " + healthyBonus + ", happiness now: " + happiness);
-        happiness += hpBonus + healthyBonus;
-        //Debug.Log("happiness after bonus applied: " + happiness);
-        happiness = limit(happiness);
-    }
-
-    private void UpdateHp()
-    {
-        hp += (healthiness - Globals.healthinessContent) * Globals.bonusHpPerHealthinessExcessMultiplier;
         hp = limit(hp);
+        happiness = limit(happiness);
+        healthiness = limit(healthiness); 
     }
+
 
     public void OnTriggerEnter2D(Collider2D coli)
     {
@@ -70,7 +61,6 @@ public class Villager : MonoBehaviour {
         {
             Debug.Log("Is dealing with an event");
         }
-
     }
 
     public void Wander(float dt)

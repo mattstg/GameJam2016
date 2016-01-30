@@ -9,6 +9,7 @@ public class VillageCenter : MonoBehaviour {
 	public WitchHut witchLink;
 	public Population population;
     public float worldTime = 0;
+    public Listener TheListener;
 
     public bool wasConstructed = false; //worse fix ever
 	public bool toggler = true;
@@ -42,7 +43,8 @@ public class VillageCenter : MonoBehaviour {
 
     public void Initialization()
     {
-        startStorage();
+        TheListener = new Listener();
+        startStorage();        
         //initialize population object
         population = new Population();
         population.center = this;
@@ -61,8 +63,7 @@ public class VillageCenter : MonoBehaviour {
             
             biomes[counter].center = this;
         }
-        BeginVillageScenario();
-        wasConstructed = true;
+        wasConstructed = true;        
     }
 
 	void Cycle(){
@@ -196,19 +197,26 @@ public class VillageCenter : MonoBehaviour {
         Villager[] villagers = GameObject.FindObjectsOfType<Villager>();
         foreach (Villager v in villagers)
         {
+            v.UpdateStats();
             pop.averageHappiness += v.happiness;
-
             pop.averageHealthiness += v.healthiness;
             pop.averagePercentLifePoints += v.hp;
         }
         int curPop = villagers.Length;
+        TheListener.RecordValue("Average Happiness", population.averageHappiness, pop.averageHappiness / curPop);
+        TheListener.RecordValue("Average Healthiness", population.averageHealthiness, pop.averageHealthiness / curPop);
+        TheListener.RecordValue("Average hitpoints", population.averagePercentLifePoints, pop.averagePercentLifePoints / curPop);
+        TheListener.RecordValue("Population", population.currentPopulation, curPop);
         population.averageHappiness =  pop.averageHappiness/curPop;
         population.averageHealthiness =  pop.averageHealthiness/curPop;
         population.averagePercentLifePoints = pop.averagePercentLifePoints / curPop;
+        pop.currentPopulation = curPop;
     }
 
     public void EndScene()
     {
+        foreach (Biome bi in biomes)
+            TheListener.RecordFinalBiomeHp(bi.biomeType.ToString(), bi.health);
         UnityEngine.SceneManagement.SceneManager.LoadScene("WitchHut");
         this.enabled = false;
     }
@@ -216,8 +224,9 @@ public class VillageCenter : MonoBehaviour {
     public void BeginVillageScenario()
     {
         this.enabled = true;
-        Debug.Log("cur houses: " + currentHouses);
         GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
+        foreach (Biome bi in biomes)
+            TheListener.RecordInitialBiomeHp(bi.biomeType.ToString(), bi.health);
     }
 
     public void BiomeTakesDamage(int bioNumber, float dmg)

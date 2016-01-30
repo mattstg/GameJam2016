@@ -21,7 +21,8 @@ public class Globals : MonoBehaviour {
     public static int MaxElementPower = 5;
     public static int MaxElementsPerIngredient = 3;
     public static int[] PeoplePerCircleLevel = { 6, 12, 16, 18 };
-    public static float ItemPlacementRange = 6;
+    public static float ItemPlacementRangeX = 1;
+    public static float ItemPlacementRangeY = 4;
     public static float ItemPlacementRangeGrowth = 1;
 	public static int minimumTaxableAmountOfProduce = 6;
     public static float PopulationMutationRate = .2f;
@@ -30,11 +31,8 @@ public class Globals : MonoBehaviour {
     public static float mapRadiusYforHousePlacement = 4;
     public static float mapRadiusXforHousePlacement = 4;
     public static float contentThreshold = .8f; //a villager at 80% happy is content
-    public static float contentExcessMultiplier = .5f; //per point one, gain point one
-    public static float bonusHpPerHealthinessExcessMultiplier = .5f; //per point over hp, lose
-    public static float healthinessContent = .8f; //per point over hp, lose
-    public static readonly float valueOfGoodHealth = .8f; //If you are point .8f, you lose no hp
-    public static readonly float healthyLossDueToIllness = 1f; //you lose this much hp per 1 illness  (so 1 per .1)
+    public static float contentExcessMultiplier = .5f; //per .1 pass threshold, be affected by .05
+    
     public static readonly float lengthOfScenario = 5f;
     private static readonly float villagerUpdateCyclesPerScenario = 2;
     public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;

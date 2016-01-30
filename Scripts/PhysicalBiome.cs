@@ -6,7 +6,7 @@ public class PhysicalBiome : MonoBehaviour {
     public Globals.biome bioType;
     float hp;
 
-    public void Start()
+    public void LoadBiome()
     {
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Biome" + bioType);
         hp = GameObject.FindObjectOfType<VillageCenter>().GetBiomeHp((int)bioType);

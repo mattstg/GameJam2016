@@ -27,7 +27,6 @@ public class WorldLoader : MonoBehaviour {
             RaycastHit2D[] allLeft;
             RaycastHit2D[] allRight;
             bool success = false;
-            Debug.Log("extra to create: " + extraToCreate);
 
             for (int i = 0; i <extraToCreate; ++i)
             {
@@ -90,7 +89,9 @@ public class WorldLoader : MonoBehaviour {
 
     private void LoadAllBiomes()
     {
-
+        PhysicalBiome[] go = GameObject.FindObjectsOfType<PhysicalBiome>();
+        foreach (PhysicalBiome b in go)
+            b.LoadBiome();
     }
 
     private void CreateHuman()

@@ -19,7 +19,7 @@ public class PhysicalIngredient : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = toLoad;
         else
         {
-            Debug.LogError("Sprite " + ingredient.ToString() + " not found");
+            //Debug.LogError("Sprite " + ingredient.ToString() + " not found");
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("DefaultIngr");
         }
     }

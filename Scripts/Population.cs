@@ -77,7 +77,10 @@ public class Population {
 
 	public void killPopulation(int amountToKill){
 		//Alert Listener that someone has died?????
-		Debug.Log ("Population that dies: " + amountToKill);
+		//Debug.Log ("Population that dies: " + amountToKill);
+        Villager[] v = GameObject.FindObjectsOfType<Villager>();
+        for(int i = 0; i < amountToKill && i < currentPopulation; ++i)
+            GameObject.Destroy(v[i].gameObject);
 		currentPopulation -= amountToKill;
 	}
 
@@ -126,7 +129,7 @@ public class Population {
 					tempAvailableFood--;
 				} else {
 					//we were not able to subtract resource from storage due to quantity
-					Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
+					//Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
 					counter++;
 					if (counter > 15)
 						break;

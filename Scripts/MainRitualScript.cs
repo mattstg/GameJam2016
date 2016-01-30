@@ -38,9 +38,11 @@ public class MainRitualScript : MonoBehaviour {
     {
         //Due to the nature of trying to find a place continously using a loop, need to try to catch worse case, or over clog by adding more items
         //Acceptable range placement will grow if placement errors continously occur, as well in worse case, stacking will simply be allowed.
+        int[] twoMidSpots = {-6, 7};
         int errorCatcher = 0;
         int totalErrorsCaught = 0;
-        float range = Globals.ItemPlacementRange;
+        float rangeX = Globals.ItemPlacementRangeX;
+        float rangeY = Globals.ItemPlacementRangeY;
         bool success = false;
         foreach (KeyValuePair<Globals.product, int> kv in WitchHut.Instance.GetWitchesCoffer())
         {
@@ -48,8 +50,9 @@ public class MainRitualScript : MonoBehaviour {
             {
                 while (!success)
                 {
-                    float xSpot = Random.RandomRange(-range, range);
-                    float ySpot = Random.RandomRange(-range, range);
+
+                    float xSpot = Random.Range(-rangeX, rangeX) + twoMidSpots[Random.Range(0,2)];
+                    float ySpot = Random.Range(-rangeY, rangeY);
                     RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(xSpot,ySpot), -Vector2.up,0);
                     if (allHit.Length == 0)
                     {
@@ -58,13 +61,12 @@ public class MainRitualScript : MonoBehaviour {
                     }
                     else
                     {
-                        Debug.Log("3: " + allHit.Length);
                         errorCatcher++;
                         if (errorCatcher > 10)
                         {
                             Debug.Log("Error catcher forced to grow");
                             errorCatcher = 0;
-                            range += Globals.ItemPlacementRangeGrowth;
+                            rangeX += Globals.ItemPlacementRangeGrowth;
                         }
                         if (totalErrorsCaught > 4)
                         {
@@ -86,7 +88,7 @@ public class MainRitualScript : MonoBehaviour {
         amount = (amount > 12)?12:amount;
         for (int i = 0; i < amount; ++i)
         {
-            Debug.Log("creating a " + itemtype);
+            //Debug.Log("creating a " + itemtype);
             GameObject go = Instantiate(Resources.Load("PhysIngredient"), new Vector2(location.x + Random.Range(-.6f,.3f),location.y + Random.Range(-.3f,.3f)), Quaternion.identity) as GameObject;
             go.GetComponent<PhysicalIngredient>().InitializeIngredient(itemtype);
         }
