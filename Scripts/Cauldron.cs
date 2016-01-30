@@ -21,10 +21,13 @@ public class Cauldron : MonoBehaviour {
         }
     }
 
-    public void CreateEvent()
+    public void CreateEventLauncher()
     {
+        GameObject launcher = new GameObject();
+        EventLauncher el = launcher.AddComponent<EventLauncher>();
+        DontDestroyOnLoad(launcher);
         int maxIndex = eventCount.ToList().IndexOf(eventCount.Max());                             //NEED TO TEST VALUES THAT MATCH
-        EventFactory.Instance.CreateEvent((Events.Event)maxIndex,attributePower);
+        el.LoadEvent((Events.Event)maxIndex, attributePower);
         WitchHut.Instance.RemoveFromWitchesCoffer(itemsAdded);
         itemsAdded = new Dictionary<Globals.product, int>();
         attributePower = new float[] { 0, 0, 0 };

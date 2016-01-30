@@ -94,7 +94,7 @@ public class MainRitualScript : MonoBehaviour {
 
     public void BeginRitual()
     {
-        cauldron.GetComponent<Cauldron>().CreateEvent();
+        cauldron.GetComponent<Cauldron>().CreateEventLauncher();
         UnityEngine.SceneManagement.SceneManager.LoadScene("VillageMap");
     }
 }
