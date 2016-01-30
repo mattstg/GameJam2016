@@ -55,7 +55,7 @@ public class Globals : MonoBehaviour {
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;
-	public static product[] retBiomeResources(biome biome, int startPosition){
+	public static product[] retBiomeResources(biome biome, int startPosition){ 
 		product[] toRet = new product[3];
 		//Debug.Log ("Biome being initialized: " + biome);
 		//Debug.Log ("start position: " + startPosition);
