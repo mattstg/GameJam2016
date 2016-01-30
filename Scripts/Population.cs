@@ -2,17 +2,36 @@
 using System.Collections;
 
 public class Population : MonoBehaviour {
+	//LINK TO VILLAGECENTER
 	public VillageCenter center;
 
+	//current working population & happiness for village
 	public int currentPopulation;
-	public int mostRecentDesiredFoodConsumption;
-	public int foodWantedAfterEating;
-	// Use this for initialization
+	public float averageHealth;
+	public float averageHappiness;
+	public float averageIllness; 
+
+	//informative variables
+	public int mostRecentDesiredFoodConsumption = 0;
+	public int foodStillWantedAfterEating = 0;
+	public bool villageIsStarving;
+
 	void Start () {
+		//when initialized pull starting population from Global Variables
 		currentPopulation = Globals.startPopulation;
+		averageHappiness = Globals.startHappiness;
 	}
 	
 	public void Cycle () {
+		//people consume food, and if they dont eat, some starve.
+		populationFoodConsumptionAndStarvation();
+
+		//population now needs to be able to grow. If they were starving, then don't have births. 
+
+	}
+
+	public void populationFoodConsumptionAndStarvation(){
+		villageIsStarving = false; //set to false, simply for start. If foodDemand > foodStores, then isStarving = true;
 		//population should consume food
 		mostRecentDesiredFoodConsumption = Mathf.FloorToInt(currentPopulation * Globals.foodConsumptionPerPerson);
 		if (mostRecentDesiredFoodConsumption < center.amountOfAvailableFood ()) {
@@ -32,6 +51,7 @@ public class Population : MonoBehaviour {
 		} else {
 			//in event of food demand being less than actual food
 			//population should starve, decrease happiness
+			villageIsStarving = true;
 
 			//so, mostRecentDesiredFoodConsumption > amountOfAvailableFood = foodStillWanted
 			int tempAvailableFood = center.amountOfAvailableFood();
@@ -49,8 +69,8 @@ public class Population : MonoBehaviour {
 			}
 			//so, some percent of population went without food, and so some should die	
 			//currentPopulation is culled by peopleWhoWentWithoutFood * %whoDieWhenStarving
+			foodStillWantedAfterEating = foodStillWanted;
 			currentPopulation -= Mathf.FloorToInt(foodStillWanted * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie);
-			foodWantedAfterEating = foodStillWanted;
 		}
 	}
 }

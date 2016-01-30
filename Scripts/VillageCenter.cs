@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class VillageCenter : MonoBehaviour {
+	//LINKS TO OTHER SCRIPTS
 	public Biome[] biomes;
 	public WitchHut witchLink;
 	public Population population;
 
-	//public int population;
+	//WORKING VARIABLES & INFORMATIVE VARIABLES
+	public int populationLossThisCycle = 0;
+	public int populationLossLastCycle = 0;
 	public int houses;
 
+	//RESOURCE STORAGE SYSTEM
 	public Dictionary<Globals.product,int> resourceStorage;
 	public void startStorage(){
 		//should initialize the start state of the Resource Storage System
@@ -39,6 +43,9 @@ public class VillageCenter : MonoBehaviour {
 	}
 
 	void Cycle(){
+		//keep track of population loss for last turn, and reset population loss this cycle
+		populationLossLastCycle = populationLossThisCycle;
+		populationLossThisCycle = 0;
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
 		foreach (Biome biome in biomes){
@@ -60,7 +67,6 @@ public class VillageCenter : MonoBehaviour {
 			//else, it exists in storage and we can add resource to resourceStorage, adding amount to add with current amount in storage
 			resourceStorage[resource] = amount + resourceStorage[resource];
 		}
-			
 	}
 
 	public bool subtractResourceFromStorage(Globals.product resource, int amount){
@@ -101,5 +107,11 @@ public class VillageCenter : MonoBehaviour {
 			}
 		}
 		return totalFoodCount;
+	}
+
+	public void killPopulation(int amountToKill){
+		//Transfer this into Listener Object??
+		population.currentPopulation -= amountToKill;
+		populationLossThisCycle += amountToKill;
 	}
 }

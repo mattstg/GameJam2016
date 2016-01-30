@@ -4,15 +4,18 @@ using System.Collections;
 public class Globals : MonoBehaviour {
 
 	public static float biomeProductivityCoefficient = 10f;
-	public static float populationProductivityBonus = 1 / 10;
-	public static float percentGivenToWitch = 0.1f;
-	public static int startPopulation = 20;
-	public static float populationCapPerHouse = 5;
-	public static int startHouses = 5;
-	public static float foodConsumptionPerPerson = 0.5f;
-	public static float percentOfStarvingWhoDie = 0.5f;
+	public static float populationProductivityBonus = .02f; //productivity boost per population, so at 50 popProdBonus = 1, 100 = 2, 150 = 3 (150 is max)
+	public static int maxPopulation = 150;
+	public static float percentGivenToWitch = 0.1f; 
+	public static int startPopulation = 20; 
+	public static float startHappiness = 1f; //range from 0 - 1 (percent happiness)
+	public static float populationCapPerHouse = 5; //can function with fractions
+	public static int startHouses = 5; 
+	public static float foodConsumptionPerPerson = 0.5f; //amount of food consumed per person, rounded down in formula
+	public static float percentOfStarvingWhoDie = 0.5f; //percent of starving population who die
     public static int MaxElementPower = 5;
     public static int MaxElementsPerIngredient = 3;
+
 
 
 	public enum product {Mushrooms = 0, Wood = 1, Daisy = 2, Rot = 3, StinkWeed = 4, Frog = 5, Potatoe = 6, Carrot = 7, Bean = 8, Cow = 9, Chicken = 10, Manure = 11,
