@@ -51,7 +51,7 @@ public class MainRitualScript : MonoBehaviour {
                     Debug.Log("1");
                     float xSpot = Random.RandomRange(-range, range);
                     float ySpot = Random.RandomRange(-range, range);
-                    RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(xSpot,ySpot), -Vector2.up);
+                    RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(xSpot,ySpot), -Vector2.up,0);
                     if (allHit.Length == 0)
                     {
                         Debug.Log("2");

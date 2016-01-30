@@ -65,23 +65,17 @@ public class CharacterController : MonoBehaviour {
 
     void IssueChoirCommand()
     {
-        RaycastHit2D[] allHit = Physics2D.RaycastAll(transform.position, -Vector2.up);
-        {
-            foreach(RaycastHit2D hit in allHit)
-            {
-                if (hit.transform.CompareTag("Choir"))
-                {
-                    hit.transform.gameObject.GetComponent<PrayerCircle>().ChangeWorshipperState();
-                }
-            }
-        }
+        RaycastHit2D[] allHit = Physics2D.RaycastAll(transform.position, -Vector2.up,0);
+        foreach(RaycastHit2D hit in allHit)
+            if (hit.transform.CompareTag("Choir"))
+                 hit.transform.gameObject.GetComponent<PrayerCircle>().ChangeWorshipperState();
     }
 
     void Interact()
     {
-        RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
+        RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up,0);
         if(allHit.Length == 0)
-            allHit = Physics2D.RaycastAll(transform.position, -Vector2.up);
+            allHit = Physics2D.RaycastAll(transform.position, -Vector2.up,0);
         foreach(RaycastHit2D hit in allHit)
         {
             if(hit.transform.CompareTag("Item"))

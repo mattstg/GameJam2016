@@ -23,7 +23,6 @@ public class Worshipper : MonoBehaviour {
                 MoveAroundCircle(deltaTime);
                 break;
             case Globals.worshipperStates.Chant:
-                Debug.Log("hoooooom");
                 break;
             default:
                 Debug.LogError("Not handled worshipper state: " + currentState);

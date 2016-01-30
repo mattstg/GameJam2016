@@ -31,7 +31,7 @@ public class PhysicalIngredient : MonoBehaviour {
 
     public void Dropped()
     {
-        RaycastHit2D[] allHit = Physics2D.RaycastAll(transform.position, -Vector2.up);
+        RaycastHit2D[] allHit = Physics2D.RaycastAll(transform.position, -Vector2.up,0);
         foreach(RaycastHit2D hit in allHit)
         {
             if (hit.transform.CompareTag("Cauldron"))

@@ -21,6 +21,8 @@ public class PrayerCircle : MonoBehaviour {
         }
         foreach (Worshipper w in worshippers)
             w.transform.localScale = new Vector3(1 / (8 + size * 4.5f), 1 / (8 + size * 4.5f), 1);
+        gameObject.AddComponent<PolygonCollider2D>();
+        gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
     }
 
     public void ChangeWorshipperState()
