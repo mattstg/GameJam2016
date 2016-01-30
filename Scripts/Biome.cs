@@ -11,20 +11,24 @@ public class Biome : MonoBehaviour {
 	public product[] resources = new product[3];
 
 	//A productivity for each of the three resources
-	public float[3] productivityResources = new float[3]; 
+	public float[] productivityResources = new float[3]; 
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
-	abstract void Start ();
+	virtual public void Start(){
+	}
 	//should initialize the enum for reasources for each biome.
 
-	abstract void Update ();
+	virtual public void Update(){
+	}
 		//will send resources to player
 
-	abstract void isCollidedWith ();
+	virtual public void isCollidedWith(){
+	}
 		//inputs event type and somehow interprets 
 
-	abstract void produceResources();
+	virtual public  void produceResources(){
+	}
 		//uses productivity to calulate yeild
 		//sends goods to warehourse
 
