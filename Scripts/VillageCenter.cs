@@ -222,6 +222,6 @@ public class VillageCenter : MonoBehaviour {
 
     public void BiomeTakesDamage(int bioNumber, float dmg)
     {
-        biomes[bioNumber]
+       // biomes[bioNumber]
     }
 }
