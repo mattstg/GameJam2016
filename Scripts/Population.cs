@@ -66,7 +66,7 @@ public class Population {
 
 	public void killPopulation(int amountToKill){
 		//Alert Listener that someone has died?????
-		Debug.Log ("Population dies by: " + amountToKill);
+		Debug.Log ("Population that dies: " + amountToKill);
 		currentPopulation -= amountToKill;
 	}
 

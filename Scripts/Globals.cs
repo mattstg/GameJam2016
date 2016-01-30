@@ -2,11 +2,6 @@
 using System.Collections;
 
 public class Globals : MonoBehaviour {
-
-	//DO NOT ERACE
-	//int startPosition = 0; //var helping fill biomes with stuff
-
-	//***************
 	public static float biomeProductivityCoefficient = 5f;
 	public static float populationYeildBonus = .02f; //productivity boost per population, so at 50 popProdBonus = 1, 100 = 2, 150 = 3 (150 is max)
 	public static int maxPopulation = 150;
