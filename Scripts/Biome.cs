@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Biome : MonoBehaviour {
+	//NEEDS LINK TO VILLAGE CENTER
+	public VillageCenter center;
 
 	//has some stuff it produces
 	//can be collided with by events
@@ -11,7 +13,7 @@ public class Biome : MonoBehaviour {
 	public product[] resources = new product[3];
 
 	//A productivity for each of the three resources
-	public float[] productivityResources = new float[3]; 
+	public int[] productivityResources = new int[3]; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!should have middle man function to calculate gross produce
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
@@ -19,17 +21,24 @@ public class Biome : MonoBehaviour {
 	}
 	//should initialize the enum for reasources for each biome.
 
-	virtual public void Update(){
+	public void Cycle(){
+		//giveResourceToVillage(produceResources());  //!!!!!!!!!!!!
 	}
-		//will send resources to player
+	//will produce resource based on productivity of resource and type of resource
+	//will send to village center
 
-	virtual public void isCollidedWith(){
-	}
-		//inputs event type and somehow interprets 
-
-	virtual public  void produceResources(){
+	public void produceResources(){
+		for (int counter = 0; counter < 3; counter++) {
+			giveResourceToVillage (resources [counter], productivityResources [counter]);
+		}
 	}
 		//uses productivity to calulate yeild
 		//sends goods to warehourse
 
+	public void giveResourceToVillage(product resource, int amount){
+		center.addResourceToStorage (resource, amount);
+	}
+
+	virtual public void isCollidedWith(){ 	}
+	//inputs event type and somehow interprets 
 }
