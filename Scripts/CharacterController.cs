@@ -3,14 +3,16 @@ using System.Collections;
 
 
 public class CharacterController : MonoBehaviour {
-
+    
     public float characterSpeed = 3f;
+    public Vector2 fowardVector;
     public Cauldron cauldron;
     Rigidbody2D rigidbody2D;
-    
+    PhysicalIngredient physIngr;
 
     public void Start()
     {
+        fowardVector = new Vector2(-1, 0);
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 	
@@ -20,8 +22,12 @@ public class CharacterController : MonoBehaviour {
         
         if(Input.anyKey)
             HandleMovement(deltaTime);
+
         if (Input.GetKeyDown(KeyCode.F))
-            DropIngredient();
+            if (physIngr)
+                DropIngredient();
+            else
+                Interact();
 	}
 
     void HandleMovement(float deltaTime)
@@ -35,29 +41,55 @@ public class CharacterController : MonoBehaviour {
              moveDir += new Vector2(characterSpeed * deltaTime, 0);
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
              moveDir += new Vector2(0,-characterSpeed * deltaTime);
-        Move(moveDir);
+
+        if(moveDir != new Vector2(0,0))
+         Move(moveDir);
     }
 
     void Move(Vector2 moveDir)
     {
+        fowardVector = moveDir.normalized;
         Vector2 toMove = new Vector2(transform.position.x + moveDir.x, transform.position.y + moveDir.y);                      //to improve, add operator overload instead?
         rigidbody2D.MovePosition(toMove);
     }
 
     void DropIngredient()
     {
-
+       RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
+       if (hit.collider == null || hit.collider.CompareTag("Cauldron"))
+       {
+           physIngr.transform.SetParent(null);
+           physIngr.transform.position = new Vector2(transform.position.x + fowardVector.x, transform.position.y + fowardVector.y);
+           physIngr.GetComponent<BoxCollider2D>().enabled = true;
+           physIngr.Dropped();
+           physIngr = null;
+       }        
     }
 
-    void OnTriggerEnter2D(Collider2D coli)
+    void Interact()
     {
-        if (coli.CompareTag("Cauldron"))
-            cauldron = coli.GetComponent<Cauldron>();
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + fowardVector.x,transform.position.y + fowardVector.y), -Vector2.up);
+        if (hit.collider != null)
+        {
+            Debug.Log("collider hit: " + hit.collider.tag);
+            if (hit.transform.CompareTag("Item"))
+                PickUpIngredient(hit.transform);
+            else if(hit.transform.CompareTag("Choir"))
+                CommunicateToChoir();
+        }
     }
 
-    void OnTriggerExit2D(Collider2D coli)
+    void PickUpIngredient(Transform ingredientTransform)
     {
-        if (coli.CompareTag("Cauldron"))
-            cauldron = null;
+        physIngr = ingredientTransform.GetComponent<PhysicalIngredient>();
+        physIngr.GetComponent<BoxCollider2D>().enabled = false;
+        physIngr.transform.SetParent(transform);
+        physIngr.transform.localPosition = new Vector2(0, .16f);
     }
+
+    void CommunicateToChoir()
+    {
+        Debug.Log("Talk to choir");
+    }
+    
 }
