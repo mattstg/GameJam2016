@@ -2,12 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class VillageCenter : MonoBehaviour {
 	public Biome[] biomes;
 	public WitchHut witchLink;
-	//need to fill the biomes
-
 
 	public int population;
 	public int houses;
@@ -24,8 +21,15 @@ public class VillageCenter : MonoBehaviour {
 	void Start () {
 		//need to initialize the starting resources
 		startStorage();
-		//need to initialize population
+		//need to initialize population & houses
+		population = Globals.startPopulation;
+		houses = Globals.startHouses;
 		//need to fill biome array
+		biomes = new Biome[Globals.numberOfBiomes];
+		for (int counter = 0; counter < biomes.Length; counter++) {
+			biomes [counter] = new Biome();
+			biomes [counter].biomeType = (Globals.biome)counter;
+		}
 	}
 
 	void Cycle(){

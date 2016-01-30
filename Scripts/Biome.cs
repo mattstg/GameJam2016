@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Biome : MonoBehaviour {
 	public VillageCenter center;
+	public Globals.biome biomeType;
 
 	//has some stuff it produces
-
-
 	public Globals.product[] resources = new Globals.product[3];
 
 	//A productivity for each of the three resources
@@ -14,7 +13,8 @@ public class Biome : MonoBehaviour {
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
-	virtual public void Start(){
+	public void Start(){
+		resources = Globals.retBiomeResources(biomeType);
 	}
 	//should initialize the enum for reasources for each biome.
 
