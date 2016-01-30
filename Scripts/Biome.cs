@@ -15,13 +15,13 @@ public class Biome{
 	//between 0 - 1 usually
 	//is function of population in town and the effects
 
-	public Biome(Biome biomeToCopy){
+/*	public Biome(Biome biomeToCopy){
 		health = biomeToCopy.health;
 		center = biomeToCopy.center;
 		biomeType = biomeToCopy.biomeType;
 		resources = biomeToCopy.resources;
 		yeildRate = biomeToCopy.yeildRate;
-	}
+	} */
 
 	public Biome(int biomeNumber){
 		float health = 1f;

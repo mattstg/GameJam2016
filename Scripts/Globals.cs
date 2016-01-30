@@ -50,6 +50,7 @@ public class Globals : MonoBehaviour {
 	public static int numberOfProduct = 18;
 	public static int[] foodTypeProduce = {6,7,8,9,10,12};
 	public static int[] herbTypeProduce = {0,2,4,14,15};
+	public enum energyTypes {ether_air = 0, fire_water = 1, light_dark = 2, critter_beast = 3};
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;
