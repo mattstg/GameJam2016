@@ -8,6 +8,7 @@ public class VillageCenter : MonoBehaviour {
 	public Biome[] biomes;
 	public WitchHut witchLink;
 	public Population population;
+    public float worldTime = 0;
 
 	public bool toggler = true;
 	public bool availableFoodToggler = true;
@@ -16,6 +17,13 @@ public class VillageCenter : MonoBehaviour {
 			toggler = true;
 			Cycle ();
 		}
+        worldTime += (Time.deltaTime>3)?.16f:Time.deltaTime; //If a pause causing a large value on unpause, then this will prevent that
+        if (worldTime > Globals.lengthOfScenario)
+        {
+            Cycle();
+            worldTime = 0; //just in case that weird loop thing
+        }
+
 	}
 
 	//WORKING VARIABLES & INFORMATIVE VARIABLES
@@ -34,7 +42,7 @@ public class VillageCenter : MonoBehaviour {
 	void Start () {
 		//need to initialize the starting resources
 		//Debug.Log ("VillageCenter Start Method Begins.");
-
+        DontDestroyOnLoad(this.gameObject);
 		startStorage();
 		//initialize population object
 		population = new Population();
@@ -72,6 +80,14 @@ public class VillageCenter : MonoBehaviour {
 
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
+
+        Debug.Log("The population values before sum: " + population);
+        //now get the new pop stats
+        GetAveragePopulationStatus();
+        Debug.Log("The population values now: " + population);
+
+        //End the scene
+        //EndScene();
 
 		//should add print contents of VillageStorage
 		Debug.Log("******************VILLAGE*STOREAGE*****************");
@@ -170,4 +186,25 @@ public class VillageCenter : MonoBehaviour {
 			//Debug.Log ("Warning: calling buildHouse() function in VillageCenter, when you have insufficient wood");
 		}
 	}
+
+    public void GetAveragePopulationStatus()
+    {
+        Population pop = new Population(0,0,0,0);
+        Villager[] villagers = GameObject.FindObjectsOfType<Villager>();
+        foreach (Villager v in villagers)
+        {
+            pop.averageHappiness += v.happiness;
+            pop.averageHealthiness += v.healthiness;
+            pop.averagePercentLifePoints += (v.hp/Globals.maximumVillagerHealthPoints);
+        }
+        int curPop = villagers.Length;
+        population.averageHappiness =  pop.averageHappiness/curPop;
+        population.averageHealthiness =  pop.averageHealthiness/curPop;
+        population.averagePercentLifePoints = pop.averagePercentLifePoints / curPop;
+    }
+
+    public void EndScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("WitchHut");
+    }
 }

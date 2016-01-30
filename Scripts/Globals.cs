@@ -29,10 +29,12 @@ public class Globals : MonoBehaviour {
     public static float mapRadiusX = 7;
     public static float contentThreshold = .8f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = 1f; //per point one, gain point one
-    public static float healthinessExcessMultiplier = .5f; //per point over hp, lose
-    public static float healthinessContent = 1f; //per point over hp, lose
-    public static readonly float lengthOfScenario = 20f;
-    private static readonly float villagerUpdateCyclesPerScenario = 5;
+    public static float bonusHpPerHealthinessExcessMultiplier = .5f; //per point over hp, lose
+    public static float healthinessContent = .8f; //per point over hp, lose
+    public static readonly float valueOfGoodHealth = .8f; //If you are point .8f, you lose no hp
+    public static readonly float healthyLossDueToIllness = 10f; //you lose this much hp per 1 illness  (so 1 per .1)
+    public static readonly float lengthOfScenario = 5f;
+    private static readonly float villagerUpdateCyclesPerScenario = 2;
     public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;
 
     

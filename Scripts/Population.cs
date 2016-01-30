@@ -23,6 +23,15 @@ public class Population {
 		averagePercentLifePoints = Globals.startAverageLifePoints;
 		averageHealthiness = Globals.startAverageHealthiness;
 	}
+
+    public Population(int _currentPopulation, float _averagePercentLifePoints, float _averageHappiness, float _averageHealthiness)
+    {
+        //when initialized pull starting population from Global Variables
+        currentPopulation = _currentPopulation;
+        averageHappiness = _averagePercentLifePoints;
+        averagePercentLifePoints = _averageHappiness;
+        averageHealthiness = _averageHealthiness;
+    }
 	
 	public void Cycle () {
 		Debug.Log ("Entering Population Cycle.");
@@ -127,4 +136,9 @@ public class Population {
 			killPopulation(Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie));
 		}
 	}
+
+    public override string ToString()
+    {
+        return "Pop values [pop,avrgHp,avrgHappy,avrgHealthiness] = [" + currentPopulation + "," + averagePercentLifePoints + "," + averageHappiness + "," + averageHealthiness + "]";
+    }
 }
