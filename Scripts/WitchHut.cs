@@ -8,7 +8,7 @@ public class WitchHut : MonoBehaviour {
 	public Dictionary<Globals.product,int> witchsCoffer;
 	public void startStorage(){
 		//should initialize the start state of the Resource Storage System
-		witchsCoffer.Add(Globals.product.Silver, 2);
+		witchsCoffer.Add(Globals.product.Stone, 2);
 		witchsCoffer.Add(Globals.product.Seaweed, 3);
 		witchsCoffer.Add(Globals.product.Manure, 5);
 		witchsCoffer.Add(Globals.product.Gold, 1);

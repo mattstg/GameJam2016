@@ -10,9 +10,7 @@ public class VillageCenter : MonoBehaviour {
 	public Population population;
 
 	//WORKING VARIABLES & INFORMATIVE VARIABLES
-	public int populationLossThisCycle = 0;
-	public int populationLossLastCycle = 0;
-	public int houses;
+	public int currentHouses;
 
 	//RESOURCE STORAGE SYSTEM
 	public Dictionary<Globals.product,int> resourceStorage;
@@ -30,7 +28,7 @@ public class VillageCenter : MonoBehaviour {
 		//initialize population object
 		population = new Population();
 		//need to initialize population & houses
-		houses = Globals.startHouses;
+		currentHouses = Globals.startHouses;
 		//need to fill biome array
 		biomes = new Biome[Globals.numberOfBiomes];
 		for (int counter = 0; counter < biomes.Length; counter++) {
@@ -44,8 +42,6 @@ public class VillageCenter : MonoBehaviour {
 
 	void Cycle(){
 		//keep track of population loss for last turn, and reset population loss this cycle
-		populationLossLastCycle = populationLossThisCycle;
-		populationLossThisCycle = 0;
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
 		foreach (Biome biome in biomes){
@@ -53,6 +49,9 @@ public class VillageCenter : MonoBehaviour {
 		}
 		//calculate population consumption, and update working population variable in VillageCenter
 		population.Cycle();
+
+		//now we need to use wood/ore to build houses? if village needs more houses.
+
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
 	}
@@ -112,6 +111,23 @@ public class VillageCenter : MonoBehaviour {
 	public void killPopulation(int amountToKill){
 		//Transfer this into Listener Object??
 		population.currentPopulation -= amountToKill;
-		populationLossThisCycle += amountToKill;
+	}
+
+	public void housingControl(){
+		//need to know demand for houses
+		//should be formula (ppl / house) * houses = max pop
+		int totalHousesNeeded = (int) (population.currentPopulation / Globals.residentsPerHouse);
+		int netHousesNeeded = totalHousesNeeded - currentHouses;
+		if (netHousesNeeded < 0) {
+			//no homeless people, surplus houses
+			//low desire to build houses
+
+		} else {
+			//have homeless people, need more houses
+			//high desire to build houses, cannot increase population
+
+		}
+		//if maxPop ~= current pop, then we need houses
+
 	}
 }
