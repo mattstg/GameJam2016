@@ -4,10 +4,9 @@ using System.Collections;
 public class Biome : MonoBehaviour {
 	public VillageCenter center;
 
-
 	//has some stuff it produces
 	//can be collided with by events
-	public enum product {Elk, Wood, Daisy, Rot, StinkWeed, Frog, Potatoe, Carrot, Bean, Cow, Chicken, Marure,
+	public enum product {Elk, Wood, Daisy, Rot, StinkWeed, Frog, Potatoe, Carrot, Bean, Cow, Chicken, Manure,
 	Fish, Seaweed, WaterLilly, MountainHerb, Silver, Gold};
 
 	public product[] resources = new product[3];
@@ -22,15 +21,15 @@ public class Biome : MonoBehaviour {
 	//should initialize the enum for reasources for each biome.
 
 	public void Cycle(){
-		//giveResourceToVillage(produceResources());  //!!!!!!!!!!!!
+		produceResources();
 	}
 	//will produce resource based on productivity of resource and type of resource
 	//will send to village center
 
 	public void produceResources(){
 		//uses productivity to calulate yeild
-		//sends goods to warehourse
-		for (int counter = 0; counter < 3; counter++) {
+		//sends goods to resource storage
+		for(int counter = 0; counter < 3; counter++) {
 			giveResourceToVillage (resources [counter], grossProduce(productivityOfResources[counter]));
 		}
 	}
@@ -38,8 +37,7 @@ public class Biome : MonoBehaviour {
 	public int grossProduce(float productivity){
 		return Mathf.FloorToInt(center.population * Globals.populationProductivityBonus * productivity * Globals.biomeProductivityCoefficient);
 	}
-
-
+		
 	public void giveResourceToVillage(product resource, int amount){
 		center.addResourceToStorage (resource, amount);
 	}

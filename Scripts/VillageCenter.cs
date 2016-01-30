@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public class VillageCenter : MonoBehaviour {
 	public Biome[] biomes;
+	public WitchHut witchLink;
 	//need to fill the biomes
 
 	public int population;
-
+	public int houses;
 
 	public Dictionary<Biome.product,int> resourceStorage;
 	public void startStorage(){
@@ -29,8 +30,11 @@ public class VillageCenter : MonoBehaviour {
 	void Cycle(){
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
-		//add to storage
-		//send surplus to witch
+		foreach (Biome biome in biomes){
+			biome.Cycle(); //this calculates the produce and adds it to village store
+		}
+		//now we need to send the surplus to the witch's coffer
+		giveResourcesToWitch();
 	}
 
 	public void addResourceToStorage(Biome.product resource, int amount){
@@ -67,7 +71,9 @@ public class VillageCenter : MonoBehaviour {
 			//need to subtract amoulnt given from resourceStorage
 			if(subtractResourceFromStorage(resourcesStored.Key, amountToGive)){
 				//need to actually give amounts to witch
-				//giveResourcesToWitch(resource, amountToGive);
+				witchLink.addToWitchsCoffer(resourcesStored.Key, amountToGive);
+			}else{
+				//we dont have enough to give, therefore do not take from storage or give to witch
 			}
 		}
 	}
