@@ -4,14 +4,14 @@ using System.Collections;
 public class PhysicalIngredient : MonoBehaviour {
 
 	//Ingredient carried by which
-    Biome.product ingredient;
+    Globals.product ingredient;
 
     public void Start()
     {
         DEBUG_CreateDefault();
     }
 
-    public void InitializeIngredient(Biome.product _ingredient)
+    public void InitializeIngredient(Globals.product _ingredient)
     {
         ingredient = _ingredient;
         SetIngredientGraphic();
@@ -29,14 +29,14 @@ public class PhysicalIngredient : MonoBehaviour {
         }
     }
 
-    public Biome.product getIngredient()
+    public Globals.product getIngredient()
     {
         return ingredient;
     }
 
     public void DEBUG_CreateDefault()
     {
-        InitializeIngredient(Biome.product.Bean);
+        InitializeIngredient(Globals.product.Bean);
     }
 
     public void Dropped()

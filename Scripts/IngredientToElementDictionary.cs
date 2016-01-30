@@ -23,18 +23,18 @@ public class IngredientToElementDictionary  {
    }
     #endregion
 
-    Dictionary<Biome.product, List<Element>> IngToElemDict = new Dictionary<Biome.product, List<Element>>();
+    Dictionary<Globals.product, List<Element>> IngToElemDict = new Dictionary<Globals.product, List<Element>>();
 
     public void RandomizeDictionary()
     {
-        foreach (Biome.product suit in System.Enum.GetValues(typeof(Biome.product)))
+        foreach (Globals.product suit in System.Enum.GetValues(typeof(Globals.product)))
         {
             
         }
-        IngToElemDict.Add(Biome.product.Bean,new List<Element>(){new Element(0,0,Events.Event.Blessing)});
+        IngToElemDict.Add(Globals.product.Bean,new List<Element>(){new Element(0,0,Events.Event.Blessing)});
     }
 
-    public List<Element> ElementsFromIngredient(Biome.product ingredient)
+    public List<Element> ElementsFromIngredient(Globals.product ingredient)
     {
         return IngToElemDict[ingredient];
     }

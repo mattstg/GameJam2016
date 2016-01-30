@@ -7,7 +7,7 @@ public class Cauldron : MonoBehaviour {
     float[] attributePower = new float[] { 0, 0, 0 };
     float[] eventCount = new float[] { 0, 0, 0 }; //highest event count will summon that event
 
-    public void AddIngredient(Biome.product addedIngredient)
+    public void AddIngredient(Globals.product addedIngredient)
     {
         foreach (Element e in IngredientToElementDictionary.Instance.ElementsFromIngredient(addedIngredient))
         {
