@@ -29,7 +29,9 @@ public class Population : MonoBehaviour {
 		populationFoodConsumptionAndStarvation();
 
 		//we need to alter average happiness of population
-		center.houseConstruction();
+		//will calculate happiness after the event scenes:
+		//decreasing health or lifePoints == decrease happiness
+		//increase """"" === increase happiness
 
 		//population now needs to be able to grow. Depends upon happiness and healthiness. If they were starving, then don't have births. 
 		populationBirthController();
@@ -48,6 +50,11 @@ public class Population : MonoBehaviour {
 			//village is starving, therefore no one wants to reproduce
 			Debug.Log("Population is starving, and dont feel like producing offspring");
 		}
+	}
+
+	public void killPopulation(int amountToKill){
+		//Alert Listener that someone has died?????
+		currentPopulation -= amountToKill;
 	}
 
 	public void populationFoodConsumptionAndStarvation(){
@@ -92,8 +99,7 @@ public class Population : MonoBehaviour {
 			//so, some percent of population went without food, and so some should die	
 			//currentPopulation is culled by peopleWhoWentWithoutFood * %whoDieWhenStarving
 			int foodShortage = mostRecentDesiredFoodConsumption - currentAvailableFood;
-			currentPopulation -= Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie);
-			///#### NOT USING VILLAGECENTER SCRIPT, SO DOSNT USE killPopulation(int amount) function
+			killPopulation(Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie));
 		}
 	}
 }

@@ -47,10 +47,11 @@ public class VillageCenter : MonoBehaviour {
 		foreach (Biome biome in biomes){
 			biome.Cycle(); //this calculates the produce and adds it to village store
 		}
+		//now we need to use wood/ore to build houses? if village needs more houses.
+		houseConstruction();
+
 		//calculate population consumption, and update working population variable in VillageCenter
 		population.Cycle();
-
-		//now we need to use wood/ore to build houses? if village needs more houses.
 
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
@@ -115,7 +116,7 @@ public class VillageCenter : MonoBehaviour {
 
 	public void houseConstruction(){
 		//need to know demand for houses, which is based current population and current amount of houses
-		//desired houses = totalPop / popPerHouses + floating Houses (value is 1, the amount of houses to be built before population actually needs it
+		//desired houses = totalPop / popPerHouses + floating Houses (value is 1, the amount of houses to be built before population actually needs
 		int desiredHouses = Globals.floatingHouses + Mathf.CeilToInt(population.currentPopulation / Globals.residentsPerHouse);
 		if (desiredHouses > 0) { 		//then we have homeless population, and need to build houses
 			//how many houses can we build? check storage to see how much wood, and consult global variables for how much wood per house
