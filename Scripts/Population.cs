@@ -56,7 +56,7 @@ public class Population {
 			// currently population can grow by a maximum of 20% each cycle, provided averageHappiness is perfect
 			// if averageHappiness is 0.5f, then maxPercentPopulationIncrease is halved. 
 			int projectedPopulationGrowth = Mathf.CeilToInt(Globals.maxPercentPopulationIncrease * currentPopulation * averageHappiness);
-			currentPopulation += projectedPopulationGrowth;
+			currentPopulation = (currentPopulation + projectedPopulationGrowth < Globals.maxPopulation)? currentPopulation += projectedPopulationGrowth: currentPopulation = Globals.maxPopulation;
 			Debug.Log ("Population Grows by: " + projectedPopulationGrowth);
 		} else {
 			//village is starving, therefore no one wants to reproduce
