@@ -23,29 +23,40 @@ public class IngredientToElementDictionary  {
    }
     #endregion
 
-    Dictionary<Globals.product, List<Element>> IngToElemDict = new Dictionary<Globals.product, List<Element>>();
+    Dictionary<Globals.product, List<Element>> ingToElemDict = new Dictionary<Globals.product, List<Element>>();
 
     public void RandomizeDictionary()
     {
-        foreach (Globals.product suit in System.Enum.GetValues(typeof(Globals.product)))
+        foreach (Globals.product ingr in System.Enum.GetValues(typeof(Globals.product)))
         {
-            
+            ingToElemDict.Add(ingr, CreateElementList());
         }
-        IngToElemDict.Add(Globals.product.Bean,new List<Element>(){new Element(0,0,Events.Event.Blessing)});
+
+        foreach (KeyValuePair<Globals.product, List<Element>> kv in ingToElemDict)
+            foreach (Element e in kv.Value)
+                Debug.Log(kv.Key + " has element[P,A,E]  [" + e.power + "," + e.attributeNumber + "," + e.activeEvent + "]");
     }
 
     public List<Element> ElementsFromIngredient(Globals.product ingredient)
     {
-        return IngToElemDict[ingredient];
+        return ingToElemDict[ingredient];
     }
 
     private List<Element> CreateElementList()
     {
-        return null;
+        List<Element> toReturn = new List<Element>();
+        int numOfElems1 = Random.Range(1, Globals.MaxElementsPerIngredient+1);
+        int numOfElems2 = Random.Range(1, Globals.MaxElementsPerIngredient + 1);
+        int numberOfElems = (numOfElems1 <= numOfElems2) ? numOfElems1 : numOfElems2; //weighted random for smaller value
+        for (int i = 0; i < numberOfElems; ++i)
+        {
+            toReturn.Add(CreateRandomElement());
+        }
+        return toReturn;
     }
 
     private Element CreateRandomElement()
     {
-        return new Element(Random.Range(0, Globals.MaxElementPower), Random.Range(0, 3), (Events.Event)Random.Range(0, 3));
+        return new Element(Random.Range(1, Globals.MaxElementPower), Random.Range(0, 3), (Events.Event)Random.Range(0, 3));
     }
 }
