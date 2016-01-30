@@ -27,7 +27,7 @@ public class Population {
 	public void Cycle () {
 		Debug.Log ("Entering Population Cycle.");
 		//people consume food, and if they dont eat, some starve.
-
+		Debug.Log("Current Population: " + currentPopulation);
 		//********
 		populationFoodConsumptionAndStarvation();
 		Debug.Log ("populationFoodConsumptionAndStarvation()");
@@ -57,6 +57,7 @@ public class Population {
 			// if averageHappiness is 0.5f, then maxPercentPopulationIncrease is halved. 
 			int projectedPopulationGrowth = Mathf.CeilToInt(Globals.maxPercentPopulationIncrease * currentPopulation * averageHappiness);
 			currentPopulation += projectedPopulationGrowth;
+			Debug.Log ("Population Grows by: " + projectedPopulationGrowth);
 		} else {
 			//village is starving, therefore no one wants to reproduce
 			Debug.Log("Population is starving, and dont feel like producing offspring");
@@ -65,6 +66,7 @@ public class Population {
 
 	public void killPopulation(int amountToKill){
 		//Alert Listener that someone has died?????
+		Debug.Log ("Population dies by: " + amountToKill);
 		currentPopulation -= amountToKill;
 	}
 
@@ -78,6 +80,7 @@ public class Population {
 			netFoodAfterEating = currentAvailableFood - desiredAmountOfFood;
 			//will choose food at random until no more food is required.
 			int workingFoodDesire = desiredAmountOfFood;
+			Debug.Log ("Desired Amount of Food: " + desiredAmountOfFood + "     actual amount of food products: " + center.amountOfAvailableFood());
 			//while workingFoodDesire is still above 0, ie. population is still hungry.
 
 
@@ -98,6 +101,7 @@ public class Population {
 			//in event of food demand being less than actual food
 			//population should starve, decrease happiness
 			villageIsStarving = true;
+			Debug.Log ("Village is starving. Current Available Food is " + currentAvailableFood);
 
 			//so, mostRecentDesiredFoodConsumption > amountOfAvailableFood = foodStillWanted
 					//int amountDesiredFood = mostRecentDesiredFoodConsumption - currentAvailableFood; //NOT SURE WHY I HAD THIS

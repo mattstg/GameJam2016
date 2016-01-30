@@ -3,28 +3,32 @@ using System.Collections;
 
 public class Globals : MonoBehaviour {
 
-	public static float biomeProductivityCoefficient = 10f;
-	public static float populationProductivityBonus = .02f; //productivity boost per population, so at 50 popProdBonus = 1, 100 = 2, 150 = 3 (150 is max)
+	//DO NOT ERACE
+	//int startPosition = 0; //var helping fill biomes with stuff
+
+	//***************
+	public static float biomeProductivityCoefficient = 5f;
+	public static float populationYeildBonus = .02f; //productivity boost per population, so at 50 popProdBonus = 1, 100 = 2, 150 = 3 (150 is max)
 	public static int maxPopulation = 150;
 	public static float percentGivenToWitch = 0.1f; 
-	public static int startPopulation = 20; 
+	public static int startPopulation = 30; 
 	public static float startAverageHappiness = 0.7f; //range from 0 - 1 (0 being very sad, 1 being very happy)
 	public static float startAverageHealthiness = 0.7f; //range 0 - 1 (0 being very ill, 1 being very well)
 	public static float startAverageLifePoints = 0.9f; //range 0 - 1 (0 being dead, 1 being full Life Points)
 	public static int maximumVillagerHealthPoints = 10;
 	public static float residentsPerHouse = 5; //can function with fractions
-	public static int startHouses = 5; 
+	public static int startHouses = 10; 
 	public static int woodPerHouse = 5;
 	public static int floatingHouses = 1; //amount of houses population will try to have excess
-	public static float foodConsumptionPerPerson = 0.5f; //amount of food consumed per person, rounded down in formula
+	public static float foodConsumptionPerPerson = 0.25f; //amount of food consumed per person, rounded down in formula
 	public static float percentOfStarvingWhoDie = 0.5f; //percent of starving population who die
-	public static float maxPercentPopulationIncrease = 0.2f;
+	public static float maxPercentPopulationIncrease = 0.2f; //20% increase in population maximum
     public static int MaxElementPower = 5;
     public static int MaxElementsPerIngredient = 3;
     public static int[] PeoplePerCircleLevel = { 6, 12, 16, 18 };
     public static float ItemPlacementRange = 6;
     public static float ItemPlacementRangeGrowth = 1;
-	public static int minimumTaxableAmountOfProduce = 8;
+	public static int minimumTaxableAmountOfProduce = 6;
     public static float PopulationMutationRate = .2f;
     public static float mapRadiusY = 4;
     public static float mapRadiusX = 7;
@@ -49,11 +53,13 @@ public class Globals : MonoBehaviour {
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;
-	public static product[] retBiomeResources(biome biome){
+	public static product[] retBiomeResources(biome biome, int startPosition){
 		product[] toRet = new product[3];
-		int startPosition = (int)biome * 3;
+		//Debug.Log ("Biome being initialized: " + biome);
+		//Debug.Log ("start position: " + startPosition);
 		for (int counter = startPosition; counter < startPosition + 3; counter++) {
-			toRet [counter] = (product) startPosition + counter;
+			//Debug.Log("counter = " + counter + "|||||| startPosition " + startPosition);
+			toRet [counter - startPosition] = (product) counter;
 		}
 		return toRet;
 	}

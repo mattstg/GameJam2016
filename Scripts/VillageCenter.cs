@@ -33,7 +33,7 @@ public class VillageCenter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//need to initialize the starting resources
-		Debug.Log ("VillageCenter Start Method Begins.");
+		//Debug.Log ("VillageCenter Start Method Begins.");
 
 		startStorage();
 		//initialize population object
@@ -48,8 +48,8 @@ public class VillageCenter : MonoBehaviour {
 		//need to fill biome array
 		biomes = new Biome[Globals.numberOfBiomes];
 		for (int counter = 0; counter < biomes.Length; counter++) {
-			Debug.Log ("Biome Initialized: " + counter);
-			biomes [counter] = new Biome();
+			//Debug.Log ("Biome Initialized: " + counter);
+			biomes [counter] = new Biome(counter);
 			biomes [counter].biomeType = (Globals.biome)counter;
 			biomes [counter].center = this;
 		}
@@ -72,30 +72,40 @@ public class VillageCenter : MonoBehaviour {
 
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
-		Debug.Log ("OUTSIDE GIVERESOURCE TO WITCH");
+
+		//should add print contents of VillageStorage
+		Debug.Log("******************VILLAGE*STOREAGE*****************");
+		foreach (KeyValuePair<Globals.product, int> resource in resourceStorage) {
+			Debug.Log("Resource: "+ resource.Key.ToString() + "...    Quantity:"  +resource.Value.ToString());
+		}
+		Debug.Log("**********************END**********************");
 	}
 
 	public void addResourceToStorage(Globals.product resource, int amount){
 		//check first if it is in the dictionary
 			//if not, then add with amount = 0 then proceed to avoid error
+
 		if (!resourceStorage.ContainsKey (resource)) {
 			//then we need to initialize it first with amount we want to add!
 			resourceStorage.Add (resource, amount);
+			Debug.Log ("Successfully added " + amount + "x " + resource + " from VillageStorage! (From zero)");
 		} else {
 			//else, it exists in storage and we can add resource to resourceStorage, adding amount to add with current amount in storage
 			resourceStorage[resource] = amount + resourceStorage[resource];
+			Debug.Log ("Successfully added " + amount + "x " + resource + " from VillageStorage!");
 		}
 	}
 
 	public bool subtractResourceFromStorage(Globals.product resource, int amount){
 		//check first if resource has amount in storage
-		if (resourceStorage.ContainsKey (resource) && resourceStorage [resource] >= amount) {
+		if (resourceStorage.ContainsKey (resource) && resourceStorage [resource] >= amount && amount != 0) {
 			//then we have enough to take the amount we want of said resource
 			resourceStorage[resource] = resourceStorage[resource] - amount;
+			Debug.Log ("Successfully subtracted  " + amount + "x " + resource + " from VillageStorage!");
 			return true;
 		} else {
 			//we either dont have enough of resource, or resource isn't contained (meaning we have 0 of said resource)...
-			Debug.Log("Error: attempting to take resources from VillageCenter, when none of said resource is stored");
+			Debug.Log("Trying to subtract " + amount + "x "+ resource + " from VillageStorage, but there is not enough");
 			return false;
 		}
 	}
@@ -104,14 +114,14 @@ public class VillageCenter : MonoBehaviour {
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
 		for(int counter = 0; counter < resourceStorage.Count; counter++){
 			//if resource is 0, then we dont care about it
-			if (resourceStorage.ElementAt (counter).Value < Globals.minimumTaxableAmountOfProduce) {
-				//global variable percentGivenToWitch is used to calculate amount given
-				int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt (counter).Value * Globals.percentGivenToWitch);
-				Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
+			Debug.Log("Starting with " + resourceStorage.ElementAt (counter).Value + "x " + resourceStorage.ElementAt (counter).Key + " in Village Store");
+			//global variable percentGivenToWitch is used to calculate amount given
+			int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt(counter).Value * Globals.percentGivenToWitch);
+			Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
+			if (resourceStorage.ElementAt (counter).Value > Globals.minimumTaxableAmountOfProduce && amountToGive == 0) {
 				//need to subtract amoulnt given from resourceStorage
-
 				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
-					Debug.Log ("resourceStorage.ElementAt(counter).Key" + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);
+					Debug.Log ("resourceStorage.ElementAt(counter).Key  " + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);
 					//need to actually give amounts to witch
 					witchLink.addToWitchsCoffer (resourceStorage.ElementAt (counter).Key, amountToGive);
 					//Debug.Log ("after to add to witch's coffer.");
@@ -119,6 +129,8 @@ public class VillageCenter : MonoBehaviour {
 					//we dont have enough to give, therefore do not take from storage or give to witch
 					Debug.Log ("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
 				}
+			} else {
+				Debug.Log ("Insufficient amount to give resources away.");
 			}
 		}
 	}
@@ -153,6 +165,7 @@ public class VillageCenter : MonoBehaviour {
 		if (resourceStorage [Globals.product.Wood] > Globals.woodPerHouse) {
 			subtractResourceFromStorage(Globals.product.Wood, Globals.woodPerHouse);
 			currentHouses++;
+			Debug.Log ("Building House, current house count at " + currentHouses);
 		} else {
 			Debug.Log ("Warning: calling buildHouse() function in VillageCenter, when you have insufficient wood");
 		}
