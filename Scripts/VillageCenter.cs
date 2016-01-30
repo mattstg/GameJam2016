@@ -225,7 +225,7 @@ public class VillageCenter : MonoBehaviour {
         biomes[bioNumber].health -= dmg;
     }
 
-    public int GetBiomeHp(int bioNumber)
+    public float GetBiomeHp(int bioNumber)
     {
         return biomes[bioNumber].health;
     }

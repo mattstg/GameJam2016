@@ -72,10 +72,7 @@ public class Biome{
 		//nothing yet	
 		//remove health
 	}
-
-	public void takeDamage(float dmgToDo){
-		health -= dmgToDo;
-	}
+		
 	//needs to be able to heal
 
 	//inputs event type and somehow interprets 
