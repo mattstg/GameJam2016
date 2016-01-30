@@ -61,11 +61,11 @@ public class VillageCenter : MonoBehaviour {
 
 	public void giveResourcesToWitch(){
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
-		foreach(Biome.product resource in resourceStorage){
+		foreach(KeyValuePair<Biome.product, int> resourcesStored in resourceStorage){
 			//global variable percentGivenToWitch is used to calculate amount given
-			int amountToGive = Mathf.FloorToInt(resourceStorage[resource] * Globals.percentGivenToWitch);
+			int amountToGive = Mathf.FloorToInt(resourcesStored.Value * Globals.percentGivenToWitch);
 			//need to subtract amoulnt given from resourceStorage
-			if(subtractResourceFromStorage(resource, amountToGive)){
+			if(subtractResourceFromStorage(resourcesStored.Key, amountToGive)){
 				//need to actually give amounts to witch
 				//giveResourcesToWitch(resource, amountToGive);
 			}
