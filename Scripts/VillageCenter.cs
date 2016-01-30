@@ -109,11 +109,6 @@ public class VillageCenter : MonoBehaviour {
 		return totalFoodCount;
 	}
 
-	public void killPopulation(int amountToKill){
-		//Transfer this into Listener Object??
-		population.currentPopulation -= amountToKill;
-	}
-
 	public void houseConstruction(){
 		//need to know demand for houses, which is based current population and current amount of houses
 		//desired houses = totalPop / popPerHouses + floating Houses (value is 1, the amount of houses to be built before population actually needs
