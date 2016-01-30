@@ -10,9 +10,11 @@ public class VillageCenter : MonoBehaviour {
 	public Population population;
     public float worldTime = 0;
 
+    public bool wasConstructed = false; //worse fix ever
 	public bool toggler = true;
 	public bool availableFoodToggler = true;
-	public void Update(){
+	
+    public void Update(){
 		if (toggler == false) {
 			toggler = true;
 			Cycle ();
@@ -38,30 +40,30 @@ public class VillageCenter : MonoBehaviour {
 		resourceStorage.Add (Globals.product.Wood, 50);
 	}
 
-	// Use this for initialization
-	void Start () {
-		//need to initialize the starting resources
-		//Debug.Log ("VillageCenter Start Method Begins.");
-        DontDestroyOnLoad(this.gameObject);
-		startStorage();
-		//initialize population object
-		population = new Population();
-		population.center = this;
+    public void Initialization()
+    {
+        startStorage();
+        //initialize population object
+        population = new Population();
+        population.center = this;
 
-		witchLink = WitchHut.Instance;
-		witchLink.linkToVillageCenter = this;
+        witchLink = WitchHut.Instance;
+        witchLink.linkToVillageCenter = this;
 
-		//need to initialize population & houses
-		currentHouses = Globals.startHouses;
-		//need to fill biome array
-		biomes = new Biome[Globals.numberOfBiomes];
-		for (int counter = 0; counter < biomes.Length; counter++) {
-			//Debug.Log ("Biome Initialized: " + counter);
-			biomes [counter] = new Biome(counter);
-			biomes [counter].biomeType = (Globals.biome)counter;
-			biomes [counter].center = this;
-		}
-	}
+        //need to initialize population & houses
+        currentHouses = Globals.startHouses;
+        //need to fill biome array
+        biomes = new Biome[Globals.numberOfBiomes];
+        for (int counter = 0; counter < biomes.Length; counter++)
+        {
+            //Debug.Log ("Biome Initialized: " + counter);
+            biomes[counter] = new Biome(counter);
+            biomes[counter].biomeType = (Globals.biome)counter;
+            biomes[counter].center = this;
+        }
+        BeginVillageScenario();
+        wasConstructed = true;
+    }
 
 	void Cycle(){
 		//Debug.Log ("Cycle Start: VillageCenter.");
@@ -76,7 +78,7 @@ public class VillageCenter : MonoBehaviour {
 		houseConstruction();
 
 		//calculate population consumption, and update working population variable in VillageCenter
-		population.Cycle();
+		int popToAdd = population.Cycle();
 
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
@@ -85,16 +87,17 @@ public class VillageCenter : MonoBehaviour {
         //now get the new pop stats
         GetAveragePopulationStatus();
         Debug.Log("The population values now: " + population);
+        population.currentPopulation += popToAdd;
 
         //End the scene
-        //EndScene();
+        EndScene();
 
 		//should add print contents of VillageStorage
-		Debug.Log("******************VILLAGE*STOREAGE*****************");
+		/*Debug.Log("******************VILLAGE*STOREAGE*****************");
 		foreach (KeyValuePair<Globals.product, int> resource in resourceStorage) {
 			Debug.Log("Resource: "+ resource.Key.ToString() + "...    Quantity:"  +resource.Value.ToString());
 		}
-		Debug.Log("**********************END**********************");
+		Debug.Log("**********************END**********************");*/
 	}
 
 	public void addResourceToStorage(Globals.product resource, int amount){
@@ -133,7 +136,7 @@ public class VillageCenter : MonoBehaviour {
 			//Debug.Log("Starting with " + resourceStorage.ElementAt (counter).Value + "x " + resourceStorage.ElementAt (counter).Key + " in Village Store");
 			//global variable percentGivenToWitch is used to calculate amount given
 			int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt(counter).Value * Globals.percentGivenToWitch);
-			Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
+			//Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
 			if (resourceStorage.ElementAt (counter).Value > Globals.minimumTaxableAmountOfProduce && amountToGive != 0) {
 				//need to subtract amoulnt given from resourceStorage
 				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
@@ -194,8 +197,9 @@ public class VillageCenter : MonoBehaviour {
         foreach (Villager v in villagers)
         {
             pop.averageHappiness += v.happiness;
+
             pop.averageHealthiness += v.healthiness;
-            pop.averagePercentLifePoints += (v.hp/Globals.maximumVillagerHealthPoints);
+            pop.averagePercentLifePoints += v.hp;
         }
         int curPop = villagers.Length;
         population.averageHappiness =  pop.averageHappiness/curPop;
@@ -206,5 +210,15 @@ public class VillageCenter : MonoBehaviour {
     public void EndScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("WitchHut");
+        this.enabled = false;
     }
+
+    public void BeginVillageScenario()
+    {
+        this.enabled = true;
+        Debug.Log("cur houses: " + currentHouses);
+        GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
+    }
+
+    
 }

@@ -18,7 +18,7 @@ public class Population {
 
 	public Population () {
 		//when initialized pull starting population from Global Variables
-		currentPopulation = Globals.startPopulation;
+        currentPopulation = Globals.startPopulation;
 		averageHappiness = Globals.startAverageHappiness;
 		averagePercentLifePoints = Globals.startAverageLifePoints;
 		averageHealthiness = Globals.startAverageHealthiness;
@@ -33,13 +33,13 @@ public class Population {
         averageHealthiness = _averageHealthiness;
     }
 	
-	public void Cycle () {
-		Debug.Log ("Entering Population Cycle.");
+	public int Cycle () {
+		//Debug.Log ("Entering Population Cycle.");
 		//people consume food, and if they dont eat, some starve.
-		Debug.Log("Current Population: " + currentPopulation);
+		//Debug.Log("Current Population: " + currentPopulation);
 		//********
 		populationFoodConsumptionAndStarvation();
-		Debug.Log ("populationFoodConsumptionAndStarvation()");
+		//Debug.Log ("populationFoodConsumptionAndStarvation()");
 		//********
 
 		//we need to alter average happiness of population
@@ -52,23 +52,25 @@ public class Population {
 
 
 		//********
-		populationBirthController();
-		Debug.Log ("populationBirthController()");
+		return populationBirthController();
+		//Debug.Log ("populationBirthController()");
 		//********
-		Debug.Log ("Exiting Population Cycle.");
+		//Debug.Log ("Exiting Population Cycle.");
 	}
 
-	public void populationBirthController(){
+	public int populationBirthController(){
 		//surplus food & happiness effect population growth
 		if (!villageIsStarving) {
 			// if population is not starving, then population can grow
 			// currently population can grow by a maximum of 20% each cycle, provided averageHappiness is perfect
 			// if averageHappiness is 0.5f, then maxPercentPopulationIncrease is halved. 
 			int projectedPopulationGrowth = Mathf.CeilToInt(Globals.maxPercentPopulationIncrease * currentPopulation * averageHappiness);
-			currentPopulation = (currentPopulation + projectedPopulationGrowth < Globals.maxPopulation)? currentPopulation += projectedPopulationGrowth: currentPopulation = Globals.maxPopulation;
+            int actualPopGrowth = (currentPopulation + projectedPopulationGrowth < Globals.maxPopulation)? currentPopulation += projectedPopulationGrowth: currentPopulation = Globals.maxPopulation;
+            return actualPopGrowth;
 			Debug.Log ("Population Grows by: " + projectedPopulationGrowth);
 		} else {
 			//village is starving, therefore no one wants to reproduce
+            return 0;
 			Debug.Log("Population is starving, and dont feel like producing offspring");
 		}
 	}

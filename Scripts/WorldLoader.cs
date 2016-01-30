@@ -1,32 +1,65 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WorldLoader : MonoBehaviour {
 
+    List<Vector2> houseTransforms = new List<Vector2>();
 
-    public void Start()
+    public void LoadAll(Population pop,float curHouses)
     {
-        LoadAll();
-    }
-
-    private void LoadAll()
-    {
-        LoadAllHouses();
-        LoadAllPeople();
+        LoadAllHouses(curHouses);
+        LoadAllPeople(pop);
         LoadAllBiomes();
 
     }
 
-    private void LoadAllHouses()
+    private void LoadAllHouses(float amt)
     {
+        foreach (Vector2 spot in houseTransforms)
+            Instantiate(Resources.Load("House"), spot, Quaternion.identity);
 
+        float errorCounts = 0;
+        float extraToCreate = amt - houseTransforms.Count;
+        if (extraToCreate > 0)
+        {
+            Vector2 creationSpot; 
+            RaycastHit2D[] allLeft;
+            RaycastHit2D[] allRight;
+            bool success = false;
+            Debug.Log("extra to create: " + extraToCreate);
+
+            for (int i = 0; i <extraToCreate; ++i)
+            {
+                do
+                {
+                    creationSpot = new Vector2(Random.Range(-Globals.mapRadiusXforHousePlacement, Globals.mapRadiusXforHousePlacement), Random.Range(-Globals.mapRadiusYforHousePlacement, Globals.mapRadiusYforHousePlacement));
+                    allLeft = Physics2D.RaycastAll(creationSpot - new Vector2(-.2f, -.5f), -Vector2.up, 1f);
+                    allRight = Physics2D.RaycastAll(creationSpot - new Vector2(-.2f, -.5f), -Vector2.up, 1f);
+                    if (allLeft.Length > 0 || allRight.Length > 0)
+                    {
+                        success = false;
+                        errorCounts++;
+                    }
+                    else
+                    {
+                        success = true;
+                        GameObject go = Instantiate(Resources.Load("House"), creationSpot, Quaternion.identity) as GameObject;
+                        houseTransforms.Add(go.transform.position);
+                    }
+                    if (errorCounts > 8)
+                    {
+                        Debug.LogError("Surrendered house builds");
+                        break; //it'll build the house next iteration
+                    }
+
+                } while (!success);
+            }
+        }
     }
 
-    private void LoadAllPeople()
+    private void LoadAllPeople(Population pop)
     {
-        //Population pop = GameObject.FindObjectOfType<VillageCenter>().population; //could be a const so not allowed to change it, but 48hr
-        Population pop = DEBUG_CreatePopulation();
-
         float errorCounter = 0;
         float totalError = 0;
         bool recklessPlacement = false;
@@ -65,13 +98,5 @@ public class WorldLoader : MonoBehaviour {
 
     }
 
-    private Population DEBUG_CreatePopulation()
-    {
-        Population pop = new Population();
-        pop.averageHappiness = .8f;
-        pop.averageHealthiness = .8f;
-        pop.averagePercentLifePoints = .8f;
-        return pop;
-
-    }
+    
 }

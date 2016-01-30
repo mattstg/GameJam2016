@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MainRitualScript : MonoBehaviour {
-    public Transform circleCenter;
+    public Transform cauldron; 
 	// Use this for initialization, 
 
     public void Start()
@@ -30,7 +30,7 @@ public class MainRitualScript : MonoBehaviour {
 
     void CreateCircle(int circleLevel)
     {
-        GameObject circle = Instantiate(Resources.Load("PrayerCircle"), circleCenter.position, Quaternion.identity) as GameObject;
+        GameObject circle = Instantiate(Resources.Load("PrayerCircle"), cauldron.position, Quaternion.identity) as GameObject;
         circle.GetComponent<PrayerCircle>().Initialize(circleLevel);
     }
 
@@ -48,13 +48,11 @@ public class MainRitualScript : MonoBehaviour {
             {
                 while (!success)
                 {
-                    Debug.Log("1");
                     float xSpot = Random.RandomRange(-range, range);
                     float ySpot = Random.RandomRange(-range, range);
                     RaycastHit2D[] allHit = Physics2D.RaycastAll(new Vector2(xSpot,ySpot), -Vector2.up,0);
                     if (allHit.Length == 0)
                     {
-                        Debug.Log("2");
                         success = true;
                         CreateItemPile(new Vector2(xSpot,ySpot),kv.Key, kv.Value);
                     }
@@ -92,6 +90,12 @@ public class MainRitualScript : MonoBehaviour {
             GameObject go = Instantiate(Resources.Load("PhysIngredient"), new Vector2(location.x + Random.Range(-.6f,.3f),location.y + Random.Range(-.3f,.3f)), Quaternion.identity) as GameObject;
             go.GetComponent<PhysicalIngredient>().InitializeIngredient(itemtype);
         }
+    }
+
+    public void BeginRitual()
+    {
+        cauldron.GetComponent<Cauldron>().CreateEvent();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("VillageMap");
     }
 }
 

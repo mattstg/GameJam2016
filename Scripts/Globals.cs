@@ -8,7 +8,7 @@ public class Globals : MonoBehaviour {
 	public static float percentGivenToWitch = 0.1f; 
 	public static int startPopulation = 30; 
 	public static float startAverageHappiness = 0.7f; //range from 0 - 1 (0 being very sad, 1 being very happy)
-	public static float startAverageHealthiness = 0.7f; //range 0 - 1 (0 being very ill, 1 being very well)
+	public static float startAverageHealthiness = 0.7f; //.7  range 0 - 1 (0 being very ill, 1 being very well)
 	public static float startAverageLifePoints = 0.9f; //range 0 - 1 (0 being dead, 1 being full Life Points)
 	public static int maximumVillagerHealthPoints = 10;
 	public static float residentsPerHouse = 5; //can function with fractions
@@ -27,12 +27,14 @@ public class Globals : MonoBehaviour {
     public static float PopulationMutationRate = .2f;
     public static float mapRadiusY = 4;
     public static float mapRadiusX = 7;
+    public static float mapRadiusYforHousePlacement = 4;
+    public static float mapRadiusXforHousePlacement = 4;
     public static float contentThreshold = .8f; //a villager at 80% happy is content
-    public static float contentExcessMultiplier = 1f; //per point one, gain point one
+    public static float contentExcessMultiplier = .5f; //per point one, gain point one
     public static float bonusHpPerHealthinessExcessMultiplier = .5f; //per point over hp, lose
     public static float healthinessContent = .8f; //per point over hp, lose
     public static readonly float valueOfGoodHealth = .8f; //If you are point .8f, you lose no hp
-    public static readonly float healthyLossDueToIllness = 10f; //you lose this much hp per 1 illness  (so 1 per .1)
+    public static readonly float healthyLossDueToIllness = 1f; //you lose this much hp per 1 illness  (so 1 per .1)
     public static readonly float lengthOfScenario = 5f;
     private static readonly float villagerUpdateCyclesPerScenario = 2;
     public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;

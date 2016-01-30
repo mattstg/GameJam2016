@@ -40,7 +40,7 @@ public class Villager : MonoBehaviour {
         }
         Wander(dt);
     }
-
+    
     private void UpdateHealthiness()
     {
         healthiness += (healthiness - Globals.valueOfGoodHealth) * Globals.healthyLossDueToIllness;
@@ -50,9 +50,11 @@ public class Villager : MonoBehaviour {
 
     private void UpdateHappiness()
     {
-        float hpBonus = (hp - hp * Globals.contentThreshold) * Globals.contentExcessMultiplier;
-        float healthyBonus = (healthiness - healthiness * Globals.contentThreshold) * Globals.contentExcessMultiplier;
+        float hpBonus = (hp - Globals.contentThreshold) * Globals.contentExcessMultiplier;
+        float healthyBonus = (healthiness - Globals.contentThreshold) * Globals.contentExcessMultiplier;
+        //Debug.Log("hp bonus: " + hpBonus + ", plus health bonus: " + healthyBonus + ", happiness now: " + happiness);
         happiness += hpBonus + healthyBonus;
+        //Debug.Log("happiness after bonus applied: " + happiness);
         happiness = limit(happiness);
     }
 
