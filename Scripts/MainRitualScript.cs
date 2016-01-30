@@ -4,11 +4,6 @@ using System.Collections;
 public class MainRitualScript : MonoBehaviour {
     public Transform circleCenter;
 	// Use this for initialization, 
-    public void Start()
-    { //{ 6, 12, 16, 18 };
-        //CreateChoirCircles(36);
-
-    }
 
     void CreateChoirCircles(float pop)
     {
