@@ -39,6 +39,10 @@ public class Globals : MonoBehaviour {
     private static readonly float villagerUpdateCyclesPerScenario = 2;
     public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;
 
+	//******************************* Event Globals
+	public static float eventDecay = 0.15f; //percent decay every Time.delta
+	public static float eventSwerveVariance = 0.5f; //max percent direction change on x and y place for event movement
+	public static float minimumPower = 0.5f;
     
 
     public enum worshipperStates { Dance, Chant, COUNT };
@@ -48,7 +52,6 @@ public class Globals : MonoBehaviour {
 	public static int numberOfProduct = 18;
 	public static int[] foodTypeProduce = {6,7,8,9,10,12};
 	public static int[] herbTypeProduce = {0,2,4,14,15};
-	//public static int[] buildingTypeProduce = { 1, 16 }; 
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;
