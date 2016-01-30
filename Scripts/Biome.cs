@@ -5,11 +5,9 @@ public class Biome : MonoBehaviour {
 	public VillageCenter center;
 
 	//has some stuff it produces
-	//can be collided with by events
-	public enum product {Elk, Wood, Daisy, Rot, StinkWeed, Frog, Potatoe, Carrot, Bean, Cow, Chicken, Manure,
-	Fish, Seaweed, WaterLilly, MountainHerb, Silver, Gold};
 
-	public product[] resources = new product[3];
+
+	public Globals.product[] resources = new Globals.product[3];
 
 	//A productivity for each of the three resources
 	public float[] productivityOfResources = new float[3];
@@ -38,10 +36,12 @@ public class Biome : MonoBehaviour {
 		return Mathf.FloorToInt(center.population * Globals.populationProductivityBonus * productivity * Globals.biomeProductivityCoefficient);
 	}
 		
-	public void giveResourceToVillage(product resource, int amount){
+	public void giveResourceToVillage(Globals.product resource, int amount){
 		center.addResourceToStorage (resource, amount);
 	}
 
-	virtual public void isCollidedWith(){ 	}
+	virtual public void isCollidedWith(){ 
+		//nothing yet	
+	}
 	//inputs event type and somehow interprets 
 }

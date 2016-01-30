@@ -5,15 +5,15 @@ using System.Collections.Generic;
 public class WitchHut : MonoBehaviour {
 	public VillageCenter linkToVillageCenter;
 
-	public Dictionary<Biome.product,int> witchsCoffer;
+	public Dictionary<Globals.product,int> witchsCoffer;
 	public void startStorage(){
 		//should initialize the start state of the Resource Storage System
-		witchsCoffer.Add(Biome.product.Silver, 2);
-		witchsCoffer.Add(Biome.product.Seaweed, 3);
-		witchsCoffer.Add(Biome.product.Manure, 5);
-		witchsCoffer.Add(Biome.product.Gold, 1);
-		witchsCoffer.Add(Biome.product.Daisy, 5);
-		witchsCoffer.Add(Biome.product.Wood, 5);
+		witchsCoffer.Add(Globals.product.Silver, 2);
+		witchsCoffer.Add(Globals.product.Seaweed, 3);
+		witchsCoffer.Add(Globals.product.Manure, 5);
+		witchsCoffer.Add(Globals.product.Gold, 1);
+		witchsCoffer.Add(Globals.product.Daisy, 5);
+		witchsCoffer.Add(Globals.product.Wood, 5);
 	}
 
 	// Use this for initialization
@@ -21,7 +21,7 @@ public class WitchHut : MonoBehaviour {
 		startStorage ();
 	}
 
-	public void addToWitchsCoffer(Biome.product resource, int amount){
+	public void addToWitchsCoffer(Globals.product resource, int amount){
 		//will add amount passed into witch's coffer
 		if (!witchsCoffer.ContainsKey (resource)) {
 			//then we need to initialize it first with amount we want to add!
@@ -32,7 +32,7 @@ public class WitchHut : MonoBehaviour {
 		}
 	}
 
-	public bool removeFromWitchsCoffer(Biome.product resource, int amount){
+	public bool removeFromWitchsCoffer(Globals.product resource, int amount){
 		//check first if resource has amount in storage
 		if (witchsCoffer.ContainsKey (resource) && witchsCoffer [resource] > amount) {
 			//then we have enough to take the amount we want of said resource
@@ -47,7 +47,7 @@ public class WitchHut : MonoBehaviour {
 		}
 	}
 
-	public void giveResourceBackToVillageCenter(Biome.product resource, int amount){
+	public void giveResourceBackToVillageCenter(Globals.product resource, int amount){
 		//checking if we have enough of said resource to give
 		if (removeFromWitchsCoffer (resource, amount)) {
 			linkToVillageCenter.addResourceToStorage (resource, amount);
