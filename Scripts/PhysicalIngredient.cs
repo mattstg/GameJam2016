@@ -6,11 +6,6 @@ public class PhysicalIngredient : MonoBehaviour {
 	//Ingredient carried by which
     Globals.product ingredient;
 
-    public void Start()
-    {
-        DEBUG_CreateDefault();
-    }
-
     public void InitializeIngredient(Globals.product _ingredient)
     {
         ingredient = _ingredient;
@@ -32,11 +27,6 @@ public class PhysicalIngredient : MonoBehaviour {
     public Globals.product getIngredient()
     {
         return ingredient;
-    }
-
-    public void DEBUG_CreateDefault()
-    {
-        InitializeIngredient(Globals.product.Bean);
     }
 
     public void Dropped()

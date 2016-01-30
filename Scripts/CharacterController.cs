@@ -28,6 +28,8 @@ public class CharacterController : MonoBehaviour {
                 DropIngredient();
             else
                 Interact();
+        if (Input.GetKeyDown(KeyCode.Q))
+            IssueChoirCommand();
 	}
 
     void HandleMovement(float deltaTime)
@@ -41,7 +43,6 @@ public class CharacterController : MonoBehaviour {
              moveDir += new Vector2(characterSpeed * deltaTime, 0);
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
              moveDir += new Vector2(0,-characterSpeed * deltaTime);
-
         if(moveDir != new Vector2(0,0))
          Move(moveDir);
     }
@@ -60,6 +61,20 @@ public class CharacterController : MonoBehaviour {
        physIngr.GetComponent<BoxCollider2D>().enabled = true;
        physIngr.Dropped();
        physIngr = null;
+    }
+
+    void IssueChoirCommand()
+    {
+        RaycastHit2D[] allHit = Physics2D.RaycastAll(transform.position, -Vector2.up);
+        {
+            foreach(RaycastHit2D hit in allHit)
+            {
+                if (hit.transform.CompareTag("Choir"))
+                {
+                    hit.transform.gameObject.GetComponent<PrayerCircle>().ChangeWorshipperState();
+                }
+            }
+        }
     }
 
     void Interact()
@@ -85,9 +100,5 @@ public class CharacterController : MonoBehaviour {
         physIngr.transform.localPosition = new Vector2(0, .16f);
     }
 
-    void CommunicateToChoir()
-    {
-        Debug.Log("Talk to choir");
-    }
     
 }

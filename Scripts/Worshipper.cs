@@ -22,6 +22,9 @@ public class Worshipper : MonoBehaviour {
             case Globals.worshipperStates.Dance:
                 MoveAroundCircle(deltaTime);
                 break;
+            case Globals.worshipperStates.Chant:
+                Debug.Log("hoooooom");
+                break;
             default:
                 Debug.LogError("Not handled worshipper state: " + currentState);
                 break;
@@ -32,6 +35,13 @@ public class Worshipper : MonoBehaviour {
     {
         currentDegree += rotationSpeed * deltaTime;
         transform.position = new Vector2(distanceFromCenter * Mathf.Cos(Mathf.PI * currentDegree / 180), distanceFromCenter * Mathf.Sin(Mathf.PI * currentDegree / 180));
+    }
+
+    public void ChangeState()
+    {
+        int curState = (int)currentState;
+        curState = (curState + 1) % (int)Globals.worshipperStates.COUNT;
+        currentState = (Globals.worshipperStates)curState;
     }
 	
 }

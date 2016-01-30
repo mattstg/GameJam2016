@@ -38,7 +38,7 @@ public class VillageCenter : MonoBehaviour {
 			biomes [counter].biomeType = (Globals.biome)counter;
 			biomes [counter].center = this;
 		}
-		witchLink = new WitchHut ();
+		witchLink = WitchHut.Instance;
 		witchLink.linkToVillageCenter = this;
 	}
 
