@@ -6,6 +6,10 @@ public class Villager : MonoBehaviour {
     float hp; //range from 0 - 1 (is multiplied by Globals.maximumVillagerHealthPoints)
     float happiness; //range from 0 - 1
     float healthiness; //range from 0 - 
+    float speed = .5f;
+    float counter = 0;
+    Vector2 moveDir = new Vector2(0, 0);
+    
 
     public void Initialize(float _hp, float _happiness, float _healthiness)
     {
@@ -14,12 +18,26 @@ public class Villager : MonoBehaviour {
         healthiness = _healthiness + Random.Range(-Globals.PopulationMutationRate, Globals.PopulationMutationRate);
         if (hp <= 0)
             hp = .1f;
+        float moveX = (Random.Range(-1f, 1f) * speed);
+        float moveY = (Random.Range(-1f, 1f) * speed);
+        moveDir = new Vector2(moveX, moveY);
     }
 
-    public void UpdateCycle()
+    public void Update()
     {
-        UpdateHp();
-        UpdateHappiness();
+        float dt = Time.deltaTime;
+        counter += dt;
+        if (counter >= Globals.villageUpdateCounterMax - .5f)
+        {
+            Debug.Log("hpns");
+            float moveX = (Random.Range(-1f, 1f) * speed);
+            float moveY = (Random.Range(-1f, 1f) * speed);
+            moveDir = new Vector2(moveX, moveY);
+            counter = 0;
+            UpdateHp();
+            UpdateHappiness();
+        }
+        Wander(dt);
     }
 
     private void UpdateHappiness()
@@ -41,5 +59,10 @@ public class Villager : MonoBehaviour {
             Debug.Log("Is dealing with an event");
         }
 
+    }
+
+    public void Wander(float dt)
+    {
+        GetComponent<Rigidbody2D>().MovePosition(Globals.AddVec(transform.position, moveDir * dt * speed)); ///why at center
     }
 }

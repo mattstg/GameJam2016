@@ -26,12 +26,17 @@ public class Globals : MonoBehaviour {
     public static float ItemPlacementRangeGrowth = 1;
 	public static int minimumTaxableAmountOfProduce = 8;
     public static float PopulationMutationRate = .2f;
-    public static float mapRadiusY = 6;
-    public static float mapRadiusX = 6;
+    public static float mapRadiusY = 4;
+    public static float mapRadiusX = 7;
     public static float contentThreshold = .8f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = 1f; //per point one, gain point one
     public static float healthinessExcessMultiplier = .5f; //per point over hp, lose
     public static float healthinessContent = 1f; //per point over hp, lose
+    public static readonly float lengthOfScenario = 20f;
+    private static readonly float villagerUpdateCyclesPerScenario = 5;
+    public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;
+
+    
 
     public enum worshipperStates { Dance, Chant, COUNT };
 
@@ -52,4 +57,9 @@ public class Globals : MonoBehaviour {
 		}
 		return toRet;
 	}
+
+    public static Vector2 AddVec(Vector3 v1,Vector2 v2)
+    {
+        return new Vector2(v1.x + v2.x, v1.y + v2.y);
+    }
 }
