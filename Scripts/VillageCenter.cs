@@ -16,10 +16,6 @@ public class VillageCenter : MonoBehaviour {
 			toggler = true;
 			Cycle ();
 		}
-		if (availableFoodToggler == false) {
-			Debug.Log ("Globals.foodTypeProduce.Length:" + Globals.foodTypeProduce.Length);
-			availableFoodToggler = true;
-		}
 	}
 
 	//WORKING VARIABLES & INFORMATIVE VARIABLES
@@ -106,23 +102,24 @@ public class VillageCenter : MonoBehaviour {
 
 	public void giveResourcesToWitch(){
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
-		foreach(KeyValuePair<Globals.product, int> resourcesStored in resourceStorage){
-			Debug.Log ("TestTestTest!!!");
-			//global variable percentGivenToWitch is used to calculate amount given
-			int amountToGive = Mathf.FloorToInt(resourcesStored.Value * Globals.percentGivenToWitch);
-			Debug.Log ("resources subtracted: " + amountToGive);
-			//need to subtract amoulnt given from resourceStorage
+		for(int counter = 0; counter < resourceStorage.Count; counter++){
+			//if resource is 0, then we dont care about it
+			if (resourceStorage.ElementAt (counter).Value < Globals.minimumTaxableAmountOfProduce) {
+				//global variable percentGivenToWitch is used to calculate amount given
+				int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt (counter).Value * Globals.percentGivenToWitch);
+				Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
+				//need to subtract amoulnt given from resourceStorage
 
-			/***********************************************
-			if(subtractResourceFromStorage(resourcesStored.Key, amountToGive)){
-				Debug.Log ("about to add to Witch's coffer");
-				//need to actually give amounts to witch
-				witchLink.addToWitchsCoffer(resourcesStored.Key, amountToGive);
-				Debug.Log ("after to add to witch's coffer.");
-			}else{
-				//we dont have enough to give, therefore do not take from storage or give to witch
-				Debug.Log("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
-			}***********************************************/
+				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
+					Debug.Log ("resourceStorage.ElementAt(counter).Key" + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);
+					//need to actually give amounts to witch
+					witchLink.addToWitchsCoffer (resourceStorage.ElementAt (counter).Key, amountToGive);
+					//Debug.Log ("after to add to witch's coffer.");
+				} else {
+					//we dont have enough to give, therefore do not take from storage or give to witch
+					Debug.Log ("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
+				}
+			}
 		}
 	}
 

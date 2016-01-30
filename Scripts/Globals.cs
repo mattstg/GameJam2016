@@ -24,11 +24,13 @@ public class Globals : MonoBehaviour {
     public static int[] PeoplePerCircleLevel = { 6, 12, 16, 18 };
     public static float ItemPlacementRange = 6;
     public static float ItemPlacementRangeGrowth = 1;
+	public static int minimumTaxableAmountOfProduce = 8;
 
     public enum worshipperStates { Dance, Chant, COUNT };
 
 	public enum product {Mushrooms = 0, Wood = 1, Daisy = 2, Rot = 3, StinkWeed = 4, Frog = 5, Potatoe = 6, Carrot = 7, Bean = 8, Cow = 9, Chicken = 10, Manure = 11,
 		Fish = 12, Seaweed = 13, WaterLilly = 14, MountainHerb = 15, Stone = 16, Gold = 17};
+	public static int numberOfProduct = 18;
 	public static int[] foodTypeProduce = {6,7,8,9,10,12};
 	public static int[] herbTypeProduce = {0,2,4,14,15};
 	//public static int[] buildingTypeProduce = { 1, 16 }; 
