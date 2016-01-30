@@ -29,7 +29,10 @@ public class VillageCenter : MonoBehaviour {
 		for (int counter = 0; counter < biomes.Length; counter++) {
 			biomes [counter] = new Biome();
 			biomes [counter].biomeType = (Globals.biome)counter;
+			biomes [counter].center = this;
 		}
+		witchLink = new WitchHut ();
+		witchLink.linkToVillageCenter = this;
 	}
 
 	void Cycle(){
@@ -79,6 +82,7 @@ public class VillageCenter : MonoBehaviour {
 				witchLink.addToWitchsCoffer(resourcesStored.Key, amountToGive);
 			}else{
 				//we dont have enough to give, therefore do not take from storage or give to witch
+				Debug.Log("Error: attempting to give resources from VillageCenter to WitchCoffer, when none of said resource is stored in VillageCenter.");
 			}
 		}
 	}
