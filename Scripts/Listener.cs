@@ -4,16 +4,22 @@ using System.Collections.Generic;
 
 public class Listener  {
     Dictionary<string, float> valueDifference; //Stores percent difference since last value
+	List<string> eventsToAnnounce;
 
     public Listener()
     {
         valueDifference = new Dictionary<string, float>();
+		eventsToAnnounce = new List<string> ();
     }
 
     public void RecordValue(string name, float oldValue, float newValue)
     {
         valueDifference.Add(name, newValue / oldValue);
     }
+
+	public void RecordString(string stringToRec){
+		eventsToAnnounce.Add (stringToRec);
+	}
 
     public void RecordInitialBiomeHp(string name, float value)
     {
@@ -43,11 +49,12 @@ public class Listener  {
                 toReturn.Add(kv.Key + " has " + relation + " to " + kv.Value*100 + " % of it's value");
             } 
         }
-        return toReturn;
+		return toReturn.AddRange(eventsToAnnounce);
     }
 
     public void ClearList()
     {
         valueDifference.Clear();
+		eventsToAnnounce.Clear ();
     }
 }

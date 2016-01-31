@@ -33,6 +33,9 @@ public class Globals : MonoBehaviour {
     public static float mapRadiusXforHousePlacement = 4;
     public static float contentThreshold = .7f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = .5f; //per .1 pass threshold, be affected by .05
+
+	public static float basePower = 5f;
+	public static float powerIncremenetPerDay = 1f;
     
     public static readonly float lengthOfScenario = 20f;
     private static readonly float villagerUpdateCyclesPerScenario = 2;
@@ -40,8 +43,11 @@ public class Globals : MonoBehaviour {
 
 	//******************************* Event Globals
 	public static float eventDecay = 0.15f; //percent decay every Time.delta
+
+	//for Villain
 	public static float eventSwerveVariance = 0.5f; //max percent direction change on x and y place for event movement
 	public static float minimumPower = 0.5f;
+	public static int daysBetweenEventSpawn = 2;
     
 
     public enum worshipperStates { Dance, Chant, COUNT };
