@@ -233,9 +233,10 @@ public class VillageCenter : MonoBehaviour {
 
 
 		Villain.Instance.incrementDay();
-		if (Villain.Instance.willSpawnEventToday == true)
+		if (Villain.Instance.willSpawnEventTomorrow == true) {
 			Debug.Log ("Telling Villain to spawn Event.");
-			Villain.Instance.createEventFromBluePrint(); // just need him created
+			Villain.Instance.createEventFromBluePrint ();
+		}// just need him created
     }
 
     public void BiomeModHp(int bioNumber, float amt)

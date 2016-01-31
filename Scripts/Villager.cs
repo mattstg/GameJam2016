@@ -71,6 +71,8 @@ public class Villager : MonoBehaviour {
         Globals.limit(ref healthiness,0,1);
         CheckSickness();
         Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
+
+        //Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
     }
 
     public void TakePlagueDamage()
