@@ -50,13 +50,13 @@ public class CharacterController : MonoBehaviour {
 			if(moveDir.x > 0 && !facingDirection){ //so facing right
 				facingDirection = true;
 				Vector3 temp = transform.localScale;
-				temp *= -1;
+				temp.x = temp.x * -1;
 				transform.localScale = temp;
 			}
 			if(moveDir.x < 0 && facingDirection){ //so facing left
 				facingDirection = false;
 				Vector3 temp = transform.localScale;
-				temp *= -1;
+				temp.x = temp.x * -1;
 				transform.localScale = temp;
 			}
 		}  
