@@ -85,7 +85,7 @@ public class Villager : MonoBehaviour {
         return value;
     }
 
-    private float CheckSickness()
+    private void CheckSickness()
     {
         if (!dropsUnderPlagueThreshold && healthiness < Globals.plagueThreshold)
         {
@@ -93,11 +93,12 @@ public class Villager : MonoBehaviour {
             if (Random.Range(0, 1f) < Globals.plagueChanceOfInfection)
             {
                 gameObject.AddComponent<Plague>();
-
-                
+                GameObject plagueObject = Instantiate(Resources.Load("Plague")) as GameObject;
+                plagueObject.transform.SetParent(transform);
+                plagueObject.transform.localPosition = new Vector2(0, 0);
+                GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordString(" a plague is spreading!");
             }
         }
-        return 0;
     }
 
    

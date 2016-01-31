@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Listener  {
     Dictionary<string, float> valueDifference; //Stores percent difference since last value
+    Dictionary<string, int> reoccuringMessages;
     List<string> eventsToAnnounce;
     enum mood { dire, bad, okay, good, great }
 
@@ -11,12 +12,21 @@ public class Listener  {
     {
         valueDifference = new Dictionary<string, float>();
         eventsToAnnounce = new List<string>();
+        reoccuringMessages = new Dictionary<string, int>();
     }
 
     public void RecordString(string stringToRec)
     {
 		Debug.Log ("In Listener, recording string " + stringToRec);
         eventsToAnnounce.Add(stringToRec);
+    }
+
+    public void RecordStringWithCountNumber(string stringToRec)
+    {
+        if (reoccuringMessages.ContainsKey(stringToRec))
+            reoccuringMessages[stringToRec]++;
+        else
+            reoccuringMessages.Add(stringToRec,1);
     }
 
 
@@ -60,6 +70,12 @@ public class Listener  {
 		}
 		Debug.Log ("Events to announce being added to Listener List:" + temp);
         toReturn.AddRange(eventsToAnnounce);
+        foreach (KeyValuePair<string, int> kv in reoccuringMessages)
+        {
+            string pronoun = (kv.Value == 1)?"person":"people";
+            toReturn.Add(kv.Value + " " + pronoun + " have reported that " + kv.Key);
+
+        }
         return toReturn;
     }
 
