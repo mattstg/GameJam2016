@@ -48,12 +48,16 @@ public class CharacterController : MonoBehaviour {
 		if (moveDir != new Vector2 (0, 0)) {
 			Move(moveDir);
 			if(moveDir.x > 0 && !facingDirection){ //so facing right
-				facingDirection == true;
-				transform.localScale.x *= -1;
+				facingDirection = true;
+				Vector3 temp = transform.localScale;
+				temp *= -1;
+				transform.localScale = temp;
 			}
 			if(moveDir.x < 0 && facingDirection){ //so facing left
-				facingDirection == false;
-				transform.localScale.x *= -1;
+				facingDirection = false;
+				Vector3 temp = transform.localScale;
+				temp *= -1;
+				transform.localScale = temp;
 			}
 		}  
     }
