@@ -11,6 +11,7 @@ public class Villain{
 		{
 			if (instance == null)
 			{
+				Debug.Log ("MAKING VILLAIN.");
 				instance = new Villain();
 			}
 			return instance;
@@ -36,6 +37,7 @@ public class Villain{
 
 	public void incrementDay(){
 		day++;
+		Debug.Log ("Day: " + day + ".");
 		power += Globals.powerIncremenetPerDay;
 		if (day % Globals.daysBetweenEventSpawn == 0) {
 			createEventBluePrint ();
@@ -43,6 +45,7 @@ public class Villain{
 			GameObject.FindObjectOfType<VillageCenter> ().TheListener.RecordString(eventDescription);
 		} else {
 			willSpawnEventToday = false;
+			eventDescription = "";
 		}
 	}
 
@@ -53,6 +56,7 @@ public class Villain{
 		}
 		EventDescriber eventManipulator = new EventDescriber (bluePrintForEvent);
 		eventDescription = eventManipulator.OutputStringRepresentingEvent();
+		Debug.Log ("New Event Description: " + eventDescription);
 		return eventDescription;
 	}
 

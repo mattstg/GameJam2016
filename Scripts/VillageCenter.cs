@@ -72,6 +72,8 @@ public class VillageCenter : MonoBehaviour {
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
 		//Debug.Log ("About to Cycle Biomes.");
+		Villain.Instance.incrementDay();
+
 		foreach (Biome biome in biomes){
 			biome.Cycle(); //this calculates the produce and adds it to village store
 		}
@@ -235,7 +237,7 @@ public class VillageCenter : MonoBehaviour {
         GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
         foreach (Biome bi in biomes)
             TheListener.RecordInitialBiomeHp(bi.biomeType.ToString(), bi.health);
-		Villain.Instance.createEventFromBluePrint();
+		Villain.Instance.ToString (); // just need him created
     }
 
     public void BiomeModHp(int bioNumber, float amt)

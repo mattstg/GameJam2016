@@ -84,6 +84,7 @@ public class EventFactory : MonoBehaviour
 			randomDict.Add ((Globals.energyTypes)c, bluePrint [c]);
 		}
 		//x range {-15 --> 15} y range {8 --> -8}
+		Debug.Log("Event has been created via random method.");
 		return CreateEvent (new Vector2(Random.Range(-15,15), Random.Range(8,-8)), randomDict);
 	}
 
@@ -94,6 +95,7 @@ public class EventFactory : MonoBehaviour
 			randomDict.Add ((Globals.energyTypes)c, bluePrint [c]);
 		}
 		//x range {-15 --> 15} y range {8 --> -8}
+		Debug.Log("Event has been created via float method.");
 		return CreateEvent (new Vector2(Random.Range(-15,15), Random.Range(8,-8)), randomDict);
 	}
 }

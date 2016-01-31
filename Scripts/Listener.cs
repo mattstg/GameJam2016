@@ -15,6 +15,7 @@ public class Listener  {
 
     public void RecordString(string stringToRec)
     {
+		Debug.Log ("In Listener, recording string " + stringToRec);
         eventsToAnnounce.Add(stringToRec);
     }
 
@@ -53,6 +54,11 @@ public class Listener  {
                 toReturn.Add(kv.Key + " has " + relation + " to " + kv.Value*100 + " % of it's value");
             } 
         }
+		string temp = "";
+		foreach (string s in eventsToAnnounce) {
+			temp += s;
+		}
+		Debug.Log ("Events to announce being added to Listener List:" + temp);
         toReturn.AddRange(eventsToAnnounce);
         return toReturn;
     }
