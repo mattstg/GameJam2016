@@ -68,7 +68,7 @@ public class Villager : MonoBehaviour {
         Globals.limit(ref happiness,0,1);
         Globals.limit(ref healthiness,0,1);
 
-        Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
+        //Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
     }
 
     public void Wander(float dt)

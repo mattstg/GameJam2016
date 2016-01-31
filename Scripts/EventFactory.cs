@@ -43,7 +43,7 @@ public class EventFactory : MonoBehaviour{
        evBrain.Initialize(subtypeEnergy);
 	   
 		string descriptionOfEvent = new EventDescriber (tempArr).OutputStringRepresentingEvent();
-		GameObject.FindObjectOfType<VillageCenter> ().TheListener.RecordString (descriptionOfEvent);
+		//GameObject.FindObjectOfType<VillageCenter> ().TheListener.RecordString (descriptionOfEvent);
 
 		//EventDescriber temp = new EventDescriber ();
 		return descriptionOfEvent;

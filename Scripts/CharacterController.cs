@@ -9,11 +9,13 @@ public class CharacterController : MonoBehaviour {
     public Cauldron cauldron;
     Rigidbody2D rigidbody2D;
     PhysicalIngredient physIngr;
+	bool facingDirection;
 
     public void Start()
     {
         fowardVector = new Vector2(-1, 0);
         rigidbody2D = GetComponent<Rigidbody2D>();
+		bool faceingDirection = false;
     }
 	
 	// Update is called once per frame
@@ -43,8 +45,17 @@ public class CharacterController : MonoBehaviour {
              moveDir += new Vector2(characterSpeed * deltaTime, 0);
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
              moveDir += new Vector2(0,-characterSpeed * deltaTime);
-        if(moveDir != new Vector2(0,0))
-         Move(moveDir);
+		if (moveDir != new Vector2 (0, 0)) {
+			Move(moveDir);
+			if(moveDir.x > 0 && !facingDirection){ //so facing right
+				facingDirection == true;
+				transform.localScale.x *= -1;
+			}
+			if(moveDir.x < 0 && facingDirection){ //so facing left
+				facingDirection == false;
+				transform.localScale.x *= -1;
+			}
+		}  
     }
 
     void Move(Vector2 moveDir)
