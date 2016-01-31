@@ -138,7 +138,9 @@ public class Population {
 			//so, some percent of population went without food, and so some should die	
 			//currentPopulation is culled by peopleWhoWentWithoutFood * %whoDieWhenStarving
 			int foodShortage = desiredAmountOfFood - currentAvailableFood;
-			killPopulation(Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie));
+            int amountToDie = Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie);
+            GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordString(amountToDie + " have died from starvation");
+			killPopulation(amountToDie);
 		}
 	}
 

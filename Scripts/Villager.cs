@@ -78,7 +78,9 @@ public class Villager : MonoBehaviour {
         //by touching a plague person, you have 50% of infection chance to catch it, 200% if your below the threshold
         float valueToBeat = (healthiness>= Globals.plagueThreshold)?Globals.plagueChanceOfInfection/2:Globals.plagueChanceOfInfection*2;
         if (Random.Range(0, 1f) < valueToBeat)
-                GetPlague();
+            GetPlague();
+        else
+            healthiness *= .9f;
     }
 
     public void Wander(float dt)
@@ -103,6 +105,12 @@ public class Villager : MonoBehaviour {
             if (Random.Range(0, 1f) < Globals.plagueChanceOfInfection)
                 GetPlague();
         }
+        if((GetComponent<Plague>() && healthiness > Globals.plagueThreshold*1.5f) || healthiness > .9f)
+        {
+            Destroy(GetComponent<Plague>().gameObject);
+             GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordStringWithCountNumber(" being cured by of plague!");
+        }
+        
     }
 
     private void GetPlague()
