@@ -6,10 +6,12 @@ public class Listener  {
     Dictionary<string, float> valueDifference; //Stores percent difference since last value
     Dictionary<string, int> reoccuringMessages;
     List<string> eventsToAnnounce;
+    Dictionary<Globals.product, int> profit;
     enum mood { dire, bad, okay, good, great }
 
     public Listener()
     {
+        profit = new Dictionary<Globals.product, int>();
         valueDifference = new Dictionary<string, float>();
         eventsToAnnounce = new List<string>();
         reoccuringMessages = new Dictionary<string, int>();
@@ -29,6 +31,14 @@ public class Listener  {
             reoccuringMessages.Add(stringToRec,1);
     }
 
+    public void TallyIncomingGoods(Globals.product prod,int amt)
+    {
+        if (profit.ContainsKey(prod))
+            profit[prod] += amt;
+        else
+            profit.Add(prod, amt);
+
+    }
 
     public void RecordValue(string name, float oldValue, float newValue)
     {
@@ -75,12 +85,23 @@ public class Listener  {
             string pronoun = (kv.Value == 1)?"person":"people";
             toReturn.Add(kv.Value + " " + pronoun + " have reported that " + kv.Key);
         }
+        string profitTally = "You have made ";
+        foreach (KeyValuePair<Globals.product, int> kv in profit)
+        {
+            profitTally += kv.Value + " " + kv.Key + ", ";
+        }
+        profitTally += " from the townspeople.";
+        toReturn.Add(profitTally);
+
+
         return toReturn;
     }
 
     public void ClearList()
     {
+        reoccuringMessages.Clear();
         valueDifference.Clear();
         eventsToAnnounce.Clear();
+        profit.Clear();
     }
 }

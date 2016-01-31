@@ -138,6 +138,7 @@ public class VillageCenter : MonoBehaviour {
 				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
 					//Debug.Log ("resourceStorage.ElementAt(counter).Key  " + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);
 					//need to actually give amounts to witch
+                    GameObject.FindObjectOfType<VillageCenter>().TheListener.TallyIncomingGoods(resourceStorage.ElementAt (counter).Key,amountToGive);
 					witchLink.addToWitchsCoffer (resourceStorage.ElementAt (counter).Key, amountToGive);
 					//Debug.Log ("after to add to witch's coffer.");
 				} else {
