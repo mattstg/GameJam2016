@@ -174,14 +174,30 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateAuraEvent(auraType _auraType)
     {
-        
+        int kids = (int)(totalPower / 10);
+        GameObject go = Instantiate(Resources.Load("SpellEvents/AuraEvent"), this.transform.position, Quaternion.identity) as GameObject;
+        go.transform.SetParent(this.transform);
+        go.transform.localPosition = new Vector2(0, 0);
+        go.GetComponent<AuraEvent>().ParentSubOrbs(kids);
+
+        if (_auraType == auraType.Light)
+            CreateLightEvent();
+        else
+            CreateDarkEvent();
     }
 
+    private void CreateLightEvent()
+    {
+
+    }
+    private void CreateDarkEvent()
+    {
+        GetComponentInChildren<AuraEvent>().ColorKidsBlack();
+    }
 
     private void CreateStorm(stormType _stormType)
     {
         float stormsToMake = totalPower/10f;
-        Debug.Log("power at storms to make: " + totalPower);
         stormsToMake = (stormsToMake<1)?1:stormsToMake;
         for(int i = 0; i < stormsToMake; ++i)
         {

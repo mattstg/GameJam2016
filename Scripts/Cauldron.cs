@@ -36,4 +36,15 @@ public class Cauldron : MonoBehaviour {
         WitchHut.Instance.RemoveFromWitchesCoffer(itemsAdded);
         itemsAdded = new Dictionary<Globals.product, int>();
     }
+
+    public void DEBUG_AddIngredient(Element e)
+    {
+        if(itemsAdded.Count == 0)
+            itemsAdded.Add(Globals.product.Bean, 1);
+        if (!energyStored.ContainsKey(e.energyType))
+            energyStored.Add(e.energyType, e.power);
+        else
+            energyStored[e.energyType] += e.power;
+        Debug.Log("energyType: " + e.energyType + " has " + energyStored[e.energyType] + " stored in qualdron");
+    }
 }

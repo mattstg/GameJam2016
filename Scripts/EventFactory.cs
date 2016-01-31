@@ -31,7 +31,7 @@ public class EventFactory : MonoBehaviour
            energyStored.Add(kv.Key, kv.Value);
        }
        Dictionary<Globals.energySubTypes, float> subtypeEnergy = SeperateIntoSubtypes(energyStored);
-       
+       Debug.Log("here");
        //Now make event!
        EventBrain evBrain = (Instantiate(Resources.Load("EventPrefab"), mousePos, Quaternion.identity) as GameObject).GetComponent<EventBrain>();
        evBrain.Initialize(subtypeEnergy);

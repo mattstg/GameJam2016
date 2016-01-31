@@ -34,7 +34,7 @@ public class Globals : MonoBehaviour {
     public static float contentThreshold = .7f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = .5f; //per .1 pass threshold, be affected by .05
     
-    public static readonly float lengthOfScenario = 5f;
+    public static readonly float lengthOfScenario = 20f;
     private static readonly float villagerUpdateCyclesPerScenario = 2;
     public static float villageUpdateCounterMax =  lengthOfScenario / villagerUpdateCyclesPerScenario;
 
@@ -100,6 +100,11 @@ public class Globals : MonoBehaviour {
     public static Vector2 AddVec(Vector3 v1,Vector2 v2)
     {
         return new Vector2(v1.x + v2.x, v1.y + v2.y);
+    }
+
+    public static bool CompareVec(Vector3 v1, Vector2 v2)
+    {
+        return (v1.x == v2.x) && (v1.y == v2.y);
     }
 
     public static string PrintDictionary<K, V>(Dictionary<K, V> toPrint, string name = "Dictionary")

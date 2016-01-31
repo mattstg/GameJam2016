@@ -56,8 +56,7 @@ public class IngredientToElementDictionary  {
     }
 
     private Element CreateRandomElement()
-    {
-        return new Element(10, Globals.energyTypes.fire_water);
-        //return new Element(Random.Range(-4, 5), (Globals.energyTypes)Random.Range(0, (int)4));
+    {        
+        return new Element(Random.Range(-4, 5), (Globals.energyTypes)Random.Range(0, (int)4));
     }
 }
