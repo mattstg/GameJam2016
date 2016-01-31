@@ -61,8 +61,8 @@ public class EventBrain : MonoBehaviour {
         else if (initialEnergies[Globals.energySubTypes.beast] >= 4f)
             CreateCritterEvent(critterType.Cow);
 
-        scale = totalPower/10;
-        scale = (scale < 1) ? 1 : scale;
+        scale = totalPower/15;
+        scale = (scale < .25f) ? .25f : scale;
         directionVector = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
     }
 
@@ -174,7 +174,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateAuraEvent(auraType _auraType)
     {
-        int kids = (int)(totalPower / 10);
+        int kids = (int)(totalPower / 4);
         GameObject go = Instantiate(Resources.Load("SpellEvents/AuraEvent"), this.transform.position, Quaternion.identity) as GameObject;
         go.transform.SetParent(this.transform);
         go.transform.localPosition = new Vector2(0, 0);
