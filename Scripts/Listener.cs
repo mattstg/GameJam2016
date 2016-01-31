@@ -49,7 +49,8 @@ public class Listener  {
                 toReturn.Add(kv.Key + " has " + relation + " to " + kv.Value*100 + " % of it's value");
             } 
         }
-		return toReturn.AddRange(eventsToAnnounce);
+		toReturn.AddRange (eventsToAnnounce);
+		return toReturn;
     }
 
     public void ClearList()

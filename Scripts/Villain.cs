@@ -57,6 +57,6 @@ public class Villain{
 
 	public string createEventFromBluePrint(){
 		//needs to call eventFactory and pass them a value
-		return EventFactory.CreateEventFromFloat(bluePrintForEvent);
+		return EventFactory.Instance.CreateEventFromFloat(bluePrintForEvent);
 	}
 }
