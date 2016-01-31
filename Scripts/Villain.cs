@@ -47,6 +47,7 @@ public class Villain{
 	}
 
 	public string createEventBluePrint(){
+        //return EventFactory.Instance.CreateEventFromFloat(bluePrintForEvent);
 		for (int c = 0; c < 4; c++) {
 			bluePrintForEvent [c] = Random.Range (-power / 4, power / 4);
 		}
