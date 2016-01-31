@@ -10,29 +10,38 @@ public class EventElements{
 	//each series of two strings indicate the element and its opposite.
 
 	EventComponents linkToCalc;
-	int[] absMax = new int[2];
+	float[] absMax = new float[2];
 	int[] absMaxIndexes = new int[2];
+
 	public EventElements(float[] input){
 		linkToCalc = new EventComponents (input);
 		absMaxIndexes = linkToCalc.getIndexOfTwoAbsMax ();
-		absMax = linkToCalc.getIndexOfTwoAbsMax ();
+		absMax = linkToCalc.getValueOfMaxes ();
 	}
+		
+	//GetEnergySubType --> first need to get energy Type
+
+	//public float getEnergyPowerFromIndex(int index){
+	//
+	//}
 
 	public string[] getDescribers(){
-		string[] tempString = mainDescriptors ();
-		tempString += secondaryAdjectives ();
+		//Globals.energyTypes et = 0;
+		string[] tempString = new string[2];
+		tempString[0] = retMainDescriptors ((Globals.energyTypes) absMaxIndexes[0], absMax[0]);
+		tempString[1] = retSecondaryDescriptors ((Globals.energyTypes) absMaxIndexes[1], absMax[1]);
 		return tempString;
 	}
 
 	//note as power decreases from index 0 to 3. Need 3 adjectives for each.
-	public string[] etherAdjectives = {"volotile", "strangly powerful", "etherreal"};
-	public string[] airAdjectives = {"gale force", "howling", "windy" };
-	public string[] fireAdjectives = { "infernal", "ardent", "heated" };
-	public string[] waterAdjectives = { "drenching", "moist", "damp" };
-	public string[] lightAdjectives = {"blinding", "holy", "bright"};
-	public string[] darkAdjectives = {"jet black", "unholy" ,"dim"};
-	public string[] critterAdjectives = { "teaming", "crawling", "pesky"};
-	public string[] beastAdjectives = { "rampaging", "stampeding", "beastial" };
+	public static string[] etherAdjectives = {"volotile", "strangly powerful", "etherreal"};
+	public static string[] airAdjectives = {"gale force", "howling", "windy" };
+	public static string[] fireAdjectives = { "infernal", "ardent", "heated" };
+	public static string[] waterAdjectives = { "drenching", "moist", "damp" };
+	public static string[] lightAdjectives = {"blinding", "holy", "bright"};
+	public static string[] darkAdjectives = {"jet black", "unholy" ,"dim"};
+	public static string[] critterAdjectives = { "teaming", "crawling", "pesky"};
+	public static string[] beastAdjectives = { "rampaging", "stampeding", "beastial" };
 
 	public string[][] secondaryAdjectives = {
 		etherAdjectives,
@@ -45,14 +54,14 @@ public class EventElements{
 		beastAdjectives
 	};
 
-	public string[] etherMainDescriber = { "Thick black fog", "Lake of smoke" };
-	public string[] airMainDescriber = { "Hurricane", "Squall" };
-	public string[] fireMainDescriber = { "Fire Storm", "Wild fire"};
-	public string[] waterMainDescriber = { "Torrential downpour", "Thunderstrom" };
-	public string[] lightMainDescriber = { "Devine presence", "Brilliant aura" };
-	public string[] darkMainDescriber = { "Diabolical presence", "Unholy aura" };
-	public string[] critterMainDescriber = { "Plague of Locusts", "Swarm of Rats" };
-	public string[] beastMainDescriber = {"Pack of hungry Wolves", "Roaming herd of Buffalo"};
+	public static string[] etherMainDescriber = { "Thick black fog", "Lake of smoke" };
+	public static string[] airMainDescriber = { "Hurricane", "Squall" };
+	public static string[] fireMainDescriber = { "Fire Storm", "Wild fire"};
+	public static string[] waterMainDescriber = { "Torrential downpour", "Thunderstrom" };
+	public static string[] lightMainDescriber = { "Devine presence", "Brilliant aura" };
+	public static string[] darkMainDescriber = { "Diabolical presence", "Unholy aura" };
+	public static string[] critterMainDescriber = { "Plague of Locusts", "Swarm of Rats" };
+	public static string[] beastMainDescriber = {"Pack of hungry Wolves", "Roaming herd of Buffalo"};
 
 	public string[][] mainDescriptors = {
 		etherMainDescriber,
@@ -65,7 +74,9 @@ public class EventElements{
 		beastMainDescriber
 	};
 
-	public string[] retMainDescriptors(Globals.energySubTypes type, float power){
+
+
+	public string retMainDescriptors(Globals.energySubTypes type, float power){
 		int intType = (int)type; 
 		power = Mathf.Abs (power);
 		if (power > 20) {
@@ -73,10 +84,14 @@ public class EventElements{
 		}else{
 			power = 1;
 		}
-		return mainDescriptors[intType][power];
+		return mainDescriptors[intType][(int)power];
 	}
 
-	public string[] retSecondaryDescriptors(Globals.energySubTypes type, float power){
+	public string retMainDescriptors(Globals.energyTypes eng, float power){
+		return retMainDescriptors(Globals.GetEnergySubType(eng,power),power);
+	}
+
+	public string retSecondaryDescriptors(Globals.energySubTypes type, float power){
 		int intType = (int)type; 
 		power = Mathf.Abs (power);
 		if (power > 20) {
@@ -86,7 +101,11 @@ public class EventElements{
 		}else{
 			power = 2;
 		}
-		return secondaryAdjectives[intType][power];
+		return secondaryAdjectives[intType][(int)power];
+	}
+
+	public string retSecondaryDescriptors(Globals.energyTypes eng, float power){
+		return retSecondaryDescriptors (Globals.GetEnergySubType (eng, power),power);
 	}
 
 
