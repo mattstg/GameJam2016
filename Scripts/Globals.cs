@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Globals : MonoBehaviour {
 	public static float biomeProductivityCoefficient = 5f;
@@ -30,7 +31,7 @@ public class Globals : MonoBehaviour {
     public static float mapRadiusX = 7;
     public static float mapRadiusYforHousePlacement = 4;
     public static float mapRadiusXforHousePlacement = 4;
-    public static float contentThreshold = .8f; //a villager at 80% happy is content
+    public static float contentThreshold = .7f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = .5f; //per .1 pass threshold, be affected by .05
     
     public static readonly float lengthOfScenario = 5f;
@@ -50,7 +51,8 @@ public class Globals : MonoBehaviour {
 	public static int numberOfProduct = 18;
 	public static int[] foodTypeProduce = {6,7,8,9,10,12};
 	public static int[] herbTypeProduce = {0,2,4,14,15};
-	public enum energyTypes {ether_air = 0, fire_water = 1, light_dark = 2, critter_beast = 3};
+    public enum energyTypes { ether_air = 0, fire_water = 1, dark_light = 2, critter_beast = 3 };
+    public enum energySubTypes { ether = 0, air = 1, fire = 2, water = 3,dark = 4,light = 5, critter = 6, beast = 7};
 
 	public enum biome {Forest = 0, Bog = 1,  Farmland = 2, Ranch = 3, Lake = 4, Mountain = 5};
 	public static int numberOfBiomes = 6;
@@ -65,8 +67,54 @@ public class Globals : MonoBehaviour {
 		return toRet;
 	}
 
+    public static energySubTypes GetEnergySubType(energyTypes et, float pwr)
+    {
+        if (pwr < 0)
+            return (energySubTypes)((int)et * 2);
+        else
+            return (energySubTypes)((int)et * 2 + 1);
+    }
+
+    public static List<KeyValuePair<energySubTypes, float>> SplitIntoEnergySubTypes(KeyValuePair<energyTypes, float> t)
+    {
+        List<KeyValuePair<energySubTypes, float>> toReturn = new List<KeyValuePair<energySubTypes, float>>();
+        if (t.Value == 0)
+        {
+            KeyValuePair<energySubTypes, float> positiveOne = new KeyValuePair<energySubTypes, float>(GetEnergySubType(t.Key, 10), 0);
+            KeyValuePair<energySubTypes, float> zeroOne = new KeyValuePair<energySubTypes, float>(GetEnergySubType(t.Key, -10), 0);
+            toReturn.Add(positiveOne);
+            toReturn.Add(zeroOne);
+        }
+        else
+        {
+            KeyValuePair<energySubTypes, float> positiveOne = new KeyValuePair<energySubTypes, float>(GetEnergySubType(t.Key, t.Value), t.Value);
+            KeyValuePair<energySubTypes, float> zeroOne = new KeyValuePair<energySubTypes, float>(GetEnergySubType(t.Key, t.Value * -1), 0);
+            toReturn.Add(positiveOne);
+            toReturn.Add(zeroOne);
+        }
+        return toReturn;
+    }
+
+    
+
     public static Vector2 AddVec(Vector3 v1,Vector2 v2)
     {
         return new Vector2(v1.x + v2.x, v1.y + v2.y);
+    }
+
+    public static string PrintDictionary<K, V>(Dictionary<K, V> toPrint, string name = "Dictionary")
+    {
+        string toRet = name + " contents: ";
+        try
+        {
+            foreach (KeyValuePair<K, V> kv in toPrint)
+                toRet += "[" + kv.Key.ToString() + "," + kv.Value.ToString() + "],";
+        }
+        catch
+        {
+            toRet = "The dictionary you have tried to print " + name + " could not be printed, it is assumed it's types are not castable into strings";
+        }
+        return toRet;
+
     }
 }

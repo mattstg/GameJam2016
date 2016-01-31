@@ -44,7 +44,7 @@ public class Villager : MonoBehaviour {
     public void UpdateStats()
     {
         float dif = (hp + happiness + healthiness - (Globals.contentThreshold * 3)) * Globals.contentExcessMultiplier;
-        Debug.Log("Difference in stats will be: " + dif);
+        //Debug.Log("Difference in stats will be: " + dif);
         hp += dif;
         happiness += dif;
         healthiness += dif;

@@ -4,19 +4,17 @@ using System.Collections;
 public class Element {
 
     public int power;
-    public int attributeNumber; //there are three
-    public Events.Event activeEvent;
+    public Globals.energyTypes energyType;
 
-    public Element(int _power, int _attributeNumber, Events.Event _activeEvent)
+    public Element(int _power, Globals.energyTypes _et)
     {
         power = _power;
-        attributeNumber = _attributeNumber;
-        activeEvent = _activeEvent;
+        energyType = _et;
     }
 
     public override string ToString()
     {
-        return "Element[a,p,e] = [" + attributeNumber + "," + power + "," + activeEvent + "]";
+        return "Element[p,et] = [" + power + "," + energyType + "]";
     }
    
 

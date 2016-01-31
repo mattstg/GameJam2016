@@ -84,10 +84,10 @@ public class VillageCenter : MonoBehaviour {
 		//now we need to send the surplus to the witch's coffer
 		giveResourcesToWitch();
 
-        Debug.Log("The population values before sum: " + population);
+        //Debug.Log("The population values before sum: " + population);
         //now get the new pop stats
         GetAveragePopulationStatus();
-        Debug.Log("The population values now: " + population);
+       // Debug.Log("The population values now: " + population);
         population.currentPopulation += popToAdd;
 
         //End the scene
@@ -217,6 +217,8 @@ public class VillageCenter : MonoBehaviour {
     {
         foreach (Biome bi in biomes)
             TheListener.RecordFinalBiomeHp(bi.biomeType.ToString(), bi.health);
+        if (GameObject.FindObjectOfType<EventLauncher>())
+            Destroy(GameObject.FindObjectOfType<EventLauncher>().gameObject);
         UnityEngine.SceneManagement.SceneManager.LoadScene("WitchHut");
         this.enabled = false;
     }
