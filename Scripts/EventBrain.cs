@@ -296,6 +296,10 @@ public class EventBrain : MonoBehaviour {
             foreach (Globals.energySubTypes est in activeSubTypes)
                 b.InteractWithEvent(est, Time.deltaTime * totalPower / activeSubTypes.Count);
         }
+        if (coli.CompareTag("Boundary"))
+        {
+            GameObject.Destroy(this.gameObject);
+        }
     }
 
    

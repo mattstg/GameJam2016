@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Villager : MonoBehaviour {
 
+    bool dropsUnderPlagueThreshold = false;
     public float hp; //range from 0 - 1 (is multiplied by Globals.maximumVillagerHealthPoints)
     public float happiness; //range from 0 - 1
     public float healthiness; //range from 0 - 1
@@ -43,7 +44,7 @@ public class Villager : MonoBehaviour {
             GameObject.Destroy(this.gameObject);
         }
     }
-    
+
     public void UpdateStats()
     {
         float dif = (hp + happiness + healthiness - (Globals.contentThreshold * 3)) * Globals.contentExcessMultiplier;
@@ -63,9 +64,9 @@ public class Villager : MonoBehaviour {
         hp += power * multiplier[0] * Globals.worldDamageReduction;
         happiness += power * multiplier[1] * Globals.worldDamageReduction;
         healthiness += power * multiplier[2] * Globals.worldDamageReduction;
-        limit2(ref hp);
-        limit2(ref happiness);
-        limit2(ref healthiness);
+        Globals.limit(ref hp,0,1);
+        Globals.limit(ref happiness,0,1);
+        Globals.limit(ref healthiness,0,1);
 
         Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
     }
@@ -84,11 +85,20 @@ public class Villager : MonoBehaviour {
         return value;
     }
 
-    private void limit2(ref float value)
+    private float CheckSickness()
     {
-        if (value < 0)
-            value = 0;
-        if (value > 1)
-            value = 1;
+        if (!dropsUnderPlagueThreshold && healthiness < Globals.plagueThreshold)
+        {
+            dropsUnderPlagueThreshold = true;
+            if (Random.Range(0, 1f) < Globals.plagueChanceOfInfection)
+            {
+                gameObject.AddComponent<Plague>();
+
+                
+            }
+        }
+
     }
+
+   
 }
