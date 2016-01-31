@@ -56,7 +56,7 @@ public class WitchDenDialouge : MonoBehaviour {
         else if (dialougeFinished)
         {
             listener.position = Globals.AddVec(listener.position, new Vector2(-2 * Time.deltaTime, 0));
-            if(listener.position.x < -5)
+            if(listener.position.x < -8)
                 dialougeImage.gameObject.SetActive(false);
         }
 
@@ -65,6 +65,13 @@ public class WitchDenDialouge : MonoBehaviour {
     public void CreateGuiBox()
     {
         dialougeImage.gameObject.SetActive(true);
+        if (statusReport.Count <= 0)
+            dialouge.text = "It was a quiet night it would seem";
+        else if (statusReport.Count >= 0 && statusReport.Count <= 4)
+            dialouge.text = "There were some issues today I should warn you about";
+        else if (statusReport.Count >= 4)
+            dialouge.text = "There were alot of problems today! We need your aid";
+
     }
 
     public void KeyPressed()
@@ -72,7 +79,7 @@ public class WitchDenDialouge : MonoBehaviour {
         if (statusReport.Count <= 0)
         {
             dialougeFinished = true;
-            dialouge.text = "Nothing else to report, Thats all for now, thank you Felymanka";
+            dialouge.text = "Nothing else to report, Thats all for now, thank you Felesmanka";
         }
         else
         {
