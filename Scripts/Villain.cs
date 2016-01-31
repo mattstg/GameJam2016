@@ -11,7 +11,7 @@ public class Villain{
 		{
 			if (instance == null)
 			{
-				Debug.Log ("MAKING VILLAIN.");
+				//Debug.Log ("MAKING VILLAIN.");
 				instance = new Villain();
 			}
 			return instance;

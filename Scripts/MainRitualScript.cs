@@ -65,13 +65,13 @@ public class MainRitualScript : MonoBehaviour {
                         errorCatcher++;
                         if (errorCatcher > 10)
                         {
-                            Debug.Log("Error catcher forced to grow");
+                            //.Log("Error catcher forced to grow");
                             errorCatcher = 0;
                             rangeX += Globals.ItemPlacementRangeGrowth;
                         }
                         if (totalErrorsCaught > 4)
                         {
-                            Debug.Log("Total errors caught exceeded limits, allowing stacking of different items");
+                            //Debug.Log("Total errors caught exceeded limits, allowing stacking of different items");
                             CreateItemPile(new Vector2(xSpot,ySpot),kv.Key, kv.Value);
                             success = true;
                         }
@@ -98,7 +98,7 @@ public class MainRitualScript : MonoBehaviour {
     public void BeginRitual()
     {
         cauldron.GetComponent<Cauldron>().CreateEventLauncher();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("VillageMap");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Dream");
     }
 }
 

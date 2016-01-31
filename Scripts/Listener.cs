@@ -19,7 +19,7 @@ public class Listener  {
 
     public void RecordString(string stringToRec)
     {
-		Debug.Log ("In Listener, recording string " + stringToRec);
+		//Debug.Log ("In Listener, recording string " + stringToRec);
         eventsToAnnounce.Add(stringToRec);
     }
 
@@ -78,7 +78,7 @@ public class Listener  {
 		foreach (string s in eventsToAnnounce) {
 			temp += s;
 		}
-		Debug.Log ("Events to announce being added to Listener List:" + temp);
+		//Debug.Log ("Events to announce being added to Listener List:" + temp);
         toReturn.AddRange(eventsToAnnounce);
         foreach (KeyValuePair<string, int> kv in reoccuringMessages)
         {
