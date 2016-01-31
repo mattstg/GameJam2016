@@ -1,0 +1,68 @@
+Initialize engine version: 5.3.1f1 (cc9cbbcc37b4)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 560 Ti   (ID=0x1200)
+    Vendor:   NVIDIA
+    VRAM:     977 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.047 seconds
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Matt\Desktop\FortunateSoup_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.999881 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.601322 ms
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 271.
+Total: 0.147416 ms (FindLiveObjects: 0.009641 ms CreateObjectMapping: 0.010885 ms MarkObjects: 0.118492 ms  DeleteObjects: 0.007464 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.447225 ms
+
+Unloading 30 unused Assets to reduce memory usage. Loaded Objects now: 242.
+Total: 0.176339 ms (FindLiveObjects: 0.009641 ms CreateObjectMapping: 0.009330 ms MarkObjects: 0.142751 ms  DeleteObjects: 0.013684 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.369163 ms
+
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 279.
+Total: 0.183182 ms (FindLiveObjects: 0.011818 ms CreateObjectMapping: 0.009330 ms MarkObjects: 0.152081 ms  DeleteObjects: 0.009019 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1eb4 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.510981 ms
+
+Unloading 70 unused Assets to reduce memory usage. Loaded Objects now: 274.
+Total: 0.195622 ms (FindLiveObjects: 0.009952 ms CreateObjectMapping: 0.013373 ms MarkObjects: 0.137153 ms  DeleteObjects: 0.034210 ms)
+
+Enter Create Event From Float.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Event has been created via float method: 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Dictionary contents: [ether_air,-5.885444],[fire_water,-6.218114],[dark_light,5.756713],[critter_beast,10.12089],
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.495431 ms
+
+Unloading 53 unused Assets to reduce memory usage. Loaded Objects now: 242.
+Total: 0.193445 ms (FindLiveObjects: 0.010263 ms CreateObjectMapping: 0.012751 ms MarkObjects: 0.151148 ms  DeleteObjects: 0.018349 ms)
+
