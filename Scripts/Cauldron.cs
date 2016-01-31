@@ -46,6 +46,9 @@ public class Cauldron : MonoBehaviour {
             energyStored.Add(e.energyType, e.power);
         else
             energyStored[e.energyType] += e.power;
-        Debug.Log("energyType: " + e.energyType + " has " + energyStored[e.energyType] + " stored in qualdron");
+        //Debug.Log("energyType: " + e.energyType + " has " + energyStored[e.energyType] + " stored in qualdron");
+
+        
+
     }
 }

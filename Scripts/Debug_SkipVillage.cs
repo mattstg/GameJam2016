@@ -18,5 +18,38 @@ public class Debug_SkipVillage : MonoBehaviour {
                 GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
             }
         }
+        if (SceneManager.GetActiveScene().name == "RitualScene")
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                Element e = new Element(5, Globals.energyTypes.fire_water);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                Element e = new Element(-5, Globals.energyTypes.fire_water);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Element e = new Element(5, Globals.energyTypes.critter_beast);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Element e = new Element(-5, Globals.energyTypes.critter_beast);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Element e = new Element(5, Globals.energyTypes.dark_light);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Element e = new Element(-5, Globals.energyTypes.dark_light);
+                GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
+            }
+        }
     }
 }

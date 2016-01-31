@@ -66,6 +66,8 @@ public class Listener  {
     {
         
         List<string> toReturn = new List<string>();
+       
+        
         foreach (KeyValuePair<string, float> kv in valueDifference)
         {
             string relation = (kv.Value < .75f)?"dropped":(kv.Value > 1.25f)?"increased":""; 
@@ -97,9 +99,15 @@ public class Listener  {
             toReturn.Add(profitTally);
         }
 
+
         string hints = IngredientToElementDictionary.Instance.ReturnOneHint();
         if (hints != "") ;
         toReturn.Add(hints);
+
+        string goodmorning = " Hope to see you tomorrow! (Day  " + Villain.Instance.day + ")";
+
+        toReturn.Add(goodmorning);
+
         return toReturn;
     }
 

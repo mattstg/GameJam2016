@@ -25,7 +25,7 @@ public class Villain{
 
 	float[] bluePrintForEvent = new float[4];
 	string eventDescription;
-	int day;
+	public int day;
 	float power;
 	public bool willSpawnEventTomorrow;
 
