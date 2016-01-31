@@ -18,7 +18,8 @@ public class EventLauncher : MonoBehaviour {
 
     public void LaunchEvent(Vector2 mousePos)
     {
-        EventFactory.Instance.CreateEvent(mousePos,energyStored);
+        string s = EventFactory.Instance.CreateEvent(mousePos,energyStored);
+        GameObject.FindObjectOfType<OutputPatch>().WriteSpell(s);
         //then position it at the mouse
         Destroy(this.gameObject);
 

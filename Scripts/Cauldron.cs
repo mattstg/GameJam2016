@@ -11,6 +11,7 @@ public class Cauldron : MonoBehaviour {
     //could do it one one burst with items added, but then wouldn't have the proper colors tells.
     public void AddIngredient(Globals.product addedIngredient)
     {
+        Debug.Log("added ingr: " + addedIngredient.ToString());
         if (!itemsAdded.ContainsKey(addedIngredient))
             itemsAdded.Add(addedIngredient, 0);
         itemsAdded[addedIngredient]++;

@@ -57,7 +57,7 @@ public class IngredientToElementDictionary  {
 
     private Element CreateRandomElement()
     {        
-        return new Element(Random.Range(-4, 5), (Globals.energyTypes)Random.Range(0, (int)4));
+        return new Element(Random.Range(-7, 8), (Globals.energyTypes)Random.Range(0, (int)4));
     }
 
     public string ReturnOneHint()
