@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Listener  {
     Dictionary<string, float> valueDifference; //Stores percent difference since last value
+    enum mood { dire, bad, okay, good, great }
 
     public Listener()
     {
@@ -34,6 +35,7 @@ public class Listener  {
 
     public List<string> GetAllSignificantUpdates()
     {
+        
         List<string> toReturn = new List<string>();
         foreach (KeyValuePair<string, float> kv in valueDifference)
         {

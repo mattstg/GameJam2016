@@ -38,7 +38,10 @@ public class Villager : MonoBehaviour {
         }
         Wander(dt);
         if (hp <= 0)
+        {
+            Debug.Log("Villager has died");
             GameObject.Destroy(this.gameObject);
+        }
     }
     
     public void UpdateStats()
@@ -54,13 +57,17 @@ public class Villager : MonoBehaviour {
         healthiness = limit(healthiness); 
     }
 
-
-    public void OnTriggerEnter2D(Collider2D coli)
+    public void InteractWithEvent(Globals.energySubTypes eventType, float power)
     {
-        if (coli.CompareTag("Event"))
-        {
-            Debug.Log("Is dealing with an event");
-        }
+        float[] multiplier = EventEffectsMatrix.Instance.GetEventAndVillagerMultiplier(eventType);
+        hp += power * multiplier[0] * Globals.worldDamageReduction;
+        happiness += power * multiplier[1] * Globals.worldDamageReduction;
+        healthiness += power * multiplier[2] * Globals.worldDamageReduction;
+        limit2(ref hp);
+        limit2(ref happiness);
+        limit2(ref healthiness);
+
+        Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
     }
 
     public void Wander(float dt)
@@ -75,5 +82,13 @@ public class Villager : MonoBehaviour {
         if (value > 1)
             return 1;
         return value;
+    }
+
+    private void limit2(ref float value)
+    {
+        if (value < 0)
+            value = 0;
+        if (value > 1)
+            value = 1;
     }
 }

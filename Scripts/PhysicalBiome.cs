@@ -8,14 +8,14 @@ public class PhysicalBiome : MonoBehaviour {
 
     public void LoadBiome()
     {
-       // GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Biome" + bioType);
         hp = GameObject.FindObjectOfType<VillageCenter>().GetBiomeHp((int)bioType);
     }
 
-    public void OnTriggerEnter2D(Collider2D coli)
+    public void InteractWithEvent(Globals.energySubTypes est, float power)
     {
-        float dmgTaken = .1f;
-        GameObject.FindObjectOfType<VillageCenter>().BiomeTakesDamage((int)bioType,dmgTaken);
+        float effectMultiplier = EventEffectsMatrix.Instance.GetEventAndBiomeMultiplier(est, bioType);
+        Debug.Log("Biome going to take: " + (power * effectMultiplier) + "dmg");
+        GameObject.FindObjectOfType<VillageCenter>().BiomeModHp((int)bioType,power*effectMultiplier);
     }
 
 

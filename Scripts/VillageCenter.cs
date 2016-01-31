@@ -191,6 +191,12 @@ public class VillageCenter : MonoBehaviour {
 		}
 	}
 
+    public void DestroyHouse(Vector2 houseDestroyed)
+    {
+        currentHouses--;
+        GetComponent<WorldLoader>().RemoveHouse(houseDestroyed);
+    }
+
     public void GetAveragePopulationStatus()
     {
         Population pop = new Population(0,0,0,0);
@@ -231,9 +237,13 @@ public class VillageCenter : MonoBehaviour {
             TheListener.RecordInitialBiomeHp(bi.biomeType.ToString(), bi.health);
     }
 
-    public void BiomeTakesDamage(int bioNumber, float dmg)
+    public void BiomeModHp(int bioNumber, float amt)
     {
-        biomes[bioNumber].health -= dmg;
+        biomes[bioNumber].health += amt;
+        if (biomes[bioNumber].health > 1)
+            biomes[bioNumber].health = 1;
+        if (biomes[bioNumber].health <= 0)
+            biomes[bioNumber].health = 0;
     }
 
     public float GetBiomeHp(int bioNumber)

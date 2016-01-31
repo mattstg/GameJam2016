@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Debug_SkipVillage : MonoBehaviour {
 
+    
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -12,8 +14,7 @@ public class Debug_SkipVillage : MonoBehaviour {
                 GameObject.FindObjectOfType<VillageCenter>().worldTime = Globals.lengthOfScenario - 1;
             else if (SceneManager.GetActiveScene().name == "RitualScene")
             {
-                Element e = new Element(5, Globals.energyTypes.dark_light);
-                new Element(-5, Globals.energyTypes.dark_light);
+                Element e = new Element(-15, Globals.energyTypes.fire_water);
                 GameObject.FindObjectOfType<Cauldron>().DEBUG_AddIngredient(e);
             }
         }

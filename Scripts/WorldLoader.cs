@@ -99,5 +99,9 @@ public class WorldLoader : MonoBehaviour {
 
     }
 
+    public void RemoveHouse(Vector2 houseToRemove)
+    {
+        houseTransforms.Remove(houseToRemove);
+    }
     
 }

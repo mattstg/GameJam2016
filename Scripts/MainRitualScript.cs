@@ -8,7 +8,8 @@ public class MainRitualScript : MonoBehaviour {
 
     public void Start()
     {
-        CreateChoirCircles(8);
+        float recuirtableCultist = GameObject.FindObjectOfType<VillageCenter>().population.currentPopulation / 3;
+        CreateChoirCircles(recuirtableCultist);
         CreateItemPiles();
     }
 

@@ -13,6 +13,8 @@ public class EventBrain : MonoBehaviour {
 	public float scale; //radius defining the sive of the collision box
 	public float totalPower = 0; //power rating of Event
 	public float speed;
+    List<Globals.energySubTypes> activeSubTypes = new List<Globals.energySubTypes>();
+    
     
 	//power will effect radius and movementVector
 	//decays over time
@@ -118,18 +120,14 @@ public class EventBrain : MonoBehaviour {
         {
             case critterType.Insect:
                 CreateInsectEvent();
-                Debug.Log("c1");
                 break;
             case critterType.Frogs:
                 CreateFrogEvent();
-                Debug.Log("c2");
                 break;
             case critterType.Cow:
-                Debug.Log("c3");
                 CreateCowEvent();
                 break;
             case critterType.Wolf:
-                Debug.Log("c4");
                 CreateWolfEvent();
                 break;
         }
@@ -137,6 +135,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateInsectEvent()
     {
+        activeSubTypes.Add(Globals.energySubTypes.critter);
         Critters[] critters = GetComponentsInChildren<Critters>();
         foreach (Critters s in critters)
         {
@@ -146,6 +145,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateFrogEvent()
     {
+        activeSubTypes.Add(Globals.energySubTypes.critter);
         Critters[] critters = GetComponentsInChildren<Critters>();
         foreach (Critters s in critters)
         {
@@ -155,6 +155,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateCowEvent()
     {
+        activeSubTypes.Add(Globals.energySubTypes.beast);
         Critters[] critters = GetComponentsInChildren<Critters>();
         foreach (Critters s in critters)
         {
@@ -164,6 +165,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateWolfEvent()
     {
+        activeSubTypes.Add(Globals.energySubTypes.beast);
         Critters[] critters = GetComponentsInChildren<Critters>();
         foreach (Critters s in critters)
         {
@@ -174,6 +176,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateAuraEvent(auraType _auraType)
     {
+        
         int kids = (int)(totalPower / 4);
         GameObject go = Instantiate(Resources.Load("SpellEvents/AuraEvent"), this.transform.position, Quaternion.identity) as GameObject;
         go.transform.SetParent(this.transform);
@@ -188,10 +191,11 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateLightEvent()
     {
-
+        activeSubTypes.Add(Globals.energySubTypes.light);
     }
     private void CreateDarkEvent()
     {
+        activeSubTypes.Add(Globals.energySubTypes.dark);
         GetComponentInChildren<AuraEvent>().ColorKidsBlack();
     }
 
@@ -214,6 +218,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateFireStorm()
     {
+        activeSubTypes.Add(Globals.energySubTypes.fire);
         Storm[] storms = GetComponentsInChildren<Storm>();
         foreach (Storm s in storms)
         {
@@ -231,6 +236,7 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateWaterStorm()
     {
+        activeSubTypes.Add(Globals.energySubTypes.water);
         Storm[] storms = GetComponentsInChildren<Storm>();
         foreach (Storm s in storms)
         {
@@ -269,4 +275,28 @@ public class EventBrain : MonoBehaviour {
 	public void refreshSpeed(){
 		speed *= (1 - (Globals.eventDecay * Time.deltaTime));
 	}
+
+    public void OnTriggerStay2D(Collider2D coli)
+    {
+        if (coli.CompareTag("Villager"))
+        {
+            Villager v = coli.GetComponent<Villager>();
+            foreach (Globals.energySubTypes est in activeSubTypes)
+                v.InteractWithEvent(est, Time.deltaTime*totalPower / activeSubTypes.Count);
+        }
+        if (coli.CompareTag("Biome"))
+        {
+            PhysicalBiome b = coli.GetComponent<PhysicalBiome>();
+            foreach (Globals.energySubTypes est in activeSubTypes)
+                b.InteractWithEvent(est, Time.deltaTime * totalPower / activeSubTypes.Count);
+        }
+        if (coli.CompareTag("House"))
+        {
+            House b = coli.GetComponent<House>();
+            foreach (Globals.energySubTypes est in activeSubTypes)
+                b.InteractWithEvent(est, Time.deltaTime * totalPower / activeSubTypes.Count);
+        }
+    }
+
+   
 }
