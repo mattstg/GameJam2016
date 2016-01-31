@@ -59,4 +59,17 @@ public class IngredientToElementDictionary  {
     {        
         return new Element(Random.Range(-4, 5), (Globals.energyTypes)Random.Range(0, (int)4));
     }
+
+    public string ReturnOneHint()
+    {
+        int index = Random.Range(0, 17);
+        List<Element> e = ingToElemDict[(Globals.product)index];
+        string toRet = " Psst... Hey... Did you know " + ((Globals.product)index).ToString() + " contains \n";
+        foreach (Element ee in e)
+        {
+            toRet += ee.ToString() + "Herb " + '\n';
+        }
+        toRet += " ... Now you know. Sweet Dreams";
+        return toRet;
+    }
 }

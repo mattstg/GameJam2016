@@ -70,7 +70,7 @@ public class Villager : MonoBehaviour {
         Globals.limit(ref happiness,0,1);
         Globals.limit(ref healthiness,0,1);
         CheckSickness();
-        Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
+        //Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
 
         //Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
     }

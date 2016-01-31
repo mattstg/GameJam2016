@@ -14,7 +14,7 @@ public class Element {
 
     public override string ToString()
     {
-        return "Element[p,et] = [" + power + "," + energyType + "]";
+        return " [power,energy type] = [" + power + "," + energyType + "]";
     }
    
 

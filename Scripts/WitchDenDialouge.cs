@@ -29,7 +29,7 @@ public class WitchDenDialouge : MonoBehaviour {
 	void Start () {
         Listener theListener = GameObject.FindObjectOfType<VillageCenter>().TheListener;
         statusReport = theListener.GetAllSignificantUpdates();
-        Debug.Log("status report is " + statusReport.Count + " large");
+        //Debug.Log("status report is " + statusReport.Count + " large");
         theListener.ClearList();
 	}
 
