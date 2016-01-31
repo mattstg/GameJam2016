@@ -97,6 +97,9 @@ public class Listener  {
             toReturn.Add(profitTally);
         }
 
+        string hints = IngredientToElementDictionary.Instance.ReturnOneHint();
+        if (hints != "") ;
+        toReturn.Add(hints);
         return toReturn;
     }
 

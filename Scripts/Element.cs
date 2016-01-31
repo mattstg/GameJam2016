@@ -16,6 +16,11 @@ public class Element {
     {
         return " [power,energy type] = [" + power + "," + energyType + "]";
     }
+
+    public string[] SplitHint()
+    {
+        return energyType.ToString().Split('_');
+    }
    
 
 }

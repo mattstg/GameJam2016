@@ -16,7 +16,6 @@ public class DreamMainScript : MonoBehaviour {
         if (counter <= 0)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("VillageMap");
-            GameObject.FindObjectOfType<EventLauncher>().beginUnlock = true;
         }
     }
 }

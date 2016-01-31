@@ -92,7 +92,7 @@ public class WitchHut {
     {
         foreach (Globals.product ingr in System.Enum.GetValues(typeof(Globals.product)))
         {
-            addToWitchsCoffer(ingr, Random.Range(0,2));
+            addToWitchsCoffer(ingr, Random.Range(1,3));
         }
         //addToWitchsCoffer(Globals.product.Bean, 5);
         //addToWitchsCoffer(Globals.product.Carrot, 5);

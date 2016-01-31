@@ -235,7 +235,7 @@ public class VillageCenter : MonoBehaviour {
 
 		Villain.Instance.incrementDay();
 		if (Villain.Instance.willSpawnEventTomorrow == true) {
-			Debug.Log ("Telling Villain to spawn Event.");
+			//Debug.Log ("Telling Villain to spawn Event.");
 			Villain.Instance.createEventFromBluePrint ();
 		}// just need him created
     }

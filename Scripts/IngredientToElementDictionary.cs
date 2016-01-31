@@ -62,14 +62,25 @@ public class IngredientToElementDictionary  {
 
     public string ReturnOneHint()
     {
-        int index = Random.Range(0, 17);
-        List<Element> e = ingToElemDict[(Globals.product)index];
-        string toRet = " Psst... Hey... Did you know " + ((Globals.product)index).ToString() + " contains \n";
-        foreach (Element ee in e)
+        try
         {
-            toRet += ee.ToString() + "Herb " + '\n';
+            int index = Random.Range(0, 17);
+            List<Element> e = ingToElemDict[(Globals.product)index];
+            string toRet = " So I heard a rumor that " + ((Globals.product)index).ToString() + " contains elements that can help cast ethier ";
+            int hintIndex = 0;
+            if (e.Count > 1)
+                hintIndex = Random.Range(0, e.Count - 1);
+            string[] s = e[hintIndex].SplitHint();
+            toRet += s[0] + " or " + s[1] + " magic, not sure which though ";
+            if (e.Count > 1)
+                toRet += "Although I heard maybe even more things as well...";
+            return toRet;
         }
-        toRet += " ... Now you know. Sweet Dreams";
-        return toRet;
+        catch
+        {
+            return "";
+        }
     }
+
+
 }

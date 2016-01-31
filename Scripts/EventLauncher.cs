@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class EventLauncher : MonoBehaviour {
     //When a spell is loaded, EventLauncher will become active and ready to detect clicks
     Dictionary<Globals.energyTypes, float> energyStored;
-    public bool beginUnlock = false;
-    public float unlockCounter = 2f;
-    public bool readyToFire = false;
 
     public void LoadEvent(Dictionary<Globals.energyTypes,float> _temp)
     {
@@ -29,15 +26,8 @@ public class EventLauncher : MonoBehaviour {
 
     public void Update()
     {
-        if (beginUnlock)
-            unlockCounter -= Time.deltaTime;
-        if (unlockCounter <= 0)
-            readyToFire = true;
-        if (readyToFire)
-        {
             if (Input.GetMouseButtonDown(0))
                 LaunchEvent(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
     }
 
     /*
