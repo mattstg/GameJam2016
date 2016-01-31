@@ -34,8 +34,8 @@ public class Globals : MonoBehaviour {
     public static float contentThreshold = .7f; //a villager at 80% happy is content
     public static float contentExcessMultiplier = .5f; //per .1 pass threshold, be affected by .05
     public static float worldDamageReduction = .1f;
-    public static float plagueThreshold = .9f;           //if under .2 health, chance of catching plague
-    public static float plagueChanceOfInfection = 1f;   //30% chance of catching plague under when pass plagueThreshold
+    public static float plagueThreshold = .3f;           //if under .3 health, chance of catching plague
+    public static float plagueChanceOfInfection = .3f;   //30% chance of catching plague under when pass plagueThreshold
 
     public static readonly float lengthOfScenario = 20f;
     private static readonly float villagerUpdateCyclesPerScenario = 2;

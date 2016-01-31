@@ -74,7 +74,6 @@ public class Listener  {
         {
             string pronoun = (kv.Value == 1)?"person":"people";
             toReturn.Add(kv.Value + " " + pronoun + " have reported that " + kv.Key);
-
         }
         return toReturn;
     }

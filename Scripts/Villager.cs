@@ -24,6 +24,7 @@ public class Villager : MonoBehaviour {
         float moveX = (Random.Range(-1f, 1f) * speed);
         float moveY = (Random.Range(-1f, 1f) * speed);
         moveDir = new Vector2(moveX, moveY);
+        CheckSickness();
     }
 
     public void Update()
@@ -52,10 +53,11 @@ public class Villager : MonoBehaviour {
         hp += dif;
         happiness += dif;
         healthiness += dif;
-
         hp = limit(hp);
         happiness = limit(happiness);
-        healthiness = limit(healthiness); 
+        healthiness = limit(healthiness);
+        if (GetComponentInChildren<Plague>())
+            hp /= 2;
     }
 
     public void InteractWithEvent(Globals.energySubTypes eventType, float power)
@@ -67,8 +69,16 @@ public class Villager : MonoBehaviour {
         Globals.limit(ref hp,0,1);
         Globals.limit(ref happiness,0,1);
         Globals.limit(ref healthiness,0,1);
-
+        CheckSickness();
         Debug.Log("Villager interacted with " + eventType + " event, [hp,hapiness,healthiness] = [ " + hp + "," + happiness + "," + healthiness + "]");
+    }
+
+    public void TakePlagueDamage()
+    {
+        //by touching a plague person, you have 50% of infection chance to catch it, 200% if your below the threshold
+        float valueToBeat = (healthiness>= Globals.plagueThreshold)?Globals.plagueChanceOfInfection/2:Globals.plagueChanceOfInfection*2;
+        if (Random.Range(0, 1f) < valueToBeat)
+                GetPlague();
     }
 
     public void Wander(float dt)
@@ -91,14 +101,17 @@ public class Villager : MonoBehaviour {
         {
             dropsUnderPlagueThreshold = true;
             if (Random.Range(0, 1f) < Globals.plagueChanceOfInfection)
-            {
-                gameObject.AddComponent<Plague>();
-                GameObject plagueObject = Instantiate(Resources.Load("Plague")) as GameObject;
-                plagueObject.transform.SetParent(transform);
-                plagueObject.transform.localPosition = new Vector2(0, 0);
-                GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordString(" a plague is spreading!");
-            }
+                GetPlague();
         }
+    }
+
+    private void GetPlague()
+    {
+        gameObject.AddComponent<Plague>();
+        GameObject plagueObject = Instantiate(Resources.Load("Plague")) as GameObject;
+        plagueObject.transform.SetParent(transform);
+        plagueObject.transform.localPosition = new Vector2(0, 0);
+        GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordStringWithCountNumber(" a plague is spreading!");
     }
 
    

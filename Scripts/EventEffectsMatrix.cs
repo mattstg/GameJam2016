@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventEffectsMatrix : MonoBehaviour {
+public class EventEffectsMatrix {
 
     #region singleton
     private static EventEffectsMatrix instance;
