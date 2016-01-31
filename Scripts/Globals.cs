@@ -46,7 +46,7 @@ public class Globals : MonoBehaviour {
 	public static float eventSwerveVariance = 0.5f; //max percent direction change on x and y place for event movement
 	public static float minimumPower = 0.5f;
 
-	public static float basePower = 5;
+	public static float basePower = 10;
 	public static float powerIncremenetPerDay = 1;
 	public static float daysBetweenEventSpawn = 2;
 

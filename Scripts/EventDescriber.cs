@@ -57,7 +57,7 @@ public class EventDescriber{
 
 	public string OutputStringRepresentingEvent(){
 		string[] qualifiers = getDescribers ();
-		string statement = "A " + qualifiers[1] + " " + qualifiers[0] + "has descended upon our village!";
+		string statement = "A " + qualifiers[1] + " " + qualifiers[0] + " has descended upon our village!";
 		return statement;
 	}
 

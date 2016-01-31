@@ -12,21 +12,14 @@ public class VillageCenter : MonoBehaviour {
     public Listener TheListener;
 
     public bool wasConstructed = false; //worse fix ever
-	public bool toggler = true;
-	public bool availableFoodToggler = true;
+
 	
     public void Update(){
-		if (toggler == false) {
-			toggler = true;
+        worldTime += (Time.deltaTime>3)? .16f:Time.deltaTime; //If a pause causing a large value on unpause, then this will prevent that
+		if (worldTime > Globals.lengthOfScenario) {
 			Cycle ();
+			worldTime = 0;
 		}
-        worldTime += (Time.deltaTime>3)?.16f:Time.deltaTime; //If a pause causing a large value on unpause, then this will prevent that
-        if (worldTime > Globals.lengthOfScenario)
-        {
-            Cycle();
-            worldTime = 0; //just in case that weird loop thing
-        }
-
 	}
 
 	//WORKING VARIABLES & INFORMATIVE VARIABLES
@@ -72,7 +65,7 @@ public class VillageCenter : MonoBehaviour {
 		//will proceed with next game cycle
 		//calculating yeild for each biome in biomes[]
 		//Debug.Log ("About to Cycle Biomes.");
-		Villain.Instance.incrementDay();
+
 
 		foreach (Biome biome in biomes){
 			biome.Cycle(); //this calculates the produce and adds it to village store
@@ -237,7 +230,12 @@ public class VillageCenter : MonoBehaviour {
         GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
         foreach (Biome bi in biomes)
             TheListener.RecordInitialBiomeHp(bi.biomeType.ToString(), bi.health);
-		Villain.Instance.ToString (); // just need him created
+
+
+		Villain.Instance.incrementDay();
+		if (Villain.Instance.willSpawnEventToday == true)
+			Debug.Log ("Telling Villain to spawn Event.");
+			Villain.Instance.createEventFromBluePrint(); // just need him created
     }
 
     public void BiomeModHp(int bioNumber, float amt)

@@ -23,6 +23,7 @@ public class EventBrain : MonoBehaviour {
     
     public void Initialize(Dictionary<Globals.energySubTypes, float> initialEnergies)
     {
+		Debug.Log ("Event has been created.");
         foreach (Globals.energySubTypes subType in System.Enum.GetValues(typeof(Globals.energySubTypes))) //since used to fill all values, need to fill missing ones to zero or will crash
         {
             if (!initialEnergies.ContainsKey(subType))
@@ -80,6 +81,7 @@ public class EventBrain : MonoBehaviour {
 	void Update () {
 		//refresh power, some decay or gain
 		if (totalPower < Globals.minimumPower) {
+			Debug.Log ("Destroying Event.");
 			Destroy(gameObject);
 		}
 		refreshPower();

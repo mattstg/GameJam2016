@@ -27,11 +27,11 @@ public class Villain{
 	string eventDescription;
 	int day;
 	float power;
-	bool willSpawnEventToday;
+	public bool willSpawnEventToday;
 
 	public Villain(){
 		willSpawnEventToday = false;
-		day = 1;
+		day = 0;
 		power = Globals.basePower;
 	}
 
@@ -40,10 +40,12 @@ public class Villain{
 		Debug.Log ("Day: " + day + ".");
 		power += Globals.powerIncremenetPerDay;
 		if (day % Globals.daysBetweenEventSpawn == 0) {
+			Debug.Log ("Event tomorrow.");
 			createEventBluePrint ();
 			willSpawnEventToday = true;
 			GameObject.FindObjectOfType<VillageCenter> ().TheListener.RecordString(eventDescription);
 		} else {
+			Debug.Log ("No Event tomorrow.");
 			willSpawnEventToday = false;
 			eventDescription = "";
 		}
@@ -52,11 +54,13 @@ public class Villain{
 	public string createEventBluePrint(){
         //return EventFactory.Instance.CreateEventFromFloat(bluePrintForEvent);
 		for (int c = 0; c < 4; c++) {
-			bluePrintForEvent [c] = Random.Range (-power / 4, power / 4);
+			float tempFloat = Random.Range (-power, power);
+			tempFloat = (tempFloat < 4)? 4 : tempFloat;
+			bluePrintForEvent [c] = tempFloat;
 		}
 		EventDescriber eventManipulator = new EventDescriber (bluePrintForEvent);
 		eventDescription = eventManipulator.OutputStringRepresentingEvent();
-		Debug.Log ("New Event Description: " + eventDescription);
+		Debug.Log ("New Event  Blue Print Description: " + eventDescription);
 		return eventDescription;
 	}
 

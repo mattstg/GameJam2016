@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventFactory : MonoBehaviour
-{
+public class EventFactory : MonoBehaviour{
     #region singleton
     private static EventFactory instance;
 
@@ -28,9 +27,6 @@ public class EventFactory : MonoBehaviour
        /*Dictionary<Globals.energyTypes, float>  energyStored = new Dictionary<Globals.energyTypes, float>();
        foreach (KeyValuePair<Globals.energyTypes, float> kv in _temp)
        {
-
-
-
        }
 		*/
 		float[] tempArr = new float[4];
@@ -67,7 +63,7 @@ public class EventFactory : MonoBehaviour
    }
 
 
-
+	/*
 	public string CreateRandomEvent(float[] bluePrint, float power){
 		Dictionary<Globals.energyTypes, float> randomDict = new Dictionary<Globals.energyTypes, float>();
 		//need to generate float[4] and interpret into energyTypes and add to dictionary
@@ -86,16 +82,18 @@ public class EventFactory : MonoBehaviour
 		//x range {-15 --> 15} y range {8 --> -8}
 		Debug.Log("Event has been created via random method.");
 		return CreateEvent (new Vector2(Random.Range(-15,15), Random.Range(8,-8)), randomDict);
-	}
+	}*/
 
 	public string CreateEventFromFloat(float[] bluePrint){
+		Debug.Log ("Enter Create Event From Float.");
 		Dictionary<Globals.energyTypes, float> randomDict = new Dictionary<Globals.energyTypes, float>();
 		EventDescriber eventManipulator = new EventDescriber (bluePrint);
 		for (int c = 0; c < 4; c++) {
 			randomDict.Add ((Globals.energyTypes)c, bluePrint [c]);
 		}
 		//x range {-15 --> 15} y range {8 --> -8}
-		Debug.Log("Event has been created via float method.");
+		Debug.Log("Event has been created via float method: ");
+		Debug.Log (Globals.PrintDictionary(randomDict));
 		return CreateEvent (new Vector2(Random.Range(-15,15), Random.Range(8,-8)), randomDict);
 	}
 }
