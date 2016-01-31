@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class EventBrain : MonoBehaviour {
     enum stormType{Fire,Water};
-    enum critterType{Insect,Frogs,Cow,Wolf};
+    enum critterType{Cow = 1,Wolf = 2,Frogs = 3,Insect = 4};
     enum auraType{Light,Dark};
 	//going to have set/get for radius and vector
     List<Transform> objectsToIgnore;
@@ -55,11 +55,11 @@ public class EventBrain : MonoBehaviour {
         if (initialEnergies[Globals.energySubTypes.critter] >= 15f)
             CreateCritterEvent(critterType.Insect);
         else if (initialEnergies[Globals.energySubTypes.critter] >= 4f)
-            CreateCritterEvent(critterType.Frogs);
-        else if (initialEnergies[Globals.energySubTypes.beast] >= 4f)
-            CreateCritterEvent(critterType.Cow);
+            CreateCritterEvent(critterType.Frogs);        
         else if (initialEnergies[Globals.energySubTypes.beast] >= 15f)
             CreateCritterEvent(critterType.Wolf);
+        else if (initialEnergies[Globals.energySubTypes.beast] >= 4f)
+            CreateCritterEvent(critterType.Cow);
 
         scale = totalPower/10;
         scale = (scale < 1) ? 1 : scale;
@@ -103,11 +103,78 @@ public class EventBrain : MonoBehaviour {
 
     private void CreateCritterEvent(critterType _critterType)
     {
+        float crittersToMake = (int)_critterType*totalPower / 10f;
+        crittersToMake = (crittersToMake < 1) ? 1 : crittersToMake;
+        for (int i = 0; i < crittersToMake; ++i)
+        {
+            GameObject go = Instantiate(Resources.Load("SpellEvents/CritterEvent"), this.transform.position, Quaternion.identity) as GameObject;
+            go.transform.SetParent(this.transform);
+            go.GetComponent<SpriteRenderer>().sortingOrder = i;
+            go.transform.localScale /= (int)_critterType;
+            go.transform.position = Globals.AddVec(go.transform.position,new Vector2(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f)));
+        }
 
+        switch (_critterType)
+        {
+            case critterType.Insect:
+                CreateInsectEvent();
+                Debug.Log("c1");
+                break;
+            case critterType.Frogs:
+                CreateFrogEvent();
+                Debug.Log("c2");
+                break;
+            case critterType.Cow:
+                Debug.Log("c3");
+                CreateCowEvent();
+                break;
+            case critterType.Wolf:
+                Debug.Log("c4");
+                CreateWolfEvent();
+                break;
+        }
     }
+
+    private void CreateInsectEvent()
+    {
+        Critters[] critters = GetComponentsInChildren<Critters>();
+        foreach (Critters s in critters)
+        {
+            s.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        }
+    }
+
+    private void CreateFrogEvent()
+    {
+        Critters[] critters = GetComponentsInChildren<Critters>();
+        foreach (Critters s in critters)
+        {
+            s.GetComponent<SpriteRenderer>().color = new Color(0, .75f, 0);
+        }
+    }
+
+    private void CreateCowEvent()
+    {
+        Critters[] critters = GetComponentsInChildren<Critters>();
+        foreach (Critters s in critters)
+        {
+            s.GetComponent<SpriteRenderer>().color = new Color(.5f, .2f, 0);
+        }
+    }
+
+    private void CreateWolfEvent()
+    {
+        Critters[] critters = GetComponentsInChildren<Critters>();
+        foreach (Critters s in critters)
+        {
+            float randGrey = Random.Range(.40f, .60f);
+            s.GetComponent<SpriteRenderer>().color = new Color(randGrey, randGrey, randGrey);
+        }
+    }
+
     private void CreateAuraEvent(auraType _auraType)
     {
-
+        
     }
 
 
@@ -178,8 +245,8 @@ public class EventBrain : MonoBehaviour {
 	public void refreshDirectionVector(){
 		/// NEEDS TO BE MORE RANDOM ///
 		//going to alter direction vector slightly based on random variables
-		directionVector.x += Random.Range(1 - Globals.eventSwerveVariance, 1 + Globals.eventSwerveVariance);
-		directionVector.y += Random.Range(1 - Globals.eventSwerveVariance, 1 + Globals.eventSwerveVariance);
+		directionVector.x += Random.Range(-Globals.eventSwerveVariance,Globals.eventSwerveVariance);
+		directionVector.y += Random.Range(-Globals.eventSwerveVariance,Globals.eventSwerveVariance);
 		directionVector.Normalize ();
 	}
 

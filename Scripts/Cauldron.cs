@@ -11,6 +11,10 @@ public class Cauldron : MonoBehaviour {
     //could do it one one burst with items added, but then wouldn't have the proper colors tells.
     public void AddIngredient(Globals.product addedIngredient)
     {
+        if (!itemsAdded.ContainsKey(addedIngredient))
+            itemsAdded.Add(addedIngredient, 0);
+        itemsAdded[addedIngredient]++;
+
         foreach (Element e in IngredientToElementDictionary.Instance.ElementsFromIngredient(addedIngredient))
         {
             //Debug.Log("elem e consists of " + e.energyType + ", " + e.power);
@@ -23,6 +27,8 @@ public class Cauldron : MonoBehaviour {
 
     public void CreateEventLauncher()
     {
+        if (itemsAdded.Count == 0 || energyStored.Count == 0)
+            return;
         GameObject launcher = new GameObject();
         EventLauncher el = launcher.AddComponent<EventLauncher>();
         el.LoadEvent(energyStored);
