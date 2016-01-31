@@ -12,6 +12,8 @@ public class House : MonoBehaviour {
         if (hp == 0)
         {
             GameObject.FindObjectOfType<VillageCenter>().DestroyHouse(transform.position);
+            GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordStringWithCountNumber(" houses have been destroyed.");
+            GameObject.Destroy(this.gameObject);
         }
     }
 }

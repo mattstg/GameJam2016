@@ -105,7 +105,7 @@ public class Population {
 					workingFoodDesire--;
 				} else {
 					//we were not able to subtract resource from storage due to quantity
-					Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
+					//Debug.Log("Tried to take food type resource from storage, but we dont have that resource.");
 					counter++;
 					if (counter > 15)
 						break;
@@ -115,7 +115,7 @@ public class Population {
 			//in event of food demand being less than actual food
 			//population should starve, decrease happiness
 			villageIsStarving = true;
-			Debug.Log ("Village is starving. Current Available Food is " + currentAvailableFood);
+			//Debug.Log ("Village is starving. Current Available Food is " + currentAvailableFood);
 
 			//so, mostRecentDesiredFoodConsumption > amountOfAvailableFood = foodStillWanted
 					//int amountDesiredFood = mostRecentDesiredFoodConsumption - currentAvailableFood; //NOT SURE WHY I HAD THIS
@@ -139,7 +139,8 @@ public class Population {
 			//currentPopulation is culled by peopleWhoWentWithoutFood * %whoDieWhenStarving
 			int foodShortage = desiredAmountOfFood - currentAvailableFood;
             int amountToDie = Mathf.FloorToInt(foodShortage * Globals.foodConsumptionPerPerson * Globals.percentOfStarvingWhoDie);
-            GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordString(amountToDie + " have died from starvation");
+            if(amountToDie > 0)
+                 GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordString(amountToDie + " have died from starvation");
 			killPopulation(amountToDie);
 		}
 	}

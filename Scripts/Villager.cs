@@ -41,7 +41,7 @@ public class Villager : MonoBehaviour {
         Wander(dt);
         if (hp <= 0)
         {
-            Debug.Log("Villager has died");
+            //Debug.Log("Villager has died");
             GameObject.Destroy(this.gameObject);
         }
     }
@@ -107,9 +107,9 @@ public class Villager : MonoBehaviour {
             if (Random.Range(0, 1f) < Globals.plagueChanceOfInfection)
                 GetPlague();
         }
-        if((GetComponent<Plague>() && healthiness > Globals.plagueThreshold*1.5f) || healthiness > .9f)
+        if((GetComponent<Plague>() && healthiness > Globals.plagueThreshold*1.5f))
         {
-            Destroy(GetComponent<Plague>().gameObject);
+             Destroy(GetComponent<Plague>().gameObject);
              GameObject.FindObjectOfType<VillageCenter>().TheListener.RecordStringWithCountNumber(" being cured by of plague!");
         }
         

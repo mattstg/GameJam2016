@@ -45,7 +45,7 @@ public class EventEffectsMatrix {
 
     Dictionary<int, float[]> eventAndPeopleMatrix = new Dictionary<int, float[]>() 
     {               //hp,hap,health
-        {2,new float[3]{h,h,h}},
+        {2,new float[3]{h,h,l}},
         {3,new float[3]{0,g,l}},
         {4,new float[3]{l,h,h}},
         {5,new float[3]{ggg,gg,ggg}},

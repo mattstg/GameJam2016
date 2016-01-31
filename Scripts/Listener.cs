@@ -85,14 +85,17 @@ public class Listener  {
             string pronoun = (kv.Value == 1)?"person":"people";
             toReturn.Add(kv.Value + " " + pronoun + " have reported that " + kv.Key);
         }
-        string profitTally = "You have made ";
-        foreach (KeyValuePair<Globals.product, int> kv in profit)
-        {
-            profitTally += kv.Value + " " + kv.Key + ", ";
-        }
-        profitTally += " from the townspeople.";
-        toReturn.Add(profitTally);
 
+        if (profit.Count > 0)
+        {
+            string profitTally = "You have made ";
+            foreach (KeyValuePair<Globals.product, int> kv in profit)
+            {
+                profitTally += kv.Value + " " + kv.Key + ", ";
+            }
+            profitTally += " from the townspeople.";
+            toReturn.Add(profitTally);
+        }
 
         return toReturn;
     }

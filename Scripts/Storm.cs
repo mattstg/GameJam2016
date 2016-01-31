@@ -8,7 +8,7 @@ public class Storm : MonoBehaviour {
     public void Start()
     {
         rotationSpeed = Random.Range(-180, 180);
-        float sizeMutation = Random.Range(-.2f, .2f);
+        float sizeMutation = Random.Range(-.9f, 1.2f);
         transform.localScale *= sizeMutation;
     }
 

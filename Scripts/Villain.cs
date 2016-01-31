@@ -37,13 +37,13 @@ public class Villain{
 
 	public void incrementDay(){
 		day++;
-		Debug.Log ("Day: " + day + ".");
+		//Debug.Log ("Day: " + day + ".");
 		power += Globals.powerIncremenetPerDay;
 		if ((day % Globals.daysBetweenEventSpawn == 0) && (day != 0)) {
-			Debug.Log ("Event tomorrow.");
+			//Debug.Log ("Event tomorrow.");
 			willSpawnEventTomorrow = true;
 		} else {
-			Debug.Log ("No Event tomorrow.");
+			//Debug.Log ("No Event tomorrow.");
 			createEventBluePrint ();
 			GameObject.FindObjectOfType<VillageCenter> ().TheListener.RecordString(eventDescription);
 			willSpawnEventTomorrow = false;
@@ -52,17 +52,17 @@ public class Villain{
 	}
 
 	public string createEventBluePrint(){
-		Debug.Log ("Creating new blueprint...");
+		//Debug.Log ("Creating new blueprint...");
         //return EventFactory.Instance.CreateEventFromFloat(bluePrintForEvent);
 		for (int c = 0; c < 4; c++) {
 			float tempFloat = Random.Range (-power, power);
 			//tempFloat = (Mathf.Abs(tempFloat) < 4)? (tempFloat/Mathf.Abs(tempFloat)) * 4 : tempFloat;
 			bluePrintForEvent [c] = tempFloat;
-			Debug.Log ("Counter: " + c + " is equal to " + tempFloat);
+			//Debug.Log ("Counter: " + c + " is equal to " + tempFloat);
 		}
 		EventDescriber eventManipulator = new EventDescriber (bluePrintForEvent);
 		eventDescription = eventManipulator.OutputStringRepresentingEvent();
-		Debug.Log ("New Event Blue Print Description: " + eventDescription);
+		//Debug.Log ("New Event Blue Print Description: " + eventDescription);
 		//Debug.Log ("Event BluePrint:" + );
 		return eventDescription;
 	}
