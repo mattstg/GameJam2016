@@ -235,6 +235,7 @@ public class VillageCenter : MonoBehaviour {
         GameObject.FindObjectOfType<WorldLoader>().LoadAll(population,currentHouses);
         foreach (Biome bi in biomes)
             TheListener.RecordInitialBiomeHp(bi.biomeType.ToString(), bi.health);
+		Villain.Instance.createEventFromBluePrint();
     }
 
     public void BiomeModHp(int bioNumber, float amt)
