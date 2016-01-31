@@ -11,7 +11,7 @@ public class EventElements{
 
 
 	//note as power decreases from index 0 to 3. Need 3 adjectives for each.
-	public string[] etherAdjectives = {"volotile", "strangly powerful", "etherreal"};
+	public string[] etherAdjectives = {"volatile", "strangly powerful", "etherreal"};
 	public string[] airAdjectives = {"gale force", "howling", "windy" };
 	public string[] fireAdjectives = { "infernal", "ardent", "heated" };
 	public string[] waterAdjectives = { "drenching", "moist", "damp" };

@@ -45,8 +45,8 @@ public class EventFactory : MonoBehaviour
        foreach(KeyValuePair<Globals.energyTypes,float> kv in energyDict)
        {
            result = Globals.SplitIntoEnergySubTypes(kv);
-           toReturn.Add(result[0].Key,result[0].Value);
-           toReturn.Add(result[1].Key, result[1].Value);
+           toReturn.Add(result[0].Key,Mathf.Abs(result[0].Value));
+           toReturn.Add(result[1].Key,Mathf.Abs(result[1].Value));
        }
        return toReturn;
    }
