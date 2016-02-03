@@ -125,15 +125,18 @@ public class VillageCenter : MonoBehaviour {
 		}
 	}
 
-	public void giveResourcesToWitch(){
+	public void giveResourcesToWitch(){  //Now just gives all excess resources
 		//for each loop which goes through each resources in storage and allocates a certain percent to the witch
+        
 		for(int counter = 0; counter < resourceStorage.Count; counter++){
+            Debug.Log("amt of each rez: " + resourceStorage.ElementAt(counter)); 
 			//if resource is 0, then we dont care about it
 			//Debug.Log("Starting with " + resourceStorage.ElementAt (counter).Value + "x " + resourceStorage.ElementAt (counter).Key + " in Village Store");
 			//global variable percentGivenToWitch is used to calculate amount given
-			int amountToGive = Mathf.FloorToInt (resourceStorage.ElementAt(counter).Value * Globals.percentGivenToWitch);
+            int amountToGive = Mathf.FloorToInt(resourceStorage.ElementAt(counter).Value * Globals.percentGivenToWitch - Globals.minimumTaxableAmountOfProduce);        //if we change this line to have the deduction increase with village desire should work
 			//Debug.Log (resourceStorage.ElementAt (counter).Key + " <-- Key ... Value -->" + amountToGive);
-			if (resourceStorage.ElementAt (counter).Value > Globals.minimumTaxableAmountOfProduce && amountToGive != 0) {
+            Debug.Log("Rez storage elem at " + resourceStorage.ElementAt (counter).Value + " > " + Globals.minimumTaxableAmountOfProduce + " amt to give: " + amountToGive);
+			if (amountToGive >= 1) {
 				//need to subtract amoulnt given from resourceStorage
 				if (subtractResourceFromStorage (resourceStorage.ElementAt (counter).Key, amountToGive)) {
 					//Debug.Log ("resourceStorage.ElementAt(counter).Key  " + resourceStorage.ElementAt (counter).Key + " amountToGive: " + amountToGive);

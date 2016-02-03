@@ -6,7 +6,7 @@ public class Globals : MonoBehaviour {
 	public static float biomeProductivityCoefficient = 5f;
 	public static float populationYeildBonus = .02f; //productivity boost per population, so at 50 popProdBonus = 1, 100 = 2, 150 = 3 (150 is max)
 	public static int maxPopulation = 150;
-	public static float percentGivenToWitch = 0.1f; 
+	public static float percentGivenToWitch = 1f; 
 	public static int startPopulation = 30; 
 	public static float startAverageHappiness = 0.7f; //range from 0 - 1 (0 being very sad, 1 being very happy)
 	public static float startAverageHealthiness = 0.7f; //.7  range 0 - 1 (0 being very ill, 1 being very well)
