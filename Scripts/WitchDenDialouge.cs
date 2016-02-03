@@ -79,7 +79,7 @@ public class WitchDenDialouge : MonoBehaviour {
         if (statusReport.Count <= 0)
         {
             dialougeFinished = true;
-            dialouge.text = "Nothing else to report, Thats all for now, thank you Felesmanka";
+            dialouge.text = "Nothing else to report, Thats all for now, thank you Felesmankaline";
         }
         else
         {
